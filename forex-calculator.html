@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex Lot Size Calculator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0b1120;
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            color: #06b6d4;
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 700px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+        .card {
+            background: #151e32;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .card-title {
+            color: #06b6d4;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: #f1f5f9;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 3px rgba(6,182,212,0.15);
+        }
+        .full-width { grid-column: 1 / -1; }
+        .risk-slider {
+            width: 100%;
+            margin: 10px 0;
+            accent-color: #06b6d4;
+        }
+        .risk-value {
+            text-align: center;
+            color: #06b6d4;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .presets {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .preset-btn {
+            flex: 1;
+            padding: 8px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .preset-btn:hover { background: #334155; }
+        .preset-btn.active {
+            background: #06b6d4;
+            color: #0f172a;
+            font-weight: 700;
+            border-color: #06b6d4;
+        }
+        .result-big {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .result-label {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .result-number {
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .result-unit {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .stat-box {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 14px;
+        }
+        .stat-label {
+            color: #64748b;
+            font-size: 0.75rem;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            color: #f1f5f9;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .stat-value.red { color: #ef4444; }
+        .stat-value.green { color: #10b981; }
+        .stat-value.amber { color: #f59e0b; }
+        .stat-value.cyan { color: #06b6d4; }
+        .risk-bar-container {
+            margin-top: 16px;
+        }
+        .risk-bar-bg {
+            height: 8px;
+            background: #1e293b;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .risk-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+        }
+        .risk-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #475569;
+            margin-top: 4px;
+        }
+        .hidden { display: none !important; }
+        .hint {
+            font-size: 0.75rem;
+            color: #475569;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        .lot-breakdown {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+        .lot-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #1e293b;
+        }
+        .lot-row:last-child { border-bottom: none; }
+        .lot-name { color: #94a3b8; font-size: 0.85rem; }
+        .lot-val { color: #f1f5f9; font-weight: 600; font-variant-numeric: tabular-nums; }
+        footer {
+            text-align: center;
+            color: #334155;
+            font-size: 0.8rem;
+            margin-top: 30px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Forex Lot Size Calculator</h1>
+        <p class="subtitle">Professional position sizing & risk management</p>
+
+        <div class="grid">
+            <!-- INPUTS -->
+            <div class="card">
+                <div class="card-title">Trade Parameters</div>
+
+                <div class="form-group full-width">
+                    <label>Account Balance</label>
+                    <input type="number" id="balance" value="10000" min="0" step="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Account Currency</label>
+                    <select id="accountCurrency">
+                        <option value="USD">USD — US Dollar</option>
+                        <option value="EUR">EUR — Euro</option>
+                        <option value="GBP">GBP — British Pound</option>
+                        <option value="JPY">JPY — Japanese Yen</option>
+                        <option value="CHF">CHF — Swiss Franc</option>
+                        <option value="AUD">AUD — Australian Dollar</option>
+                        <option value="CAD">CAD — Canadian Dollar</option>
+                        <option value="NZD">NZD — New Zealand Dollar</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Currency Pair</label>
+                    <select id="currencyPair"></select>
+                </div>
+
+                <div class="form-group full-width">
+                    <div class="risk-value" id="riskDisplay">1.0%</div>
+                    <label>Risk Per Trade</label>
+                    <input type="range" id="riskSlider" class="risk-slider" min="0.1" max="10" step="0.1" value="1.0">
+                    <div class="presets">
+                        <button class="preset-btn" onclick="setRisk(0.5)">0.5%</button>
+                        <button class="preset-btn active" onclick="setRisk(1.0)">1.0%</button>
+                        <button class="preset-btn" onclick="setRisk(2.0)">2.0%</button>
+                        <button class="preset-btn" onclick="setRisk(3.0)">3.0%</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Stop Loss (pips)</label>
+                    <input type="number" id="stopLoss" value="50" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>Take Profit (pips) — optional</label>
+                    <input type="number" id="takeProfit" value="" min="1" placeholder="e.g. 100">
+                </div>
+
+                <div class="form-group">
+                    <label>Entry Price</label>
+                    <input type="number" id="entryPrice" value="1.08500" step="0.00001">
+                </div>
+
+                <div class="form-group">
+                    <label>Leverage</label>
+                    <select id="leverage">
+                        <option value="1">1:1</option>
+                        <option value="10">1:10</option>
+                        <option value="20">1:20</option>
+                        <option value="50">1:50</option>
+                        <option value="100" selected>1:100</option>
+                        <option value="200">1:200</option>
+                        <option value="400">1:400</option>
+                        <option value="500">1:500</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width hidden" id="conversionRateContainer">
+                    <label id="conversionRateLabel">Conversion Rate</label>
+                    <input type="number" id="conversionRate" step="0.00001" placeholder="Enter rate">
+                    <p class="hint" id="conversionRateHint"></p>
+                </div>
+            </div>
+
+            <!-- RESULTS -->
+            <div class="card">
+                <div class="card-title">Position Size</div>
+
+                <div class="result-big">
+                    <div class="result-label">Lot Size</div>
+                    <div class="result-number" id="lotSize">0.00</div>
+                    <div class="result-unit">Standard Lots</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">Units</div>
+                        <div class="stat-value cyan" id="units">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Risk Amount</div>
+                        <div class="stat-value red" id="riskAmount">$0.00</div>
+                    </div>
+                </div>
+
+                <div class="lot-breakdown">
+                    <div class="lot-row">
+                        <span class="lot-name">Standard Lots</span>
+                        <span class="lot-val" id="stdLots">0.00</span>
+                    </div>
+                    <div class="lot-row">
+                        <span class="lot-name">Mini Lots (0.10)</span>
+                        <span class="lot-val" id="miniLots">0.00</span>
+                    </div>
+                    <div class="lot-row">
+                        <span class="lot-name">Micro Lots (0.01)</span>
+                        <span class="lot-val" id="microLots">0.00</span>
+                    </div>
+                </div>
+
+                <div class="risk-bar-container">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span style="color:#64748b; font-size:0.8rem;">Account Risk Exposure</span>
+                        <span style="color:#f1f5f9; font-weight:600; font-size:0.85rem;" id="riskPercentDisplay">1.0%</span>
+                    </div>
+                    <div class="risk-bar-bg">
+                        <div class="risk-bar-fill" id="riskBar" style="width:10%"></div>
+                    </div>
+                    <div class="risk-labels">
+                        <span>Safe</span>
+                        <span>Moderate</span>
+                        <span>Aggressive</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRADE DETAILS -->
+        <div class="card" style="margin-top:20px;">
+            <div class="card-title">Trade Details</div>
+            <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="stat-box">
+                    <div class="stat-label">Pip Value (per lot)</div>
+                    <div class="stat-value amber" id="pipValue">$0.00</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Value per Pip</div>
+                    <div class="stat-value amber" id="valuePerPip">$0.00</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Risk : Reward</div>
+                    <div class="stat-value cyan" id="riskReward">—</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Max Loss</div>
+                    <div class="stat-value red" id="maxLoss">$0.00</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Potential Profit</div>
+                    <div class="stat-value green" id="potentialProfit">—</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Approx. Margin</div>
+                    <div class="stat-value" id="marginRequired">$0.00</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Balance if SL Hit</div>
+                    <div class="stat-value" id="remainingBalance">$0.00</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">SL Distance</div>
+                    <div class="stat-value" id="slDistance">50 pips</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Calculations based on standard contract sizes (100,000 units for forex, 100 oz for XAU/USD).<br>
+            Margin figures are approximate. Always verify with your broker.
+        </footer>
+    </div>
+
+    <script>
+        const pairs = [
+            {value:"EURUSD", base:"EUR", quote:"USD", pip:0.0001, defaultPrice:1.08500},
+            {value:"GBPUSD", base:"GBP", quote:"USD", pip:0.0001, defaultPrice:1.27000},
+            {value:"USDJPY", base:"USD", quote:"JPY", pip:0.01, defaultPrice:150.000},
+            {value:"USDCHF", base:"USD", quote:"CHF", pip:0.0001, defaultPrice:0.89000},
+            {value:"AUDUSD", base:"AUD", quote:"USD", pip:0.0001, defaultPrice:0.65000},
+            {value:"NZDUSD", base:"NZD", quote:"USD", pip:0.0001, defaultPrice:0.61000},
+            {value:"USDCAD", base:"USD", quote:"CAD", pip:0.0001, defaultPrice:1.35000},
+            {value:"EURGBP", base:"EUR", quote:"GBP", pip:0.0001, defaultPrice:0.85000},
+            {value:"EURJPY", base:"EUR", quote:"JPY", pip:0.01, defaultPrice:162.500},
+            {value:"GBPJPY", base:"GBP", quote:"JPY", pip:0.01, defaultPrice:190.000},
+            {value:"CHFJPY", base:"CHF", quote:"JPY", pip:0.01, defaultPrice:168.000},
+            {value:"AUDJPY", base:"AUD", quote:"JPY", pip:0.01, defaultPrice:97.000},
+            {value:"CADJPY", base:"CAD", quote:"JPY", pip:0.01, defaultPrice:111.000},
+            {value:"NZDJPY", base:"NZD", quote:"JPY", pip:0.01, defaultPrice:91.000},
+            {value:"EURCHF", base:"EUR", quote:"CHF", pip:0.0001, defaultPrice:0.94000},
+            {value:"GBPCHF", base:"GBP", quote:"CHF", pip:0.0001, defaultPrice:1.10000},
+            {value:"AUDCHF", base:"AUD", quote:"CHF", pip:0.0001, defaultPrice:0.58000},
+            {value:"CADCHF", base:"CAD", quote:"CHF", pip:0.0001, defaultPrice:0.66000},
+            {value:"EURAUD", base:"EUR", quote:"AUD", pip:0.0001, defaultPrice:1.66000},
+            {value:"GBPAUD", base:"GBP", quote:"AUD", pip:0.0001, defaultPrice:1.95000},
+            {value:"EURCAD", base:"EUR", quote:"CAD", pip:0.0001, defaultPrice:1.46000},
+            {value:"GBPCAD", base:"GBP", quote:"CAD", pip:0.0001, defaultPrice:1.72000},
+            {value:"AUDNZD", base:"AUD", quote:"NZD", pip:0.0001, defaultPrice:1.07000},
+            {value:"XAUUSD", base:"XAU", quote:"USD", pip:0.01, defaultPrice:2400.00, isMetal:true},
+            {value:"XAGUSD", base:"XAG", quote:"USD", pip:0.01, defaultPrice:28.000, isMetal:true},
+        ];
+
+        const symbols = {USD:"$", EUR:"€", GBP:"£", JPY:"¥", CHF:"Fr", AUD:"A$", CAD:"C$", NZD:"NZ$"};
+        const CONTRACT_SIZE = 100000;
+        const METAL_CONTRACT_SIZE = 100;
+
+        const els = {
+            balance: document.getElementById('balance'),
+            accountCurrency: document.getElementById('accountCurrency'),
+            riskSlider: document.getElementById('riskSlider'),
+            riskDisplay: document.getElementById('riskDisplay'),
+            stopLoss: document.getElementById('stopLoss'),
+            takeProfit: document.getElementById('takeProfit'),
+            entryPrice: document.getElementById('entryPrice'),
+            currencyPair: document.getElementById('currencyPair'),
+            leverage: document.getElementById('leverage'),
+            conversionRateContainer: document.getElementById('conversionRateContainer'),
+            conversionRate: document.getElementById('conversionRate'),
+            conversionRateLabel: document.getElementById('conversionRateLabel'),
+            conversionRateHint: document.getElementById('conversionRateHint'),
+            lotSize: document.getElementById('lotSize'),
+            units: document.getElementById('units'),
+            riskAmount: document.getElementById('riskAmount'),
+            stdLots: document.getElementById('stdLots'),
+            miniLots: document.getElementById('miniLots'),
+            microLots: document.getElementById('microLots'),
+            pipValue: document.getElementById('pipValue'),
+            valuePerPip: document.getElementById('valuePerPip'),
+            slDistance: document.getElementById('slDistance'),
+            riskReward: document.getElementById('riskReward'),
+            maxLoss: document.getElementById('maxLoss'),
+            potentialProfit: document.getElementById('potentialProfit'),
+            marginRequired: document.getElementById('marginRequired'),
+            remainingBalance: document.getElementById('remainingBalance'),
+            riskPercentDisplay: document.getElementById('riskPercentDisplay'),
+            riskBar: document.getElementById('riskBar'),
+        };
+
+        function init() {
+            pairs.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.value;
+                opt.textContent = p.value;
+                els.currencyPair.appendChild(opt);
+            });
+            els.currencyPair.value = "EURUSD";
+
+            ['balance','accountCurrency','riskSlider','stopLoss','takeProfit','entryPrice','currencyPair','leverage','conversionRate'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) { el.addEventListener('input', calculate); el.addEventListener('change', calculate); }
+            });
+            calculate();
+        }
+
+        function getPair() { return pairs.find(p => p.value === els.currencyPair.value); }
+        function getSymbol(c) { return symbols[c] || c; }
+
+        function setRisk(val) {
+            els.riskSlider.value = val;
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.classList.toggle('active', Math.abs(parseFloat(btn.textContent) - val) < 0.05);
+            });
+            calculate();
+        }
+
+        function needsConversionRate(pair, acc) {
+            if (!pair) return false;
+            if (pair.quote === acc) return false;
+            if (pair.base === acc && !pair.isMetal) return false;
+            return true;
+        }
+
+        function getPipValuePerLot(pair, acc, entryPrice, convRate) {
+            if (!pair) return 0;
+            const lotSize = pair.isMetal ? METAL_CONTRACT_SIZE : CONTRACT_SIZE;
+            const pipValueQuote = pair.pip * lotSize;
+            if (pair.quote === acc) return pipValueQuote;
+            if (pair.base === acc && !pair.isMetal) return pipValueQuote / entryPrice;
+            if (convRate > 0) return pipValueQuote * convRate;
+            return 0;
+        }
+
+        function getMargin(pair, acc, entryPrice, lots, leverage, convRate) {
+            if (!pair) return 0;
+            const lotSize = pair.isMetal ? METAL_CONTRACT_SIZE : CONTRACT_SIZE;
+            const units = lots * lotSize;
+            const marginBase = units / leverage;
+            if (pair.base === acc) return marginBase;
+            if (pair.quote === acc) return marginBase * entryPrice;
+            if (convRate > 0) return marginBase * entryPrice * convRate;
+            return marginBase * entryPrice;
+        }
+
+        function formatMoney(value, currency) { return getSymbol(currency) + value.toFixed(2); }
+
+        function calculate() {
+            const balance = parseFloat(els.balance.value) || 0;
+            const acc = els.accountCurrency.value;
+            const riskPct = parseFloat(els.riskSlider.value) || 0;
+            const sl = parseFloat(els.stopLoss.value) || 0;
+            const tp = parseFloat(els.takeProfit.value) || 0;
+            const entry = parseFloat(els.entryPrice.value) || 0;
+            const lev = parseInt(els.leverage.value) || 100;
+            const pair = getPair();
+            const convRate = parseFloat(els.conversionRate.value) || 0;
+
+            els.riskDisplay.textContent = riskPct.toFixed(1) + '%';
+            els.riskPercentDisplay.textContent = riskPct.toFixed(1) + '%';
+
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                const btnRisk = parseFloat(btn.textContent);
+                btn.classList.toggle('active', Math.abs(btnRisk - riskPct) < 0.05);
+            });
+
+            if (needsConversionRate(pair, acc)) {
+                els.conversionRateContainer.classList.remove('hidden');
+                els.conversionRateLabel.textContent = pair.quote + '/' + acc + ' Exchange Rate';
+                els.conversionRateHint.textContent = 'Enter how many ' + acc + ' per 1 ' + pair.quote + '.';
+            } else {
+                els.conversionRateContainer.classList.add('hidden');
+            }
+
+            if (!pair || balance <= 0 || sl <= 0 || entry <= 0) { clearResults(acc); return; }
+
+            const riskAmount = balance * (riskPct / 100);
+            const pipValuePerLot = getPipValuePerLot(pair, acc, entry, convRate);
+
+            if (pipValuePerLot <= 0) { clearResults(acc); return; }
+
+            const lots = riskAmount / (sl * pipValuePerLot);
+            const lotSize = pair.isMetal ? METAL_CONTRACT_SIZE : CONTRACT_SIZE;
+            const units = lots * lotSize;
+            const valuePerPip = lots * pipValuePerLot;
+
+            const stdLots = Math.floor(lots);
+            const remAfterStd = lots - stdLots;
+            const miniLotsCount = Math.floor(remAfterStd / 0.1);
+            const remAfterMini = remAfterStd - (miniLotsCount * 0.1);
+            const microLotsCount = Math.round(remAfterMini / 0.01);
+
+            const margin = getMargin(pair, acc, entry, lots, lev, convRate);
+
+            let riskReward = '—', potentialProfit = '—';
+            if (tp > 0) {
+                riskReward = '1:' + (tp / sl).toFixed(1);
+                potentialProfit = formatMoney(tp * valuePerPip, acc);
+            }
+
+            const riskBarWidth = Math.min((riskPct / 10) * 100, 100);
+            els.riskBar.style.width = riskBarWidth + '%';
+
+            els.lotSize.textContent = lots.toFixed(2);
+            els.units.textContent = Math.floor(units).toLocaleString();
+            els.riskAmount.textContent = formatMoney(riskAmount, acc);
+            els.stdLots.textContent = stdLots.toFixed(2);
+            els.miniLots.textContent = (miniLotsCount * 0.1).toFixed(2);
+            els.microLots.textContent = (microLotsCount * 0.01).toFixed(2);
+            els.pipValue.textContent = formatMoney(pipValuePerLot, acc);
+            els.valuePerPip.textContent = formatMoney(valuePerPip, acc);
+            els.slDistance.textContent = sl + ' pips';
+            els.riskReward.textContent = riskReward;
+            els.maxLoss.textContent = formatMoney(riskAmount, acc);
+            els.potentialProfit.textContent = potentialProfit;
+            els.marginRequired.textContent = formatMoney(margin, acc);
+            els.remainingBalance.textContent = formatMoney(balance - riskAmount, acc);
+        }
+
+        function clearResults(acc) {
+            els.lotSize.textContent = '0.00';
+            els.units.textContent = '0';
+            els.riskAmount.textContent = formatMoney(0, acc);
+            els.stdLots.textContent = '0.00';
+            els.miniLots.textContent = '0.00';
+            els.microLots.textContent = '0.00';
+            els.pipValue.textContent = formatMoney(0, acc);
+            els.valuePerPip.textContent = formatMoney(0, acc);
+            els.riskReward.textContent = '—';
+            els.maxLoss.textContent = formatMoney(0, acc);
+            els.potentialProfit.textContent = '—';
+            els.marginRequired.textContent = formatMoney(0, acc);
+            els.remainingBalance.textContent = formatMoney(parseFloat(els.balance.value) || 0, acc);
+            els.riskBar.style.width = '0%';
+        }
+
+        init();
+    </script>
+</body>
+</html>
