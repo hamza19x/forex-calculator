@@ -3,45 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forex Lot Size Calculator</title>
+    <title>Forex Trading Suite - Calculator & Journal</title>
     <style>
+        :root {
+            --bg-dark: #0b1120;
+            --bg-card: #151e32;
+            --bg-input: #0f172a;
+            --border: #1e293b;
+            --text: #e2e8f0;
+            --text-muted: #64748b;
+            --green: #10b981;
+            --green-dim: rgba(16,185,129,0.15);
+            --red: #ef4444;
+            --red-dim: rgba(239,68,68,0.15);
+            --blue: #06b6d4;
+            --blue-dim: rgba(6,182,212,0.15);
+            --gold: #f59e0b;
+            --gold-dim: rgba(245,158,11,0.15);
+            --accent: #a371f7;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #0b1120;
-            color: #e2e8f0;
+            background: radial-gradient(ellipse at top, #0f172a 0%, #020617 100%);
+            color: var(--text);
             min-height: 100vh;
             padding: 20px;
         }
-        .container { max-width: 900px; margin: 0 auto; }
-        h1 {
-            text-align: center;
-            color: #06b6d4;
-            font-size: 2rem;
-            margin-bottom: 8px;
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        /* Main App Tabs */
+        .app-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--border);
+            justify-content: center;
         }
-        .subtitle {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
+        .app-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 14px 32px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .grid {
+        .app-tab:hover { color: var(--text); }
+        .app-tab.active {
+            color: var(--blue);
+            border-bottom-color: var(--blue);
+        }
+        
+        .app-panel { display: none; }
+        .app-panel.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Calculator Styles */
+        .calc-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
         }
-        @media (max-width: 700px) {
-            .grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 700px) { .calc-grid { grid-template-columns: 1fr; } }
+        
         .card {
-            background: #151e32;
-            border: 1px solid #1e293b;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 24px;
         }
         .card-title {
-            color: #06b6d4;
+            color: var(--blue);
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 20px;
@@ -49,19 +89,20 @@
             align-items: center;
             gap: 8px;
         }
-        .form-group {
-            margin-bottom: 16px;
-        }
+        .form-group { margin-bottom: 16px; }
+        .form-group.full { grid-column: 1 / -1; }
         label {
             display: block;
-            color: #94a3b8;
-            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
             margin-bottom: 6px;
-            font-weight: 500;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        input, select {
+        input, select, textarea {
             width: 100%;
-            background: #0f172a;
+            background: var(--bg-input);
             border: 1px solid #334155;
             border-radius: 10px;
             padding: 12px 14px;
@@ -70,20 +111,21 @@
             font-family: inherit;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        input:focus, select:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #06b6d4;
+            border-color: var(--blue);
             box-shadow: 0 0 0 3px rgba(6,182,212,0.15);
         }
-        .full-width { grid-column: 1 / -1; }
+        textarea { resize: vertical; min-height: 80px; }
+        
         .risk-slider {
             width: 100%;
             margin: 10px 0;
-            accent-color: #06b6d4;
+            accent-color: var(--blue);
         }
         .risk-value {
             text-align: center;
-            color: #06b6d4;
+            color: var(--blue);
             font-weight: 700;
             font-size: 1.3rem;
             margin-bottom: 10px;
@@ -106,34 +148,29 @@
         }
         .preset-btn:hover { background: #334155; }
         .preset-btn.active {
-            background: #06b6d4;
+            background: var(--blue);
             color: #0f172a;
             font-weight: 700;
-            border-color: #06b6d4;
+            border-color: var(--blue);
         }
+        
         .result-big {
-            background: #0f172a;
-            border: 1px solid #1e293b;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 20px;
             text-align: center;
             margin-bottom: 16px;
         }
-        .result-label {
-            color: #64748b;
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-        }
+        .result-label { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 4px; }
         .result-number {
             color: #fff;
             font-size: 2.5rem;
             font-weight: 700;
             font-variant-numeric: tabular-nums;
         }
-        .result-unit {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
+        .result-unit { color: var(--text-muted); font-size: 0.9rem; }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -141,29 +178,25 @@
             margin-bottom: 16px;
         }
         .stat-box {
-            background: #0f172a;
-            border: 1px solid #1e293b;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
             border-radius: 10px;
             padding: 14px;
+            text-align: center;
         }
-        .stat-label {
-            color: #64748b;
-            font-size: 0.75rem;
-            margin-bottom: 4px;
-        }
+        .stat-label { color: var(--text-muted); font-size: 0.75rem; margin-bottom: 4px; }
         .stat-value {
             color: #f1f5f9;
             font-size: 1.1rem;
             font-weight: 600;
             font-variant-numeric: tabular-nums;
         }
-        .stat-value.red { color: #ef4444; }
-        .stat-value.green { color: #10b981; }
-        .stat-value.amber { color: #f59e0b; }
-        .stat-value.cyan { color: #06b6d4; }
-        .risk-bar-container {
-            margin-top: 16px;
-        }
+        .stat-value.red { color: var(--red); }
+        .stat-value.green { color: var(--green); }
+        .stat-value.amber { color: var(--gold); }
+        .stat-value.cyan { color: var(--blue); }
+        
+        .risk-bar-container { margin-top: 16px; }
         .risk-bar-bg {
             height: 8px;
             background: #1e293b;
@@ -174,7 +207,7 @@
             height: 100%;
             border-radius: 4px;
             transition: width 0.4s ease;
-            background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+            background: linear-gradient(90deg, var(--green), var(--gold), var(--red));
         }
         .risk-labels {
             display: flex;
@@ -183,16 +216,10 @@
             color: #475569;
             margin-top: 4px;
         }
-        .hidden { display: none !important; }
-        .hint {
-            font-size: 0.75rem;
-            color: #475569;
-            margin-top: 6px;
-            line-height: 1.4;
-        }
+        
         .lot-breakdown {
-            background: #0f172a;
-            border: 1px solid #1e293b;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
             border-radius: 10px;
             padding: 14px;
             margin-bottom: 16px;
@@ -201,11 +228,239 @@
             display: flex;
             justify-content: space-between;
             padding: 6px 0;
-            border-bottom: 1px solid #1e293b;
+            border-bottom: 1px solid var(--border);
         }
         .lot-row:last-child { border-bottom: none; }
         .lot-name { color: #94a3b8; font-size: 0.85rem; }
         .lot-val { color: #f1f5f9; font-weight: 600; font-variant-numeric: tabular-nums; }
+        
+        .hidden { display: none !important; }
+        .hint {
+            font-size: 0.75rem;
+            color: #475569;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        
+        /* Journal Styles */
+        .journal-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+        .journal-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .journal-tab:hover { color: var(--text); }
+        .journal-tab.active {
+            color: var(--blue);
+            border-bottom-color: var(--blue);
+            background: var(--blue-dim);
+        }
+        .journal-panel { display: none; }
+        .journal-panel.active { display: block; animation: fadeIn 0.3s; }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue), var(--accent));
+            color: white;
+        }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-success { background: var(--green); color: #fff; }
+        .btn-danger { background: var(--red); color: #fff; }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+        
+        .journal-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .journal-stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .journal-stat-box .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 8px 0;
+        }
+        .journal-stat-box .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+        .journal-stat-box.green { border-color: rgba(16,185,129,0.3); }
+        .journal-stat-box.green .value { color: var(--green); }
+        .journal-stat-box.red { border-color: rgba(239,68,68,0.3); }
+        .journal-stat-box.red .value { color: var(--red); }
+        .journal-stat-box.blue { border-color: rgba(6,182,212,0.3); }
+        .journal-stat-box.blue .value { color: var(--blue); }
+        .journal-stat-box.gold { border-color: rgba(245,158,11,0.3); }
+        .journal-stat-box.gold .value { color: var(--gold); }
+        
+        .trade-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .trade-table th {
+            text-align: left;
+            padding: 12px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+        .trade-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .trade-table tr:hover td { background: rgba(6,182,212,0.05); }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-buy { background: var(--green-dim); color: var(--green); }
+        .badge-sell { background: var(--red-dim); color: var(--red); }
+        .badge-win { background: var(--green-dim); color: var(--green); }
+        .badge-loss { background: var(--red-dim); color: var(--red); }
+        .badge-pending { background: var(--blue-dim); color: var(--blue); }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state .icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
+        
+        .trade-detail {
+            display: none;
+            background: var(--bg-input);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 8px;
+            grid-column: 1 / -1;
+        }
+        .trade-detail.show { display: block; }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .detail-item { font-size: 0.85rem; }
+        .detail-item strong { color: var(--text-muted); display: block; font-size: 0.75rem; margin-bottom: 2px; }
+        
+        .mood-rating {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .mood-option {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            background: var(--bg-input);
+        }
+        .mood-option:hover { border-color: var(--blue); }
+        .mood-option.selected {
+            border-color: var(--blue);
+            background: var(--blue-dim);
+            color: var(--blue);
+        }
+        
+        .checklist { display: flex; flex-direction: column; gap: 10px; }
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .check-item:hover { border-color: var(--blue); }
+        .check-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--blue);
+        }
+        .check-item.checked { opacity: 0.5; text-decoration: line-through; }
+        
+        .week-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        .day-box {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            min-height: 80px;
+        }
+        .day-box .day-name { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+        .day-box .day-num { font-size: 1.2rem; font-weight: 700; margin: 4px 0; }
+        .day-box .pnl { font-size: 0.8rem; font-weight: 600; }
+        .day-box .pnl.pos { color: var(--green); }
+        .day-box .pnl.neg { color: var(--red); }
+        .day-box.has-trade { border-color: var(--blue); }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        
+        header.app-header {
+            text-align: center;
+            padding: 20px 0 10px;
+        }
+        header.app-header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header.app-header p { color: var(--text-muted); margin-top: 8px; }
+        
         footer {
             text-align: center;
             color: #334155;
@@ -213,189 +468,469 @@
             margin-top: 30px;
             padding-bottom: 20px;
         }
+        
+        @media (max-width: 768px) {
+            .week-calendar { grid-template-columns: repeat(4, 1fr); }
+            .form-grid { grid-template-columns: 1fr; }
+            .journal-stats-grid { grid-template-columns: repeat(2, 1fr); }
+            header.app-header h1 { font-size: 1.6rem; }
+            .app-tab { padding: 10px 20px; font-size: 0.9rem; }
+        }
+        @media (max-width: 480px) {
+            .week-calendar { grid-template-columns: repeat(2, 1fr); }
+            .journal-stats-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Forex Lot Size Calculator</h1>
-        <p class="subtitle">Professional position sizing & risk management</p>
+        <header class="app-header">
+            <h1>Forex Trading Suite</h1>
+            <p>Lot Size Calculator & Trading Journal</p>
+        </header>
 
-        <div class="grid">
-            <!-- INPUTS -->
-            <div class="card">
-                <div class="card-title">Trade Parameters</div>
+        <!-- Main App Tabs -->
+        <div class="app-tabs">
+            <button class="app-tab active" onclick="showAppTab('calculator')">🧮 Calculator</button>
+            <button class="app-tab" onclick="showAppTab('journal')">📊 Trading Journal</button>
+        </div>
 
-                <div class="form-group full-width">
-                    <label>Account Balance</label>
-                    <input type="number" id="balance" value="10000" min="0" step="100">
-                </div>
+        <!-- ===== CALCULATOR PANEL ===== -->
+        <div id="calculator" class="app-panel active">
+            <div class="calc-grid">
+                <!-- INPUTS -->
+                <div class="card">
+                    <div class="card-title">🧮 Trade Parameters</div>
 
-                <div class="form-group">
-                    <label>Account Currency</label>
-                    <select id="accountCurrency">
-                        <option value="USD">USD — US Dollar</option>
-                        <option value="EUR">EUR — Euro</option>
-                        <option value="GBP">GBP — British Pound</option>
-                        <option value="JPY">JPY — Japanese Yen</option>
-                        <option value="CHF">CHF — Swiss Franc</option>
-                        <option value="AUD">AUD — Australian Dollar</option>
-                        <option value="CAD">CAD — Canadian Dollar</option>
-                        <option value="NZD">NZD — New Zealand Dollar</option>
-                    </select>
-                </div>
+                    <div class="form-group full">
+                        <label>Account Balance</label>
+                        <input type="number" id="balance" value="10000" min="0" step="100">
+                    </div>
 
-                <div class="form-group">
-                    <label>Currency Pair</label>
-                    <select id="currencyPair"></select>
-                </div>
+                    <div class="form-group">
+                        <label>Account Currency</label>
+                        <select id="accountCurrency">
+                            <option value="USD">USD — US Dollar</option>
+                            <option value="EUR">EUR — Euro</option>
+                            <option value="GBP">GBP — British Pound</option>
+                            <option value="JPY">JPY — Japanese Yen</option>
+                            <option value="CHF">CHF — Swiss Franc</option>
+                            <option value="AUD">AUD — Australian Dollar</option>
+                            <option value="CAD">CAD — Canadian Dollar</option>
+                            <option value="NZD">NZD — New Zealand Dollar</option>
+                        </select>
+                    </div>
 
-                <div class="form-group full-width">
-                    <div class="risk-value" id="riskDisplay">1.0%</div>
-                    <label>Risk Per Trade</label>
-                    <input type="range" id="riskSlider" class="risk-slider" min="0.1" max="10" step="0.1" value="1.0">
-                    <div class="presets">
-                        <button class="preset-btn" onclick="setRisk(0.5)">0.5%</button>
-                        <button class="preset-btn active" onclick="setRisk(1.0)">1.0%</button>
-                        <button class="preset-btn" onclick="setRisk(2.0)">2.0%</button>
-                        <button class="preset-btn" onclick="setRisk(3.0)">3.0%</button>
+                    <div class="form-group">
+                        <label>Currency Pair</label>
+                        <select id="currencyPair"></select>
+                    </div>
+
+                    <div class="form-group full">
+                        <div class="risk-value" id="riskDisplay">1.0%</div>
+                        <label>Risk Per Trade</label>
+                        <input type="range" id="riskSlider" class="risk-slider" min="0.1" max="10" step="0.1" value="1.0">
+                        <div class="presets">
+                            <button class="preset-btn" onclick="setRisk(0.5)">0.5%</button>
+                            <button class="preset-btn active" onclick="setRisk(1.0)">1.0%</button>
+                            <button class="preset-btn" onclick="setRisk(2.0)">2.0%</button>
+                            <button class="preset-btn" onclick="setRisk(3.0)">3.0%</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stop Loss (pips)</label>
+                        <input type="number" id="stopLoss" value="50" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Take Profit (pips) — optional</label>
+                        <input type="number" id="takeProfit" value="" min="1" placeholder="e.g. 100">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Entry Price</label>
+                        <input type="number" id="entryPrice" value="1.08500" step="0.00001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Leverage</label>
+                        <select id="leverage">
+                            <option value="1">1:1</option>
+                            <option value="2">1:2</option>
+                            <option value="3">1:3</option>
+                            <option value="4">1:4</option>
+                            <option value="5">1:5</option>
+                            <option value="10">1:10</option>
+                            <option value="15">1:15</option>
+                            <option value="20">1:20</option>
+                            <option value="25">1:25</option>
+                            <option value="30">1:30</option>
+                            <option value="40">1:40</option>
+                            <option value="50" selected>1:50</option>
+                            <option value="75">1:75</option>
+                            <option value="100">1:100</option>
+                            <option value="150">1:150</option>
+                            <option value="200">1:200</option>
+                            <option value="300">1:300</option>
+                            <option value="400">1:400</option>
+                            <option value="500">1:500</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full hidden" id="conversionRateContainer">
+                        <label id="conversionRateLabel">Conversion Rate</label>
+                        <input type="number" id="conversionRate" step="0.00001" placeholder="Enter rate">
+                        <p class="hint" id="conversionRateHint"></p>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Stop Loss (pips)</label>
-                    <input type="number" id="stopLoss" value="50" min="1">
-                </div>
+                <!-- RESULTS -->
+                <div class="card">
+                    <div class="card-title">🎯 Position Size</div>
 
-                <div class="form-group">
-                    <label>Take Profit (pips) — optional</label>
-                    <input type="number" id="takeProfit" value="" min="1" placeholder="e.g. 100">
-                </div>
+                    <div class="result-big">
+                        <div class="result-label">Lot Size</div>
+                        <div class="result-number" id="lotSize">0.00</div>
+                        <div class="result-unit">Standard Lots</div>
+                    </div>
 
-                <div class="form-group">
-                    <label>Entry Price</label>
-                    <input type="number" id="entryPrice" value="1.08500" step="0.00001">
-                </div>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-label">Units</div>
+                            <div class="stat-value cyan" id="units">0</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Risk Amount</div>
+                            <div class="stat-value red" id="riskAmount">$0.00</div>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label>Leverage</label>
-                    <select id="leverage">
-    <option value="1">1:1</option>
-    <option value="2">1:2</option>
-    <option value="3">1:3</option>
-    <option value="4">1:4</option>
-    <option value="5">1:5</option>
-    <option value="10">1:10</option>
-    <option value="15">1:15</option>
-    <option value="20">1:20</option>
-    <option value="25">1:25</option>
-    <option value="30">1:30</option>
-    <option value="40">1:40</option>
-    <option value="50" selected>1:50</option>
-    <option value="75">1:75</option>
-    <option value="100">1:100</option>
-    <option value="150">1:150</option>
-    <option value="200">1:200</option>
-    <option value="300">1:300</option>
-    <option value="400">1:400</option>
-    <option value="500">1:500</option>
-</select> 
-                </div>
+                    <div class="lot-breakdown">
+                        <div class="lot-row">
+                            <span class="lot-name">Standard Lots</span>
+                            <span class="lot-val" id="stdLots">0.00</span>
+                        </div>
+                        <div class="lot-row">
+                            <span class="lot-name">Mini Lots (0.10)</span>
+                            <span class="lot-val" id="miniLots">0.00</span>
+                        </div>
+                        <div class="lot-row">
+                            <span class="lot-name">Micro Lots (0.01)</span>
+                            <span class="lot-val" id="microLots">0.00</span>
+                        </div>
+                    </div>
 
-                <div class="form-group full-width hidden" id="conversionRateContainer">
-                    <label id="conversionRateLabel">Conversion Rate</label>
-                    <input type="number" id="conversionRate" step="0.00001" placeholder="Enter rate">
-                    <p class="hint" id="conversionRateHint"></p>
+                    <div class="risk-bar-container">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                            <span style="color:#64748b; font-size:0.8rem;">Account Risk Exposure</span>
+                            <span style="color:#f1f5f9; font-weight:600; font-size:0.85rem;" id="riskPercentDisplay">1.0%</span>
+                        </div>
+                        <div class="risk-bar-bg">
+                            <div class="risk-bar-fill" id="riskBar" style="width:10%"></div>
+                        </div>
+                        <div class="risk-labels">
+                            <span>Safe</span>
+                            <span>Moderate</span>
+                            <span>Aggressive</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- RESULTS -->
-            <div class="card">
-                <div class="card-title">Position Size</div>
-
-                <div class="result-big">
-                    <div class="result-label">Lot Size</div>
-                    <div class="result-number" id="lotSize">0.00</div>
-                    <div class="result-unit">Standard Lots</div>
-                </div>
-
-                <div class="stats-grid">
+            <!-- TRADE DETAILS -->
+            <div class="card" style="margin-top:20px; max-width:900px; margin-left:auto; margin-right:auto;">
+                <div class="card-title">📋 Trade Details</div>
+                <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
                     <div class="stat-box">
-                        <div class="stat-label">Units</div>
-                        <div class="stat-value cyan" id="units">0</div>
+                        <div class="stat-label">Pip Value (per lot)</div>
+                        <div class="stat-value amber" id="pipValue">$0.00</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-label">Risk Amount</div>
-                        <div class="stat-value red" id="riskAmount">$0.00</div>
+                        <div class="stat-label">Value per Pip</div>
+                        <div class="stat-value amber" id="valuePerPip">$0.00</div>
                     </div>
-                </div>
-
-                <div class="lot-breakdown">
-                    <div class="lot-row">
-                        <span class="lot-name">Standard Lots</span>
-                        <span class="lot-val" id="stdLots">0.00</span>
+                    <div class="stat-box">
+                        <div class="stat-label">Risk : Reward</div>
+                        <div class="stat-value cyan" id="riskReward">—</div>
                     </div>
-                    <div class="lot-row">
-                        <span class="lot-name">Mini Lots (0.10)</span>
-                        <span class="lot-val" id="miniLots">0.00</span>
+                    <div class="stat-box">
+                        <div class="stat-label">Max Loss</div>
+                        <div class="stat-value red" id="maxLoss">$0.00</div>
                     </div>
-                    <div class="lot-row">
-                        <span class="lot-name">Micro Lots (0.01)</span>
-                        <span class="lot-val" id="microLots">0.00</span>
+                    <div class="stat-box">
+                        <div class="stat-label">Potential Profit</div>
+                        <div class="stat-value green" id="potentialProfit">—</div>
                     </div>
-                </div>
-
-                <div class="risk-bar-container">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                        <span style="color:#64748b; font-size:0.8rem;">Account Risk Exposure</span>
-                        <span style="color:#f1f5f9; font-weight:600; font-size:0.85rem;" id="riskPercentDisplay">1.0%</span>
+                    <div class="stat-box">
+                        <div class="stat-label">Approx. Margin</div>
+                        <div class="stat-value" id="marginRequired">$0.00</div>
                     </div>
-                    <div class="risk-bar-bg">
-                        <div class="risk-bar-fill" id="riskBar" style="width:10%"></div>
+                    <div class="stat-box">
+                        <div class="stat-label">Balance if SL Hit</div>
+                        <div class="stat-value" id="remainingBalance">$0.00</div>
                     </div>
-                    <div class="risk-labels">
-                        <span>Safe</span>
-                        <span>Moderate</span>
-                        <span>Aggressive</span>
+                    <div class="stat-box">
+                        <div class="stat-label">SL Distance</div>
+                        <div class="stat-value" id="slDistance">50 pips</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- TRADE DETAILS -->
-        <div class="card" style="margin-top:20px;">
-            <div class="card-title">Trade Details</div>
-            <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
-                <div class="stat-box">
-                    <div class="stat-label">Pip Value (per lot)</div>
-                    <div class="stat-value amber" id="pipValue">$0.00</div>
+        <!-- ===== JOURNAL PANEL ===== -->
+        <div id="journal" class="app-panel">
+            <!-- Journal Tabs -->
+            <div class="journal-tabs">
+                <button class="journal-tab active" onclick="showJournalTab('j-dashboard')">📈 Dashboard</button>
+                <button class="journal-tab" onclick="showJournalTab('j-new-trade')">➕ New Trade</button>
+                <button class="journal-tab" onclick="showJournalTab('j-trades')">📋 Trade History</button>
+                <button class="journal-tab" onclick="showJournalTab('j-calendar')">📅 Weekly Calendar</button>
+                <button class="journal-tab" onclick="showJournalTab('j-analysis')">🧠 Analysis</button>
+            </div>
+
+            <!-- DASHBOARD -->
+            <div id="j-dashboard" class="journal-panel active">
+                <div class="journal-stats-grid">
+                    <div class="journal-stat-box green">
+                        <div class="label">Total P&L</div>
+                        <div class="value" id="dash-pnl">$0.00</div>
+                    </div>
+                    <div class="journal-stat-box blue">
+                        <div class="label">Win Rate</div>
+                        <div class="value" id="dash-winrate">0%</div>
+                    </div>
+                    <div class="journal-stat-box gold">
+                        <div class="label">Total Trades</div>
+                        <div class="value" id="dash-total">0</div>
+                    </div>
+                    <div class="journal-stat-box" id="dash-pf-box">
+                        <div class="label">Profit Factor</div>
+                        <div class="value" id="dash-pf">0.00</div>
+                    </div>
+                    <div class="journal-stat-box red">
+                        <div class="label">Max Drawdown</div>
+                        <div class="value" id="dash-drawdown">$0</div>
+                    </div>
+                    <div class="journal-stat-box">
+                        <div class="label">Avg R:R</div>
+                        <div class="value" id="dash-rr">0.0</div>
+                    </div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">Value per Pip</div>
-                    <div class="stat-value amber" id="valuePerPip">$0.00</div>
+
+                <div class="card">
+                    <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">📊</span> Performance by Pair</h2>
+                    <div id="pair-stats"></div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">Risk : Reward</div>
-                    <div class="stat-value cyan" id="riskReward">—</div>
+
+                <div class="card">
+                    <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">🧠</span> Recent Trading Notes</h2>
+                    <div id="recent-notes"></div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">Max Loss</div>
-                    <div class="stat-value red" id="maxLoss">$0.00</div>
+            </div>
+
+            <!-- NEW TRADE -->
+            <div id="j-new-trade" class="journal-panel">
+                <div class="card">
+                    <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">➕</span> Log New Trade</h2>
+                    <form id="tradeForm" onsubmit="addTrade(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" id="t-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Pair</label>
+                                <select id="t-pair" required>
+                                    <option value="">Select Pair</option>
+                                    <option value="XAUUSD">XAU/USD (Gold)</option>
+                                    <option value="EURUSD">EUR/USD</option>
+                                    <option value="GBPUSD">GBP/USD</option>
+                                    <option value="USDJPY">USD/JPY</option>
+                                    <option value="AUDUSD">AUD/USD</option>
+                                    <option value="USDCAD">USD/CAD</option>
+                                    <option value="USDCHF">USD/CHF</option>
+                                    <option value="NZDUSD">NZD/USD</option>
+                                    <option value="EURGBP">EUR/GBP</option>
+                                    <option value="GBPJPY">GBP/JPY</option>
+                                    <option value="EURJPY">EUR/JPY</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Direction</label>
+                                <select id="t-dir" required>
+                                    <option value="Buy">Buy (Long)</option>
+                                    <option value="Sell">Sell (Short)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Strategy</label>
+                                <select id="t-strategy">
+                                    <option value="">Select Strategy</option>
+                                    <option value="Breakout">Breakout</option>
+                                    <option value="Pullback">Pullback</option>
+                                    <option value="Trend Following">Trend Following</option>
+                                    <option value="Range Trading">Range Trading</option>
+                                    <option value="News Trading">News Trading</option>
+                                    <option value="Support/Resistance">Support/Resistance</option>
+                                    <option value="Supply/Demand">Supply/Demand</option>
+                                    <option value="Scalping">Scalping</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Entry Price</label>
+                                <input type="number" id="t-entry" step="0.00001" required placeholder="e.g. 1.08500">
+                            </div>
+                            <div class="form-group">
+                                <label>Stop Loss</label>
+                                <input type="number" id="t-sl" step="0.00001" required placeholder="e.g. 1.08000">
+                            </div>
+                            <div class="form-group">
+                                <label>Take Profit</label>
+                                <input type="number" id="t-tp" step="0.00001" placeholder="e.g. 1.09500">
+                            </div>
+                            <div class="form-group">
+                                <label>Exit Price</label>
+                                <input type="number" id="t-exit" step="0.00001" placeholder="Leave blank if open">
+                            </div>
+                            <div class="form-group">
+                                <label>Lot Size</label>
+                                <input type="number" id="t-lot" step="0.01" required placeholder="e.g. 0.10">
+                            </div>
+                            <div class="form-group">
+                                <label>P&L ($)</label>
+                                <input type="number" id="t-pnl" step="0.01" placeholder="Auto-calculated or manual">
+                            </div>
+                            <div class="form-group">
+                                <label>Timeframe</label>
+                                <select id="t-tf">
+                                    <option value="M1">M1</option>
+                                    <option value="M5">M5</option>
+                                    <option value="M15">M15</option>
+                                    <option value="M30">M30</option>
+                                    <option value="H1" selected>H1</option>
+                                    <option value="H4">H4</option>
+                                    <option value="D1">D1</option>
+                                    <option value="W1">W1</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Session</label>
+                                <select id="t-session">
+                                    <option value="Asian">Asian</option>
+                                    <option value="London">London</option>
+                                    <option value="New York" selected>New York</option>
+                                    <option value="Overlap">London-NY Overlap</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label>Pre-Trade Checklist</label>
+                                <div class="checklist">
+                                    <div class="check-item" onclick="toggleCheck(this)">
+                                        <input type="checkbox" onchange="event.stopPropagation()">
+                                        <span>✅ Higher timeframe alignment</span>
+                                    </div>
+                                    <div class="check-item" onclick="toggleCheck(this)">
+                                        <input type="checkbox" onchange="event.stopPropagation()">
+                                        <span>✅ Key level identified (S/R, Supply/Demand)</span>
+                                    </div>
+                                    <div class="check-item" onclick="toggleCheck(this)">
+                                        <input type="checkbox" onchange="event.stopPropagation()">
+                                        <span>✅ Risk/Reward ratio >= 1:2</span>
+                                    </div>
+                                    <div class="check-item" onclick="toggleCheck(this)">
+                                        <input type="checkbox" onchange="event.stopPropagation()">
+                                        <span>✅ No major news conflicts</span>
+                                    </div>
+                                    <div class="check-item" onclick="toggleCheck(this)">
+                                        <input type="checkbox" onchange="event.stopPropagation()">
+                                        <span>✅ Risk per trade <= 2% of account</span>
+                                    </div>
+                                    <div class="check-item" onclick="toggleCheck(this)">
+                                        <input type="checkbox" onchange="event.stopPropagation()">
+                                        <span>✅ Clear entry signal (price action/indicator)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group full">
+                                <label>Pre-Trade Mood</label>
+                                <div class="mood-rating">
+                                    <div class="mood-option" onclick="selectMood(this)">😤 Revenge</div>
+                                    <div class="mood-option" onclick="selectMood(this)">😰 Nervous</div>
+                                    <div class="mood-option" onclick="selectMood(this)">😐 Neutral</div>
+                                    <div class="mood-option" onclick="selectMood(this)">😊 Confident</div>
+                                    <div class="mood-option" onclick="selectMood(this)">🧘 Focused</div>
+                                </div>
+                                <input type="hidden" id="t-mood" value="">
+                            </div>
+                            <div class="form-group full">
+                                <label>Trade Setup / Reasoning</label>
+                                <textarea id="t-setup" placeholder="Describe your trade setup, confluences, and why you took this trade..."></textarea>
+                            </div>
+                            <div class="form-group full">
+                                <label>Post-Trade Review / Lessons</label>
+                                <textarea id="t-review" placeholder="What went well? What could be improved? What did you learn?"></textarea>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; display: flex; gap: 12px;">
+                            <button type="submit" class="btn btn-primary">💾 Save Trade</button>
+                            <button type="button" class="btn btn-outline" onclick="document.getElementById('tradeForm').reset(); document.querySelectorAll('.mood-option').forEach(m=>m.classList.remove('selected')); document.querySelectorAll('.check-item').forEach(c=>{c.classList.remove('checked');c.querySelector('input').checked=false;});">🔄 Clear Form</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">Potential Profit</div>
-                    <div class="stat-value green" id="potentialProfit">—</div>
+            </div>
+
+            <!-- TRADE HISTORY -->
+            <div id="j-trades" class="journal-panel">
+                <div class="card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+                        <h2 style="margin:0; font-size:1.1rem; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">📋</span> Trade History</h2>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                            <select id="filter-pair" onchange="renderTrades()" style="width:auto; min-width:120px;">
+                                <option value="">All Pairs</option>
+                            </select>
+                            <select id="filter-result" onchange="renderTrades()" style="width:auto; min-width:120px;">
+                                <option value="">All Results</option>
+                                <option value="win">Wins</option>
+                                <option value="loss">Losses</option>
+                            </select>
+                            <button class="btn btn-outline" onclick="exportCSV()" style="padding:8px 16px; font-size:0.85rem;">📥 Export CSV</button>
+                            <button class="btn btn-danger" onclick="clearAll()" style="padding:8px 16px; font-size:0.85rem;">🗑️ Clear All</button>
+                        </div>
+                    </div>
+                    <div id="trade-list"></div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">Approx. Margin</div>
-                    <div class="stat-value" id="marginRequired">$0.00</div>
+            </div>
+
+            <!-- WEEKLY CALENDAR -->
+            <div id="j-calendar" class="journal-panel">
+                <div class="card">
+                    <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">📅</span> Weekly P&L Calendar</h2>
+                    <div class="week-calendar" id="week-cal"></div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">Balance if SL Hit</div>
-                    <div class="stat-value" id="remainingBalance">$0.00</div>
+                <div class="card">
+                    <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">📈</span> Monthly Performance</h2>
+                    <div id="monthly-chart" style="text-align:center; padding:40px; color:var(--text-muted);">
+                        Monthly chart visualization would appear here with a charting library.
+                    </div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-label">SL Distance</div>
-                    <div class="stat-value" id="slDistance">50 pips</div>
+            </div>
+
+            <!-- ANALYSIS -->
+            <div id="j-analysis" class="journal-panel">
+                <div class="card">
+                    <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">🧠</span> Trading Psychology Analysis</h2>
+                    <div id="psych-analysis"></div>
+                </div>
+                <div class="card">
+                    <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">📊</span> Strategy Performance</h2>
+                    <div id="strategy-stats"></div>
+                </div>
+                <div class="card">
+                    <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">📝</span> Key Insights & Patterns</h2>
+                    <div id="insights"></div>
                 </div>
             </div>
         </div>
@@ -407,6 +942,16 @@
     </div>
 
     <script>
+        // ==================== APP TABS ====================
+        function showAppTab(tabId) {
+            document.querySelectorAll('.app-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.app-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+            if (tabId === 'journal') updateDashboard();
+        }
+
+        // ==================== CALCULATOR ====================
         const pairs = [
             {value:"EURUSD", base:"EUR", quote:"USD", pip:0.0001, defaultPrice:1.08500},
             {value:"GBPUSD", base:"GBP", quote:"USD", pip:0.0001, defaultPrice:1.27000},
@@ -471,7 +1016,7 @@
             riskBar: document.getElementById('riskBar'),
         };
 
-        function init() {
+        function initCalc() {
             pairs.forEach(p => {
                 const opt = document.createElement('option');
                 opt.value = p.value;
@@ -617,7 +1162,287 @@
             els.riskBar.style.width = '0%';
         }
 
-        init();
-    </script>
-</body>
-</html>
+        // ==================== JOURNAL ====================
+        let trades = JSON.parse(localStorage.getItem('forex_journal_trades') || '[]');
+
+        function showJournalTab(id) {
+            document.querySelectorAll('.journal-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.journal-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+            if (id === 'j-dashboard') updateDashboard();
+            if (id === 'j-trades') renderTrades();
+            if (id === 'j-calendar') renderCalendar();
+            if (id === 'j-analysis') renderAnalysis();
+        }
+
+        function formatJournalMoney(n) {
+            if (n === undefined || n === null) return '$0.00';
+            return (n >= 0 ? '+' : '') + '$' + parseFloat(n).toFixed(2);
+        }
+        function formatDate(d) {
+            return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+        function calcRR(entry, sl, tp) {
+            if (!entry || !sl || !tp) return 0;
+            let risk = Math.abs(entry - sl);
+            let reward = Math.abs(tp - entry);
+            return risk > 0 ? (reward / risk).toFixed(2) : 0;
+        }
+        function calcAutoPnL(dir, entry, exit, lot, pair) {
+            if (!entry || !exit || !lot) return 0;
+            let pipVal = pair === 'XAUUSD' ? 0.01 : 0.0001;
+            let diff = dir === 'Buy' ? (exit - entry) : (entry - exit);
+            let pips = diff / pipVal;
+            return parseFloat((pips * lot * 10).toFixed(2));
+        }
+
+        function selectMood(el) {
+            document.querySelectorAll('.mood-option').forEach(m => m.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('t-mood').value = el.textContent;
+        }
+        function toggleCheck(el) {
+            let cb = el.querySelector('input');
+            cb.checked = !cb.checked;
+            el.classList.toggle('checked', cb.checked);
+        }
+
+        function addTrade(e) {
+            e.preventDefault();
+            let pair = document.getElementById('t-pair').value;
+            let entry = parseFloat(document.getElementById('t-entry').value);
+            let exit = parseFloat(document.getElementById('t-exit').value) || null;
+            let dir = document.getElementById('t-dir').value;
+            let lot = parseFloat(document.getElementById('t-lot').value);
+            let manualPnl = document.getElementById('t-pnl').value;
+            
+            let pnl = manualPnl ? parseFloat(manualPnl) : (exit ? calcAutoPnL(dir, entry, exit, lot, pair) : 0);
+            
+            let trade = {
+                id: Date.now(),
+                date: document.getElementById('t-date').value,
+                pair: pair,
+                direction: dir,
+                strategy: document.getElementById('t-strategy').value,
+                entry: entry,
+                sl: parseFloat(document.getElementById('t-sl').value),
+                tp: parseFloat(document.getElementById('t-tp').value) || null,
+                exit: exit,
+                lot: lot,
+                pnl: pnl,
+                rr: calcRR(entry, parseFloat(document.getElementById('t-sl').value), parseFloat(document.getElementById('t-tp').value)),
+                tf: document.getElementById('t-tf').value,
+                session: document.getElementById('t-session').value,
+                mood: document.getElementById('t-mood').value,
+                setup: document.getElementById('t-setup').value,
+                review: document.getElementById('t-review').value,
+                checklist: Array.from(document.querySelectorAll('.check-item input')).map(cb => cb.checked),
+                status: exit ? (pnl >= 0 ? 'win' : 'loss') : 'open'
+            };
+            
+            trades.unshift(trade);
+            localStorage.setItem('forex_journal_trades', JSON.stringify(trades));
+            alert('✅ Trade saved successfully!');
+            document.getElementById('tradeForm').reset();
+            document.querySelectorAll('.mood-option').forEach(m => m.classList.remove('selected'));
+            document.querySelectorAll('.check-item').forEach(c => { c.classList.remove('checked'); c.querySelector('input').checked = false; });
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            let total = trades.length;
+            let wins = trades.filter(t => t.status === 'win').length;
+            let losses = trades.filter(t => t.status === 'loss').length;
+            let winRate = total > 0 ? ((wins / total) * 100).toFixed(1) : 0;
+            
+            let totalPnl = trades.reduce((s, t) => s + (t.pnl || 0), 0);
+            let grossProfit = trades.filter(t => t.pnl > 0).reduce((s, t) => s + t.pnl, 0);
+            let grossLoss = Math.abs(trades.filter(t => t.pnl < 0).reduce((s, t) => s + t.pnl, 0));
+            let pf = grossLoss > 0 ? (grossProfit / grossLoss).toFixed(2) : (grossProfit > 0 ? '∞' : '0.00');
+            
+            let running = 0, maxDD = 0, peak = 0;
+            trades.slice().reverse().forEach(t => {
+                running += (t.pnl || 0);
+                if (running > peak) peak = running;
+                let dd = peak - running;
+                if (dd > maxDD) maxDD = dd;
+            });
+            
+            let avgRR = trades.filter(t => t.rr).length > 0 ? 
+                (trades.filter(t => t.rr).reduce((s, t) => s + parseFloat(t.rr), 0) / trades.filter(t => t.rr).length).toFixed(2) : '0.0';
+            
+            document.getElementById('dash-pnl').textContent = formatJournalMoney(totalPnl);
+            document.getElementById('dash-pnl').style.color = totalPnl >= 0 ? 'var(--green)' : 'var(--red)';
+            document.getElementById('dash-winrate').textContent = winRate + '%';
+            document.getElementById('dash-total').textContent = total;
+            document.getElementById('dash-pf').textContent = pf;
+            document.getElementById('dash-pf').style.color = parseFloat(pf) >= 1.5 ? 'var(--green)' : (parseFloat(pf) >= 1 ? 'var(--gold)' : 'var(--red)');
+            document.getElementById('dash-drawdown').textContent = formatJournalMoney(maxDD);
+            document.getElementById('dash-rr').textContent = avgRR;
+            
+            let pairMap = {};
+            trades.forEach(t => {
+                if (!pairMap[t.pair]) pairMap[t.pair] = { pnl: 0, count: 0, wins: 0 };
+                pairMap[t.pair].pnl += (t.pnl || 0);
+                pairMap[t.pair].count++;
+                if (t.status === 'win') pairMap[t.pair].wins++;
+            });
+            let pairHTML = '<div class="form-grid">';
+            Object.entries(pairMap).forEach(([pair, data]) => {
+                let wr = ((data.wins / data.count) * 100).toFixed(0);
+                pairHTML += `<div class="journal-stat-box ${data.pnl >= 0 ? 'green' : 'red'}" style="text-align:left;">
+                    <div style="font-size:0.85rem; font-weight:700;">${pair}</div>
+                    <div style="font-size:1.3rem; font-weight:700; margin:6px 0;">${formatJournalMoney(data.pnl)}</div>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">${data.count} trades · ${wr}% WR</div>
+                </div>`;
+            });
+            pairHTML += '</div>';
+            if (Object.keys(pairMap).length === 0) pairHTML = '<p style="color:var(--text-muted); text-align:center;">No trades yet. Log your first trade!</p>';
+            document.getElementById('pair-stats').innerHTML = pairHTML;
+            
+            let notes = trades.filter(t => t.review).slice(0, 5);
+            document.getElementById('recent-notes').innerHTML = notes.length ? notes.map(t => 
+                `<div style="padding:12px; background:var(--bg-input); border-radius:8px; margin-bottom:8px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <strong>${t.pair}</strong>
+                        <span style="color:var(--text-muted); font-size:0.8rem;">${formatDate(t.date)}</span>
+                    </div>
+                    <div style="font-size:0.9rem; color:var(--text-muted);">${t.review}</div>
+                </div>`
+            ).join('') : '<p style="color:var(--text-muted); text-align:center;">No trade reviews yet.</p>';
+        }
+
+        function renderTrades() {
+            let filterPair = document.getElementById('filter-pair').value;
+            let filterResult = document.getElementById('filter-result').value;
+            
+            let filtered = trades.filter(t => {
+                if (filterPair && t.pair !== filterPair) return false;
+                if (filterResult && t.status !== filterResult) return false;
+                return true;
+            });
+            
+            if (filtered.length === 0) {
+                document.getElementById('trade-list').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <p>No trades found matching your filters.</p>
+                    </div>`;
+                return;
+            }
+            
+            let html = `<table class="trade-table">
+                <thead><tr>
+                    <th>Date</th><th>Pair</th><th>Dir</th><th>Entry</th><th>SL</th><th>TP</th><th>Exit</th>
+                    <th>Lot</th><th>R:R</th><th>P&L</th><th>Status</th><th>Action</th>
+                </tr></thead><tbody>`;
+            
+            filtered.forEach(t => {
+                html += `<tr>
+                    <td>${formatDate(t.date)}</td>
+                    <td><strong>${t.pair}</strong></td>
+                    <td><span class="badge badge-${t.direction === 'Buy' ? 'buy' : 'sell'}">${t.direction}</span></td>
+                    <td>${t.entry}</td>
+                    <td>${t.sl}</td>
+                    <td>${t.tp || '-'}</td>
+                    <td>${t.exit || '-'}</td>
+                    <td>${t.lot}</td>
+                    <td>1:${t.rr || '-'}</td>
+                    <td style="color:${(t.pnl||0)>=0?'var(--green)':'var(--red)'}; font-weight:600;">${formatJournalMoney(t.pnl)}</td>
+                    <td><span class="badge badge-${t.status}">${t.status.toUpperCase()}</span></td>
+                    <td>
+                        <button class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="toggleDetail(${t.id})">👁️</button>
+                        <button class="btn btn-danger" style="padding:6px 12px; font-size:0.8rem;" onclick="deleteTrade(${t.id})">🗑️</button>
+                    </td>
+                </tr>
+                <tr id="detail-${t.id}" class="trade-detail">
+                    <td colspan="12">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Strategy</strong>${t.strategy || '-'}</div>
+                            <div class="detail-item"><strong>Timeframe</strong>${t.tf}</div>
+                            <div class="detail-item"><strong>Session</strong>${t.session}</div>
+                            <div class="detail-item"><strong>Mood</strong>${t.mood || '-'}</div>
+                            <div class="detail-item" style="grid-column:1/-1;"><strong>Setup</strong>${t.setup || '-'}</div>
+                            <div class="detail-item" style="grid-column:1/-1;"><strong>Review</strong>${t.review || '-'}</div>
+                        </div>
+                    </td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('trade-list').innerHTML = html;
+        }
+
+        function toggleDetail(id) {
+            let el = document.getElementById('detail-' + id);
+            el.classList.toggle('show');
+        }
+        function deleteTrade(id) {
+            if (!confirm('Delete this trade?')) return;
+            trades = trades.filter(t => t.id !== id);
+            localStorage.setItem('forex_journal_trades', JSON.stringify(trades));
+            renderTrades();
+            updateDashboard();
+        }
+        function clearAll() {
+            if (!confirm('⚠️ Delete ALL trades? This cannot be undone!')) return;
+            trades = [];
+            localStorage.removeItem('forex_journal_trades');
+            renderTrades();
+            updateDashboard();
+        }
+
+        function renderCalendar() {
+            let today = new Date();
+            let startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay());
+            
+            let days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            let html = '';
+            
+            for (let i = 0; i < 7; i++) {
+                let d = new Date(startOfWeek);
+                d.setDate(startOfWeek.getDate() + i);
+                let dateStr = d.toISOString().split('T')[0];
+                let dayTrades = trades.filter(t => t.date === dateStr);
+                let dayPnl = dayTrades.reduce((s, t) => s + (t.pnl || 0), 0);
+                let hasTrade = dayTrades.length > 0;
+                
+                html += `<div class="day-box ${hasTrade ? 'has-trade' : ''}">
+                    <div class="day-name">${days[i]}</div>
+                    <div class="day-num">${d.getDate()}</div>
+                    <div class="pnl ${dayPnl >= 0 ? 'pos' : 'neg'}">${hasTrade ? formatJournalMoney(dayPnl) : '-'}</div>
+                    ${hasTrade ? `<div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">${dayTrades.length} trade${dayTrades.length>1?'s':''}</div>` : ''}
+                </div>`;
+            }
+            document.getElementById('week-cal').innerHTML = html;
+        }
+
+        function renderAnalysis() {
+            let moodMap = {};
+            trades.forEach(t => {
+                if (t.mood) {
+                    if (!moodMap[t.mood]) moodMap[t.mood] = { pnl: 0, count: 0 };
+                    moodMap[t.mood].pnl += (t.pnl || 0);
+                    moodMap[t.mood].count++;
+                }
+            });
+            let psychHTML = Object.entries(moodMap).length ? '<div class="form-grid">' + Object.entries(moodMap).map(([m, d]) => 
+                `<div class="journal-stat-box ${d.pnl >= 0 ? 'green' : 'red'}">
+                    <div style="font-size:1.5rem; margin-bottom:4px;">${m.split(' ')[0]}</div>
+                    <div style="font-size:1.2rem; font-weight:700;">${formatJournalMoney(d.pnl)}</div>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">${d.count} trades</div>
+                </div>`
+            ).join('') + '</div>' : '<p style="color:var(--text-muted); text-align:center;">Log trades with mood data to see psychology analysis.</p>';
+            document.getElementById('psych-analysis').innerHTML = psychHTML;
+            
+            let stratMap = {};
+            trades.forEach(t => {
+                if (t.strategy) {
+                    if (!stratMap[t.strategy]) stratMap[t.strategy] = { pnl: 0, count: 0, wins: 0 };
+                    stratMap[t.strategy].pnl += (t.pnl || 0);
+                    stratMap[t.strategy].count++;
+                    if (t.status === 'win') stratMap[t.strategy].wins++;
+                }
+            });
+            let stratHTML
