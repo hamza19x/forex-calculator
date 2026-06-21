@@ -1088,6 +1088,7 @@
     </style>
 <base target="_blank">
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
     <!-- ===== NAVBAR ===== -->
@@ -1615,6 +1616,38 @@
                                         <option value="Overlap">London-NY Overlap</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label>Account Type</label>
+                                    <select id="t-account-type" onchange="toggleFundedFields()">
+                                        <option value="personal">Personal Account</option>
+                                        <option value="funded">Funded Account</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="funded-phase-group" style="display:none;">
+                                    <label>Challenge Phase</label>
+                                    <select id="t-phase">
+                                        <option value="1">Phase 1 — Evaluation</option>
+                                        <option value="2">Phase 2 — Verification</option>
+                                        <option value="3">Phase 3 — Funded</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="funded-target-group" style="display:none;">
+                                    <label>Challenge Target</label>
+                                    <select id="t-target">
+                                        <option value="8">8% Profit Target</option>
+                                        <option value="10">10% Profit Target</option>
+                                        <option value="5">5% Profit Target</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="funded-status-group" style="display:none;">
+                                    <label>Challenge Status</label>
+                                    <select id="t-challenge-status">
+                                        <option value="active">🟡 Active — In Progress</option>
+                                        <option value="passed">✅ Passed Challenge</option>
+                                        <option value="failed">❌ Failed / Blown</option>
+                                    </select>
+                                </div>
                                 <div class="form-group full">
                                     <label>Pre-Trade Checklist</label>
                                     <div class="checklist">
@@ -1642,7 +1675,7 @@
                             </div>
                             <div style="margin-top: 20px; display: flex; gap: 12px;">
                                 <button type="submit" class="btn btn-primary">💾 Save Trade</button>
-                                <button type="button" class="btn btn-outline" onclick="document.getElementById('tradeForm').reset(); document.querySelectorAll('.mood-option').forEach(m=>m.classList.remove('selected')); document.querySelectorAll('.check-item').forEach(c=>{c.classList.remove('checked');c.querySelector('input').checked=false;});">🔄 Clear Form</button>
+                                <button type="button" class="btn btn-outline" onclick="document.getElementById('tradeForm').reset(); document.querySelectorAll('.mood-option').forEach(m=>m.classList.remove('selected')); document.querySelectorAll('.check-item').forEach(c=>{c.classList.remove('checked');c.querySelector('input').checked=false;}); toggleFundedFields();">🔄 Clear Form</button>
                             </div>
                         </form>
                     </div>
@@ -2240,6 +2273,7 @@
     <script>
         // ==================== PAGE NAVIGATION ====================
         function showPage(pageId) {
+            sessionStorage.setItem('currentPage', pageId);
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             let pageEl = document.getElementById('page-' + pageId);
             if (pageEl) pageEl.style.display = 'block';
@@ -2253,6 +2287,13 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (pageId === 'trading') {
                 setTimeout(() => { initCalc(); initFilters(); }, 100);
+            }
+        }
+
+        function restorePage() {
+            let savedPage = sessionStorage.getItem('currentPage');
+            if (savedPage && document.getElementById('page-' + savedPage)) {
+                showPage(savedPage);
             }
         }
         function toggleMobileNav() {
@@ -2721,6 +2762,14 @@
             return parseFloat((pips * lot * 10).toFixed(2));
         }
 
+        function toggleFundedFields() {
+            let type = document.getElementById('t-account-type').value;
+            let display = type === 'funded' ? 'block' : 'none';
+            document.getElementById('funded-phase-group').style.display = display;
+            document.getElementById('funded-target-group').style.display = display;
+            document.getElementById('funded-status-group').style.display = display;
+        }
+
         function selectMood(el) {
             document.querySelectorAll('.mood-option').forEach(m => m.classList.remove('selected'));
             el.classList.add('selected');
@@ -2741,12 +2790,17 @@
             let lot = parseFloat(document.getElementById('t-lot').value) || null;
             let manualPnl = document.getElementById('t-pnl').value;
             let pnl = manualPnl ? parseFloat(manualPnl) : (entry && exit && lot ? calcAutoPnL(dir, entry, exit, lot, pair) : 0);
+            let accountType = document.getElementById('t-account-type').value;
             let trade = {
                 id: Date.now(),
                 date: document.getElementById('t-date').value,
                 pair: pair,
                 direction: dir,
                 strategy: document.getElementById('t-strategy').value,
+                accountType: accountType,
+                phase: accountType === 'funded' ? document.getElementById('t-phase').value : null,
+                challengeTarget: accountType === 'funded' ? document.getElementById('t-target').value : null,
+                challengeStatus: accountType === 'funded' ? document.getElementById('t-challenge-status').value : null,
                 entry: entry,
                 sl: parseFloat(document.getElementById('t-sl').value) || null,
                 tp: parseFloat(document.getElementById('t-tp').value) || null,
@@ -2850,13 +2904,14 @@
                 return;
             }
             let html = `<table class="trade-table"><thead><tr>
-                <th>Date</th><th>Pair</th><th>Dir</th><th>Entry</th><th>SL</th><th>TP</th><th>Exit</th><th>Lot</th><th>Risk</th><th>R:R</th><th>P&L</th><th>Status</th><th>Action</th>
+                <th>Date</th><th>Pair</th><th>Dir</th><th>Account</th><th>Entry</th><th>SL</th><th>TP</th><th>Exit</th><th>Lot</th><th>Risk</th><th>R:R</th><th>P&L</th><th>Status</th><th>Action</th>
             </tr></thead><tbody>`;
             filtered.forEach(t => {
                 html += `<tr>
                     <td>${formatDate(t.date)}</td>
                     <td><strong style="font-family:Orbitron;">${t.pair}</strong></td>
                     <td><span class="badge badge-${t.direction === 'Buy' ? 'buy' : 'sell'}">${t.direction}</span></td>
+                    <td>${t.accountType === 'funded' ? '<span style="color:var(--gold); font-weight:700;">🎯 P' + (t.phase || '?') + '</span>' : '<span style="color:var(--text-muted);">Personal</span>'}</td>
                     <td>${t.entry}</td>
                     <td>${t.sl}</td>
                     <td>${t.tp || '-'}</td>
@@ -2878,6 +2933,8 @@
                             <div class="detail-item"><strong>Strategy</strong>${t.strategy || '-'}</div>
                             <div class="detail-item"><strong>Timeframe</strong>${t.tf}</div>
                             <div class="detail-item"><strong>Session</strong>${t.session}</div>
+                            <div class="detail-item"><strong>Account</strong>${t.accountType === 'funded' ? '🎯 Funded — Phase ' + (t.phase || '?') + ' — ' + (t.challengeTarget || '?') + '% Target' : 'Personal Account'}</div>
+                            <div class="detail-item"><strong>Challenge Status</strong>${t.challengeStatus === 'passed' ? '✅ Passed' : t.challengeStatus === 'failed' ? '❌ Failed' : t.challengeStatus === 'active' ? '🟡 Active' : '-'}</div>
                             <div class="detail-item"><strong>Risk</strong>${t.risk ? t.risk + '%' : '-'}</div>
                             <div class="detail-item"><strong>R:R Target</strong>${t.rrTarget || '-'}</div>
                             <div class="detail-item"><strong>Mood</strong>${t.mood || '-'}</div>
@@ -3000,9 +3057,9 @@
 
         function exportCSV() {
             if (trades.length === 0) { alert('No trades to export.'); return; }
-            let csv = 'Date,Pair,Direction,Strategy,Entry,SL,TP,Exit,Lot,Risk%,RRTarget,PnL,RRActual,Timeframe,Session,Mood,Status\n';
+            let csv = 'Date,Pair,Direction,Strategy,AccountType,Phase,ChallengeTarget,ChallengeStatus,Entry,SL,TP,Exit,Lot,Risk%,RRTarget,PnL,RRActual,Timeframe,Session,Mood,Status\n';
             trades.forEach(t => {
-                csv += `${t.date},${t.pair},${t.direction},${t.strategy || ''},${t.entry},${t.sl},${t.tp || ''},${t.exit || ''},${t.lot},${t.risk || ''},${t.rrTarget || ''},${t.pnl || 0},${t.rr || ''},${t.tf},${t.session},${t.mood || ''},${t.status}\n`;
+                csv += `${t.date},${t.pair},${t.direction},${t.strategy || ''},${t.accountType || 'personal'},${t.phase || ''},${t.challengeTarget || ''},${t.challengeStatus || ''},${t.entry},${t.sl},${t.tp || ''},${t.exit || ''},${t.lot},${t.risk || ''},${t.rrTarget || ''},${t.pnl || 0},${t.rr || ''},${t.tf},${t.session},${t.mood || ''},${t.status}\n`;
             });
             let blob = new Blob([csv], { type: 'text/csv' });
             let url = URL.createObjectURL(blob);
@@ -3045,6 +3102,13 @@
             document.getElementById('t-pnl').value = trade.pnl || '';
             document.getElementById('t-tf').value = trade.tf;
             document.getElementById('t-session').value = trade.session;
+            document.getElementById('t-account-type').value = trade.accountType || 'personal';
+            toggleFundedFields();
+            if (trade.accountType === 'funded') {
+                if (trade.phase) document.getElementById('t-phase').value = trade.phase;
+                if (trade.challengeTarget) document.getElementById('t-target').value = trade.challengeTarget;
+                if (trade.challengeStatus) document.getElementById('t-challenge-status').value = trade.challengeStatus;
+            }
             document.getElementById('t-setup').value = trade.setup || '';
             document.getElementById('t-review').value = trade.review || '';
             document.getElementById('t-mood').value = trade.mood || '';
@@ -3084,11 +3148,16 @@
             let lot = parseFloat(document.getElementById('t-lot').value) || null;
             let manualPnl = document.getElementById('t-pnl').value;
             let pnl = manualPnl ? parseFloat(manualPnl) : (entry && exit && lot ? calcAutoPnL(dir, entry, exit, lot, pair) : 0);
+            let updAccountType = document.getElementById('t-account-type').value;
             trades[idx] = {
                 id: editingTradeId,
                 date: document.getElementById('t-date').value,
                 pair: pair, direction: dir,
                 strategy: document.getElementById('t-strategy').value,
+                accountType: updAccountType,
+                phase: updAccountType === 'funded' ? document.getElementById('t-phase').value : null,
+                challengeTarget: updAccountType === 'funded' ? document.getElementById('t-target').value : null,
+                challengeStatus: updAccountType === 'funded' ? document.getElementById('t-challenge-status').value : null,
                 entry: entry, sl: parseFloat(document.getElementById('t-sl').value) || null,
                 tp: parseFloat(document.getElementById('t-tp').value) || null,
                 exit: exit, lot: lot,
@@ -3113,6 +3182,7 @@
             document.getElementById('tradeForm').reset();
             document.querySelectorAll('.mood-option').forEach(m => m.classList.remove('selected'));
             document.querySelectorAll('.check-item').forEach(c => { c.classList.remove('checked'); c.querySelector('input').checked = false; });
+            toggleFundedFields();
             let submitBtn = document.querySelector('#tradeForm button[type="submit"]');
             submitBtn.textContent = 'Save Trade';
             submitBtn.onclick = function(e) { addTrade(e); };
@@ -3216,6 +3286,7 @@
             let dateInput = document.getElementById('t-date');
             if (dateInput) dateInput.valueAsDate = new Date();
             checkAccountSetup();
+            restorePage();
         });
     </script>
 </body>
