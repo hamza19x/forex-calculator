@@ -1568,9 +1568,140 @@
     
     <!-- ===== NEWS PAGE ===== -->
     <div id="page-news" class="page" style="display:none;">
-        <div class="app-container">
+        <div class="app-container" style="padding-top:90px;">
             <h1 style="font-family:Orbitron; font-size:2rem; margin-bottom:8px; text-align:center;">📰 Forex News & Economic Calendar</h1>
-            <p style="color:var(--text-muted); text-align:center; margin-bottom:32px;">High-impact events and which currency pairs they affect</p>
+            <p style="color:var(--text-muted); text-align:center; margin-bottom:32px;">High-impact events with market direction expectations — Updated June 2026</p>
+
+            <!-- Probability Calculator -->
+            <div class="card" style="margin-bottom:24px; padding:24px;">
+                <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:10px;">🎲 News Probability & Odds Calculator</h3>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+                    <div>
+                        <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Win Probability (%)</label>
+                        <input type="number" id="prob-win" value="55" min="1" max="99" step="1" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px 16px; color:var(--text); font-size:1rem; font-family:Orbitron; text-align:center;" oninput="calcProbability()">
+                    </div>
+                    <div>
+                        <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Risk:Reward Ratio</label>
+                        <input type="number" id="prob-rr" value="2" min="0.1" max="10" step="0.1" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px 16px; color:var(--text); font-size:1rem; font-family:Orbitron; text-align:center;" oninput="calcProbability()">
+                    </div>
+                    <div>
+                        <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Risk Per Trade ($)</label>
+                        <input type="number" id="prob-risk" value="100" min="1" step="10" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px 16px; color:var(--text); font-size:1rem; font-family:Orbitron; text-align:center;" oninput="calcProbability()">
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-top:24px;">
+                    <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+                        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Expected Value (EV)</div>
+                        <div style="font-size:1.8rem; font-weight:800; color:var(--green); font-family:Orbitron;" id="prob-ev">+$10.00</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Per trade edge</div>
+                    </div>
+                    <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+                        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Breakeven Win Rate</div>
+                        <div style="font-size:1.8rem; font-weight:800; color:var(--gold); font-family:Orbitron;" id="prob-be">33.3%</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Min. needed to profit</div>
+                    </div>
+                    <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+                        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Edge vs Breakeven</div>
+                        <div style="font-size:1.8rem; font-weight:800; color:var(--cyan); font-family:Orbitron;" id="prob-edge">+21.7%</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Your advantage</div>
+                    </div>
+                    <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+                        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Kelly Criterion</div>
+                        <div style="font-size:1.8rem; font-weight:800; color:var(--red); font-family:Orbitron;" id="prob-kelly">17.5%</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Optimal risk per trade</div>
+                    </div>
+                </div>
+                <div style="margin-top:20px; padding:16px; background:var(--bg-input); border-radius:12px; border:1px solid var(--border);">
+                    <div style="font-size:0.85rem; font-weight:700; color:var(--text); margin-bottom:10px;">📊 10-Trade Simulation</div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px;">
+                        <div style="text-align:center;">
+                            <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Expected Wins</div>
+                            <div style="font-size:1.3rem; font-weight:700; color:var(--green); font-family:Orbitron;" id="sim-wins">5.5</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Expected Losses</div>
+                            <div style="font-size:1.3rem; font-weight:700; color:var(--red); font-family:Orbitron;" id="sim-losses">4.5</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Gross Profit</div>
+                            <div style="font-size:1.3rem; font-weight:700; color:var(--green); font-family:Orbitron;" id="sim-gross">+$1,100</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Gross Loss</div>
+                            <div style="font-size:1.3rem; font-weight:700; color:var(--red); font-family:Orbitron;" id="sim-gross-loss">-$450</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Net Expected P&L</div>
+                            <div style="font-size:1.3rem; font-weight:700; color:var(--green); font-family:Orbitron;" id="sim-net">+$650</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="hint" style="margin-top:12px; text-align:center;">Kelly Criterion = (Win% × RR - Loss%) / RR. Never risk more than 25% of account on a single trade. This is a mathematical edge calculator, not a guarantee.</p>
+            </div>
+
+            <script>
+                function calcProbability() {
+                    let winProb = parseFloat(document.getElementById('prob-win').value) / 100;
+                    let rr = parseFloat(document.getElementById('prob-rr').value);
+                    let risk = parseFloat(document.getElementById('prob-risk').value);
+                    if (isNaN(winProb) || isNaN(rr) || isNaN(risk) || winProb <= 0 || rr <= 0 || risk <= 0) return;
+
+                    let lossProb = 1 - winProb;
+                    let ev = (winProb * rr * risk) - (lossProb * risk);
+                    let breakeven = 1 / (1 + rr) * 100;
+                    let edge = (winProb * 100) - breakeven;
+                    let kelly = ((winProb * rr - lossProb) / rr) * 100;
+                    if (kelly < 0) kelly = 0;
+                    if (kelly > 25) kelly = 25; // Cap at 25% for safety
+
+                    let simWins = winProb * 10;
+                    let simLosses = lossProb * 10;
+                    let grossProfit = simWins * rr * risk;
+                    let grossLoss = simLosses * risk;
+                    let net = grossProfit - grossLoss;
+
+                    document.getElementById('prob-ev').textContent = (ev >= 0 ? '+' : '') + '$' + ev.toFixed(2);
+                    document.getElementById('prob-ev').style.color = ev >= 0 ? 'var(--green)' : 'var(--red)';
+                    document.getElementById('prob-be').textContent = breakeven.toFixed(1) + '%';
+                    document.getElementById('prob-edge').textContent = (edge >= 0 ? '+' : '') + edge.toFixed(1) + '%';
+                    document.getElementById('prob-edge').style.color = edge >= 0 ? 'var(--green)' : 'var(--red)';
+                    document.getElementById('prob-kelly').textContent = kelly.toFixed(1) + '%';
+                    document.getElementById('sim-wins').textContent = simWins.toFixed(1);
+                    document.getElementById('sim-losses').textContent = simLosses.toFixed(1);
+                    document.getElementById('sim-gross').textContent = '+' + '$' + grossProfit.toFixed(0);
+                    document.getElementById('sim-gross-loss').textContent = '-' + '$' + grossLoss.toFixed(0);
+                    document.getElementById('sim-net').textContent = (net >= 0 ? '+' : '') + '$' + net.toFixed(0);
+                    document.getElementById('sim-net').style.color = net >= 0 ? 'var(--green)' : 'var(--red)';
+                }
+                calcProbability();
+            </script>
+
+            <!-- Live Market Sentiment -->
+            <div class="card" style="margin-bottom:24px; padding:24px;">
+                <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:10px;">📊 Current Market Sentiment (June 2026)</h3>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
+                    <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center;">
+                        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">🇺🇸 USD</div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--red); font-family:Orbitron;">BEARISH</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Soft CPI, Iran deal hopes</div>
+                    </div>
+                    <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center;">
+                        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">🇪🇺 EUR</div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--green); font-family:Orbitron;">BULLISH</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">USD weakness lifting EUR</div>
+                    </div>
+                    <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center;">
+                        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">🇬🇧 GBP</div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--green); font-family:Orbitron;">BULLISH</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">BoE rate decision ahead</div>
+                    </div>
+                    <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center;">
+                        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">🥇 XAU/USD</div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--gold); font-family:Orbitron;">CONSOLIDATING</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Safe-haven demand mixed</div>
+                    </div>
+                </div>
+            </div>
 
             <!-- News Impact Legend -->
             <div style="display:flex; gap:16px; margin-bottom:24px; flex-wrap:wrap; justify-content:center;">
@@ -1588,143 +1719,299 @@
                 </div>
             </div>
 
+            <!-- Expectation Legend -->
+            <div style="display:flex; gap:16px; margin-bottom:24px; flex-wrap:wrap; justify-content:center;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH 60%+</div>
+                    <span style="font-size:0.8rem; color:var(--text-muted);">High probability UP move</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH 50-59%</div>
+                    <span style="font-size:0.8rem; color:var(--text-muted);">Moderate probability UP</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ NEUTRAL</div>
+                    <span style="font-size:0.8rem; color:var(--text-muted);">Mixed/sideways 40-60%</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 BEARISH 50-59%</div>
+                    <span style="font-size:0.8rem; color:var(--text-muted);">Moderate probability DOWN</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 BEARISH 60%+</div>
+                    <span style="font-size:0.8rem; color:var(--text-muted);">High probability DOWN move</span>
+                </div>
+            </div>
+
             <!-- Weekly Calendar Grid -->
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-bottom:32px;">
-                <!-- Monday -->
+                <!-- Monday June 22 -->
                 <div class="card" style="padding:20px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Monday</h3>
+                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Monday, Jun 22</h3>
                     <div style="display:flex; flex-direction:column; gap:10px;">
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--text-dim);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">All Day</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇯🇵 Bank Holiday</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">JPY pairs — low liquidity</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">All Day</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇯🇵 Bank Holiday — Marine Day</div>
+                                    <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ NEUTRAL 50%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">JPY pairs — low liquidity, range-bound expected</div>
                             </div>
                         </div>
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">02:00</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇨🇳 Manufacturing PMI</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">AUD/USD, NZD/USD, USD/CNH</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">02:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇦🇺 RBA Meeting Minutes</div>
+                                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH 62%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">AUD/USD, AUD/JPY — hawkish tone expected</div>
                             </div>
                         </div>
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--text-dim);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">08:00</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇪🇺 German Retail Sales</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">EUR/USD, EUR/GBP</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">08:00</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇩🇪 German PPI m/m</div>
+                                    <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ NEUTRAL 48%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">EUR/USD, EUR/GBP — producer prices stable</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tuesday -->
+                <!-- Tuesday June 23 -->
                 <div class="card" style="padding:20px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Tuesday</h3>
+                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Tuesday, Jun 23</h3>
                     <div style="display:flex; flex-direction:column; gap:10px;">
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--red);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">08:30</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇺🇸 CPI (Inflation)</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">ALL USD pairs — HIGH VOLATILITY</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">08:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Core PCE Price Index m/m</div>
+                                    <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 BEARISH 68%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">ALL USD pairs — soft inflation = weaker USD</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--red);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">08:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Final GDP q/q</div>
+                                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH 58%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">EUR/USD, USD/JPY, GBP/USD — strong growth supports USD</div>
                             </div>
                         </div>
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">10:00</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇺🇸 CB Consumer Confidence</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/JPY, EUR/USD, GBP/USD</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">08:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Durable Goods Orders</div>
+                                    <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ NEUTRAL 52%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/CAD, USD/CHF — manufacturing mixed</div>
                             </div>
                         </div>
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">14:00</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇺🇸 FOMC Member Speech</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">14:00</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 FOMC Member Williams Speaks</div>
+                                    <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ NEUTRAL 45%</div>
+                                </div>
                                 <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — watch for rate hints</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Wednesday -->
+                <!-- Wednesday June 24 -->
                 <div class="card" style="padding:20px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Wednesday</h3>
+                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Wednesday, Jun 24</h3>
                     <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">02:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇦🇺 CPI q/q</div>
+                                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH 65%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">AUD/USD, AUD/JPY, AUD/NZD — high inflation = rate hike bets</div>
+                            </div>
+                        </div>
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--red);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">02:30</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇦🇺 Employment Change</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">AUD/USD, AUD/JPY, AUD/NZD</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">08:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Unemployment Claims</div>
+                                    <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 BEARISH 55%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — rising claims = weaker USD, risk-on</div>
                             </div>
                         </div>
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">08:30</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇬🇧 CPI (Inflation)</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">GBP/USD, EUR/GBP, GBP/JPY</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">10:00</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 New Home Sales</div>
+                                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH 57%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/JPY, USD/CAD — strong housing = USD support</div>
                             </div>
                         </div>
-                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--red);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">14:00</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇺🇸 FOMC Meeting Minutes</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">ALL USD pairs — MAJOR VOLATILITY</div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">14:00</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 FOMC Member Goolsbee Speaks</div>
+                                    <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ NEUTRAL 48%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — Chicago Fed perspective</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Thursday -->
+                <!-- Thursday June 25 -->
                 <div class="card" style="padding:20px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Thursday</h3>
+                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Thursday, Jun 25</h3>
                     <div style="display:flex; flex-direction:column; gap:10px;">
-                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--red);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">08:30</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Initial Jobless Claims</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — NFP preview</div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">07:00</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇬🇧 CBI Industrial Orders</div>
+                                    <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 BEARISH 61%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">GBP/USD, EUR/GBP — weak orders pressure sterling</div>
                             </div>
                         </div>
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">10:00</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Existing Home Sales</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/CAD, USD/JPY</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">08:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Goods Trade Balance</div>
+                                    <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 BEARISH 56%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/CAD, USD/JPY — widening deficit = USD weakness</div>
                             </div>
                         </div>
-                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--red);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">12:00</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇪🇺 ECB President Speech</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">EUR/USD, EUR/GBP, EUR/JPY</div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">10:00</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Pending Home Sales m/m</div>
+                                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH 54%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — positive housing data supports USD</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--text-dim);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">23:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇯🇵 Tokyo Core CPI y/y</div>
+                                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH JPY 63%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/JPY, EUR/JPY, GBP/JPY — rising CPI = BoJ tightening</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Friday -->
+                <!-- Friday June 26 -->
                 <div class="card" style="padding:20px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Friday</h3>
+                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">📅 Friday, Jun 26</h3>
                     <div style="display:flex; flex-direction:column; gap:10px;">
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--red);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">08:30</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Non-Farm Payrolls (NFP)</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">ALL pairs — BIGGEST MOVES OF MONTH</div>
-                            </div>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--red);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">08:30</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Unemployment Rate</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/JPY, EUR/USD, XAU/USD</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">08:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Core PCE Price Index (Final)</div>
+                                    <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 BEARISH 64%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">ALL USD pairs — soft inflation revision = USD down</div>
                             </div>
                         </div>
                         <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
-                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron;">10:00</span>
-                            <div>
-                                <div style="font-size:0.85rem; font-weight:600;">🇺🇸 ISM Manufacturing PMI</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/CAD, USD/CHF</div>
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">08:30</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Personal Income & Spending</div>
+                                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH 55%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/JPY, EUR/USD — strong consumer = USD support</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">10:00</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Revised UoM Consumer Sentiment</div>
+                                    <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 BEARISH 58%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/CAD, USD/CHF — sentiment rebound unlikely</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-input); border-radius:8px; border-left:3px solid var(--gold);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">10:00</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 Revised UoM Inflation Expectations</div>
+                                    <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ NEUTRAL 51%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">All USD pairs — inflation outlook stable</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Next Week Preview -->
+                <div class="card" style="padding:20px; border:1px solid var(--red);">
+                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">🔥 Next Week — Jun 29–Jul 3</h3>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--red-dim); border-radius:8px; border-left:3px solid var(--red);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">Jul 3</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600; color:var(--red);">🇺🇸 Non-Farm Payrolls (NFP)</div>
+                                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH USD 71%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">ALL pairs — strong jobs = USD rally expected</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--red-dim); border-radius:8px; border-left:3px solid var(--red);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">Jul 3</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600; color:var(--red);">🇺🇸 Unemployment Rate</div>
+                                    <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 BULLISH USD 66%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/JPY, EUR/USD, XAU/USD — low unemployment = strong USD</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--gold-dim); border-radius:8px; border-left:3px solid var(--gold);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">Jul 1</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 ISM Manufacturing PMI</div>
+                                    <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ NEUTRAL 53%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">USD/CAD, USD/CHF — manufacturing steady</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--gold-dim); border-radius:8px; border-left:3px solid var(--gold);">
+                            <span style="font-size:0.75rem; color:var(--text-muted); font-family:Orbitron; min-width:50px;">Jul 2</span>
+                            <div style="flex:1;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">🇺🇸 FOMC Meeting Minutes</div>
+                                    <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ NEUTRAL 49%</div>
+                                </div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">All USD pairs — policy guidance watch</div>
                             </div>
                         </div>
                     </div>
@@ -1739,8 +2026,8 @@
                         <div style="font-size:0.85rem; font-weight:700; color:var(--red); margin-bottom:8px; font-family:Orbitron;">🇺🇸 USD Pairs</div>
                         <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.8;">
                             <strong style="color:var(--text);">NFP</strong> — EUR/USD, GBP/USD, USD/JPY, XAU/USD<br>
-                            <strong style="color:var(--text);">CPI</strong> — All USD pairs<br>
-                            <strong style="color:var(--text);">FOMC</strong> — All USD pairs + indices<br>
+                            <strong style="color:var(--text);">CPI / PCE</strong> — All USD pairs<br>
+                            <strong style="color:var(--text);">FOMC / Fed Speeches</strong> — All USD pairs + indices<br>
                             <strong style="color:var(--text);">GDP</strong> — EUR/USD, USD/JPY, GBP/USD<br>
                             <strong style="color:var(--text);">Retail Sales</strong> — USD/CAD, USD/CHF
                         </div>
@@ -1769,7 +2056,7 @@
                         <div style="font-size:0.85rem; font-weight:700; color:var(--red); margin-bottom:8px; font-family:Orbitron;">🇯🇵 🇦🇺 🇨🇦 Others</div>
                         <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.8;">
                             <strong style="color:var(--text);">BoJ Policy</strong> — USD/JPY, EUR/JPY, GBP/JPY<br>
-                            <strong style="color:var(--text);">RBA Rate</strong> — AUD/USD, AUD/JPY, AUD/NZD<br>
+                            <strong style="color:var(--text);">RBA Rate / CPI</strong> — AUD/USD, AUD/JPY, AUD/NZD<br>
                             <strong style="color:var(--text);">BoC Rate</strong> — USD/CAD, CAD/JPY<br>
                             <strong style="color:var(--text);">China Data</strong> — AUD/USD, NZD/USD, USD/CNH<br>
                             <strong style="color:var(--text);">Oil Prices</strong> — USD/CAD, CAD/JPY
@@ -1812,10 +2099,50 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-<!-- ===== FOOTER ===== -->
+            <!-- Current Headlines -->
+            <div class="card" style="margin-top:24px;">
+                <h3 style="font-family:Orbitron; font-size:1.1rem; color:var(--red); margin-bottom:20px; display:flex; align-items:center; gap:10px;">📰 Latest Headlines</h3>
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                    <div style="padding:14px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--red);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <div style="font-size:0.85rem; font-weight:700; color:var(--text);">U.S. Dollar Retreats Against Euro, Pound</div>
+                            <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 USD 72%</div>
+                        </div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">June 20, 2026 — USD weakness continues amid soft inflation data and progress on U.S.-Iran negotiations.</div>
+                    </div>
+                    <div style="padding:14px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--green);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <div style="font-size:0.85rem; font-weight:700; color:var(--text);">Pound Rises After U.K. Political Developments</div>
+                            <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 GBP 68%</div>
+                        </div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">June 19, 2026 — GBP strengthens across the board following political developments in Greater Manchester.</div>
+                    </div>
+                    <div style="padding:14px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--gold);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <div style="font-size:0.85rem; font-weight:700; color:var(--text);">Russia Central Bank Cuts Rate By 25 Bps</div>
+                            <div style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">📉 RUB 59%</div>
+                        </div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">June 19, 2026 — RUB volatility expected as Bank of Russia eases monetary policy amid cooling inflation.</div>
+                    </div>
+                    <div style="padding:14px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--gold);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <div style="font-size:0.85rem; font-weight:700; color:var(--text);">Brent Crude Oil Prices May Climb 36% in 2026</div>
+                            <div style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">📈 OIL 64%</div>
+                        </div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">June 12, 2026 — World Bank warns Middle East conflict and Strait of Hormuz closure risks could spike oil.</div>
+                    </div>
+                    <div style="padding:14px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--text-dim);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <div style="font-size:0.85rem; font-weight:700; color:var(--text);">U.S. Consumer Sentiment Rebounds From Record Low</div>
+                            <div style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">➡️ MIXED 52%</div>
+                        </div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">June 12, 2026 — UoM consumer sentiment rises to 50.0 from 48.9 as gasoline prices ease early-month.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-left">
