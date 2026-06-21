@@ -682,7 +682,45 @@
         <!-- ===== JOURNAL PANEL ===== -->
         <div id="journal" class="app-panel">
             <!-- Journal Tabs -->
-            <div class="journal-tabs">
+            <!-- Account Setup Overlay -->
+        <div id="account-setup" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2,6,23,0.92); z-index:1000; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:40px; max-width:420px; width:90%; text-align:center; box-shadow:0 25px 50px rgba(0,0,0,0.5);">
+                <div style="font-size:3rem; margin-bottom:16px;">💰</div>
+                <h2 style="font-size:1.4rem; margin-bottom:8px; color:var(--text);">Set Your Trading Account</h2>
+                <p style="color:var(--text-muted); margin-bottom:24px; font-size:0.9rem;">Enter your starting balance to begin tracking your journal.</p>
+
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; color:var(--text-muted); font-size:0.8rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; font-weight:600;">Account Balance</label>
+                    <div style="display:flex; gap:8px; margin-bottom:12px;">
+                        <select id="setup-currency" style="width:90px; background:var(--bg-input); border:1px solid #334155; border-radius:10px; padding:12px; color:#f1f5f9; font-size:1rem;">
+                            <option value="USD">$ USD</option>
+                            <option value="EUR">€ EUR</option>
+                            <option value="GBP">£ GBP</option>
+                        </select>
+                        <input type="number" id="setup-balance" value="5000" min="100" step="100" style="flex:1; background:var(--bg-input); border:1px solid #334155; border-radius:10px; padding:12px 14px; color:#f1f5f9; font-size:1rem; text-align:center; font-weight:600;">
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+                        <button onclick="setQuickBalance(1000)" style="padding:8px 16px; background:#1e293b; border:1px solid #334155; border-radius:8px; color:#94a3b8; cursor:pointer; font-size:0.85rem; transition:all 0.2s;">$1K</button>
+                        <button onclick="setQuickBalance(5000)" style="padding:8px 16px; background:var(--blue); border:1px solid var(--blue); border-radius:8px; color:#0f172a; cursor:pointer; font-size:0.85rem; font-weight:700; transition:all 0.2s;">$5K</button>
+                        <button onclick="setQuickBalance(10000)" style="padding:8px 16px; background:#1e293b; border:1px solid #334155; border-radius:8px; color:#94a3b8; cursor:pointer; font-size:0.85rem; transition:all 0.2s;">$10K</button>
+                        <button onclick="setQuickBalance(25000)" style="padding:8px 16px; background:#1e293b; border:1px solid #334155; border-radius:8px; color:#94a3b8; cursor:pointer; font-size:0.85rem; transition:all 0.2s;">$25K</button>
+                        <button onclick="setQuickBalance(50000)" style="padding:8px 16px; background:#1e293b; border:1px solid #334155; border-radius:8px; color:#94a3b8; cursor:pointer; font-size:0.85rem; transition:all 0.2s;">$50K</button>
+                        <button onclick="setQuickBalance(100000)" style="padding:8px 16px; background:#1e293b; border:1px solid #334155; border-radius:8px; color:#94a3b8; cursor:pointer; font-size:0.85rem; transition:all 0.2s;">$100K</button>
+                    </div>
+                </div>
+
+                <button onclick="saveAccountSetup()" style="width:100%; padding:14px; background:linear-gradient(135deg, var(--blue), var(--accent)); border:none; border-radius:10px; color:white; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s;">Start Journaling</button>
+                <p style="color:#475569; font-size:0.75rem; margin-top:12px;">You can change this anytime in Dashboard settings</p>
+            </div>
+        </div>
+
+        <!-- Account Settings Button (visible in dashboard) -->
+        <div id="account-settings-bar" style="display:none; margin-bottom:16px; text-align:right;">
+            <button onclick="showAccountSettings()" style="padding:8px 16px; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.85rem; transition:all 0.2s;">
+                💰 <span id="account-display">$5,000.00</span> — Edit Account
+            </button>
+        </div>
+<div class="journal-tabs">
                 <button class="journal-tab active" onclick="showJournalTab('j-dashboard')">📈 Dashboard</button>
                 <button class="journal-tab" onclick="showJournalTab('j-new-trade')">➕ New Trade</button>
                 <button class="journal-tab" onclick="showJournalTab('j-trades')">📋 Trade History</button>
@@ -801,6 +839,17 @@
                                 <input type="number" id="t-lot" step="0.01" required placeholder="e.g. 0.10">
                             </div>
                             <div class="form-group">
+                                <label>Risk %</label>
+                                <input type="number" id="t-risk" step="0.1" min="0.1" max="100" placeholder="e.g. 1.0" style="text-align:center; font-weight:600;">
+                                <div style="display:flex; gap:4px; margin-top:6px;">
+                                    <button type="button" onclick="setTradeRisk(0.5)" style="flex:1; padding:4px 8px; background:#1e293b; border:1px solid #334155; border-radius:6px; color:#94a3b8; cursor:pointer; font-size:0.75rem;">0.5%</button>
+                                    <button type="button" onclick="setTradeRisk(1.0)" style="flex:1; padding:4px 8px; background:#1e293b; border:1px solid #334155; border-radius:6px; color:#94a3b8; cursor:pointer; font-size:0.75rem;">1%</button>
+                                    <button type="button" onclick="setTradeRisk(2.0)" style="flex:1; padding:4px 8px; background:#1e293b; border:1px solid #334155; border-radius:6px; color:#94a3b8; cursor:pointer; font-size:0.75rem;">2%</button>
+                                    <button type="button" onclick="setTradeRisk(3.0)" style="flex:1; padding:4px 8px; background:#1e293b; border:1px solid #334155; border-radius:6px; color:#94a3b8; cursor:pointer; font-size:0.75rem;">3%</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label>P&L ($)</label>
                                 <input type="number" id="t-pnl" step="0.01" placeholder="Auto-calculated or manual">
                             </div>
@@ -908,8 +957,15 @@
             <!-- WEEKLY CALENDAR -->
             <div id="j-calendar" class="journal-panel">
                 <div class="card">
-                    <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">📅</span> Weekly P&L Calendar</h2>
-                    <div class="week-calendar" id="week-cal"></div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+                        <h2 style="margin:0; font-size:1.1rem; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">📅</span> P&L Calendar</h2>
+                        <div style="display:flex; gap:4px; background:var(--bg-input); border-radius:8px; padding:4px; border:1px solid var(--border);">
+                            <button id="cal-week-btn" onclick="setCalendarView('week')" style="padding:8px 16px; border-radius:6px; border:none; background:var(--blue); color:#0f172a; font-weight:700; font-size:0.85rem; cursor:pointer; transition:all 0.2s;">Weekly</button>
+                            <button id="cal-day-btn" onclick="setCalendarView('day')" style="padding:8px 16px; border-radius:6px; border:none; background:transparent; color:var(--text-muted); font-weight:600; font-size:0.85rem; cursor:pointer; transition:all 0.2s;">Daily</button>
+                        </div>
+                    </div>
+                    <div id="week-cal" class="week-calendar"></div>
+                    <div id="day-cal" style="display:none;"></div>
                 </div>
                 <div class="card">
                     <h2 style="font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span style="font-size:1.3rem;">📈</span> Monthly Performance</h2>
@@ -1231,6 +1287,7 @@
                 tp: parseFloat(document.getElementById('t-tp').value) || null,
                 exit: exit,
                 lot: lot,
+                risk: parseFloat(document.getElementById('t-risk').value) || null,
                 pnl: pnl,
                 rr: calcRR(entry, parseFloat(document.getElementById('t-sl').value), parseFloat(document.getElementById('t-tp').value)),
                 tf: document.getElementById('t-tf').value,
@@ -1336,7 +1393,7 @@
             let html = `<table class="trade-table">
                 <thead><tr>
                     <th>Date</th><th>Pair</th><th>Dir</th><th>Entry</th><th>SL</th><th>TP</th><th>Exit</th>
-                    <th>Lot</th><th>R:R</th><th>P&L</th><th>Status</th><th>Action</th>
+                    <th>Lot</th><th>Risk</th><th>R:R</th><th>P&L</th><th>Status</th><th>Action</th>
                 </tr></thead><tbody>`;
             
             filtered.forEach(t => {
@@ -1349,6 +1406,7 @@
                     <td>${t.tp || '-'}</td>
                     <td>${t.exit || '-'}</td>
                     <td>${t.lot}</td>
+                    <td>${t.risk ? t.risk + '%' : '-'}</td>
                     <td>1:${t.rr || '-'}</td>
                     <td style="color:${(t.pnl||0)>=0?'var(--green)':'var(--red)'}; font-weight:600;">${formatJournalMoney(t.pnl)}</td>
                     <td><span class="badge badge-${t.status}">${t.status.toUpperCase()}</span></td>
@@ -1364,6 +1422,7 @@
                             <div class="detail-item"><strong>Strategy</strong>${t.strategy || '-'}</div>
                             <div class="detail-item"><strong>Timeframe</strong>${t.tf}</div>
                             <div class="detail-item"><strong>Session</strong>${t.session}</div>
+                            <div class="detail-item"><strong>Risk</strong>${t.risk ? t.risk + '%' : '-'}</div>
                             <div class="detail-item"><strong>Mood</strong>${t.mood || '-'}</div>
                             <div class="detail-item" style="grid-column:1/-1;"><strong>Setup</strong>${t.setup || '-'}</div>
                             <div class="detail-item" style="grid-column:1/-1;"><strong>Review</strong>${t.review || '-'}</div>
@@ -1497,9 +1556,9 @@
 
         function exportCSV() {
             if (trades.length === 0) { alert('No trades to export.'); return; }
-            let csv = 'Date,Pair,Direction,Strategy,Entry,SL,TP,Exit,Lot,PnL,RR,Timeframe,Session,Mood,Status\n';
+            let csv = 'Date,Pair,Direction,Strategy,Entry,SL,TP,Exit,Lot,Risk%,PnL,RR,Timeframe,Session,Mood,Status\n';
             trades.forEach(t => {
-                csv += `${t.date},${t.pair},${t.direction},${t.strategy || ''},${t.entry},${t.sl},${t.tp || ''},${t.exit || ''},${t.lot},${t.pnl || 0},${t.rr || ''},${t.tf},${t.session},${t.mood || ''},${t.status}\n`;
+                csv += `${t.date},${t.pair},${t.direction},${t.strategy || ''},${t.entry},${t.sl},${t.tp || ''},${t.exit || ''},${t.lot},${t.risk || ''},${t.pnl || 0},${t.rr || ''},${t.tf},${t.session},${t.mood || ''},${t.status}\n`;
             });
             let blob = new Blob([csv], { type: 'text/csv' });
             let url = URL.createObjectURL(blob);
@@ -1541,6 +1600,7 @@
             document.getElementById('t-tp').value = trade.tp || '';
             document.getElementById('t-exit').value = trade.exit || '';
             document.getElementById('t-lot').value = trade.lot;
+            document.getElementById('t-risk').value = trade.risk || '';
             document.getElementById('t-pnl').value = trade.pnl || '';
             document.getElementById('t-tf').value = trade.tf;
             document.getElementById('t-session').value = trade.session;
@@ -1623,6 +1683,7 @@
                 tp: parseFloat(document.getElementById('t-tp').value) || null,
                 exit: exit,
                 lot: lot,
+                risk: parseFloat(document.getElementById('t-risk').value) || null,
                 pnl: pnl,
                 rr: calcRR(entry, parseFloat(document.getElementById('t-sl').value), parseFloat(document.getElementById('t-tp').value)),
                 tf: document.getElementById('t-tf').value,
@@ -1657,11 +1718,133 @@
             document.getElementById('t-date').valueAsDate = new Date();
         }
 
+        // ==================== ACCOUNT SETUP ====================
+        let accountBalance = parseFloat(localStorage.getItem('forex_journal_balance')) || 0;
+        let accountCurrency = localStorage.getItem('forex_journal_currency') || 'USD';
+        let calendarView = 'week';
+
+        function checkAccountSetup() {
+            if (accountBalance <= 0) {
+                document.getElementById('account-setup').style.display = 'flex';
+                document.getElementById('account-settings-bar').style.display = 'none';
+            } else {
+                document.getElementById('account-setup').style.display = 'none';
+                document.getElementById('account-settings-bar').style.display = 'block';
+                updateAccountDisplay();
+            }
+        }
+
+        function setQuickBalance(amount) {
+            document.getElementById('setup-balance').value = amount;
+            document.querySelectorAll('#account-setup button[onclick^="setQuickBalance"]').forEach(btn => {
+                btn.style.background = '#1e293b';
+                btn.style.borderColor = '#334155';
+                btn.style.color = '#94a3b8';
+                btn.style.fontWeight = '400';
+            });
+            event.target.style.background = 'var(--blue)';
+            event.target.style.borderColor = 'var(--blue)';
+            event.target.style.color = '#0f172a';
+            event.target.style.fontWeight = '700';
+        }
+
+        function saveAccountSetup() {
+            let balance = parseFloat(document.getElementById('setup-balance').value) || 5000;
+            let currency = document.getElementById('setup-currency').value;
+            accountBalance = balance;
+            accountCurrency = currency;
+            localStorage.setItem('forex_journal_balance', balance);
+            localStorage.setItem('forex_journal_currency', currency);
+            document.getElementById('account-setup').style.display = 'none';
+            document.getElementById('account-settings-bar').style.display = 'block';
+            updateAccountDisplay();
+            updateDashboard();
+        }
+
+        function showAccountSettings() {
+            document.getElementById('account-setup').style.display = 'flex';
+            document.getElementById('setup-balance').value = accountBalance;
+            document.getElementById('setup-currency').value = accountCurrency;
+        }
+
+        function updateAccountDisplay() {
+            let sym = accountCurrency === 'USD' ? '$' : accountCurrency === 'EUR' ? '€' : '£';
+            document.getElementById('account-display').textContent = sym + accountBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        // ==================== TRADE RISK PRESETS ====================
+        function setTradeRisk(val) {
+            document.getElementById('t-risk').value = val;
+        }
+
+        // ==================== CALENDAR VIEWS ====================
+        function setCalendarView(view) {
+            calendarView = view;
+            document.getElementById('cal-week-btn').style.background = view === 'week' ? 'var(--blue)' : 'transparent';
+            document.getElementById('cal-week-btn').style.color = view === 'week' ? '#0f172a' : 'var(--text-muted)';
+            document.getElementById('cal-day-btn').style.background = view === 'day' ? 'var(--blue)' : 'transparent';
+            document.getElementById('cal-day-btn').style.color = view === 'day' ? '#0f172a' : 'var(--text-muted)';
+
+            if (view === 'week') {
+                document.getElementById('week-cal').style.display = 'grid';
+                document.getElementById('day-cal').style.display = 'none';
+                renderCalendar();
+            } else {
+                document.getElementById('week-cal').style.display = 'none';
+                document.getElementById('day-cal').style.display = 'block';
+                renderDailyCalendar();
+            }
+        }
+
+        function renderDailyCalendar() {
+            let today = new Date();
+            let currentMonth = today.getMonth();
+            let currentYear = today.getFullYear();
+            let monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            let daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            let firstDay = new Date(currentYear, currentMonth, 1).getDay();
+
+            let html = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h3 style="margin:0; color:var(--text);">${monthNames[currentMonth]} ${currentYear}</h3>
+            </div>`;
+
+            html += '<div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:8px; margin-bottom:8px;">';
+            let dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            dayNames.forEach(d => {
+                html += `<div style="text-align:center; color:var(--text-muted); font-size:0.75rem; font-weight:600; text-transform:uppercase; padding:8px 0;">${d}</div>`;
+            });
+            html += '</div>';
+
+            html += '<div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:8px;">';
+
+            for (let i = 0; i < firstDay; i++) {
+                html += '<div style="min-height:80px; background:transparent; border-radius:8px;"></div>';
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                let dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                let dayTrades = trades.filter(t => t.date === dateStr);
+                let dayPnl = dayTrades.reduce((s, t) => s + (t.pnl || 0), 0);
+                let hasTrade = dayTrades.length > 0;
+                let isToday = day === today.getDate();
+
+                html += `<div style="min-height:80px; background:var(--bg-input); border:1px solid ${isToday ? 'var(--blue)' : (hasTrade ? 'var(--green)' : 'var(--border)')}; border-radius:8px; padding:10px; text-align:center; position:relative; ${isToday ? 'box-shadow:0 0 0 2px rgba(6,182,212,0.3);' : ''}">
+                    <div style="font-size:0.9rem; font-weight:700; color:${isToday ? 'var(--blue)' : 'var(--text)'};">${day}</div>
+                    ${hasTrade ? `<div style="font-size:0.8rem; font-weight:600; color:${dayPnl >= 0 ? 'var(--green)' : 'var(--red)'}; margin-top:4px;">${formatJournalMoney(dayPnl)}</div>
+                    <div style="font-size:0.65rem; color:var(--text-muted); margin-top:2px;">${dayTrades.length} trade${dayTrades.length>1?'s':''}</div>` : ''}
+                </div>`;
+            }
+            html += '</div>';
+
+            document.getElementById('day-cal').innerHTML = html;
+        }
+
         // ==================== INIT ====================
         document.addEventListener('DOMContentLoaded', function() {
             initCalc();
             initFilters();
             document.getElementById('t-date').valueAsDate = new Date();
+            checkAccountSetup();
         });
     </script>
 </body>
