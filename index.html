@@ -1146,29 +1146,26 @@
         <section class="markets-section" id="markets">
             <div class="section-header">
                 <h2 class="section-title"><span class="live-dot"></span> Live Market Overview</h2>
-                <div style="display:flex; gap:12px; align-items:center;">
-                    <select id="add-pair-select" onchange="addMarketPair(this.value)" style="background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:10px 14px; color:var(--text); font-size:0.9rem; min-width:140px;">
-                        <option value="">+ Add Pair</option>
-                        <option value="XAUUSD|Gold">XAU/USD (Gold)</option>
-                        <option value="EURUSD|Euro / Dollar">EUR/USD</option>
-                        <option value="GBPUSD|British Pound">GBP/USD</option>
-                        <option value="USDJPY|US Dollar / Yen">USD/JPY</option>
-                        <option value="AUDUSD|Aussie / Dollar">AUD/USD</option>
-                        <option value="USDCAD|Dollar / Loonie">USD/CAD</option>
-                        <option value="USDCHF|Dollar / Franc">USD/CHF</option>
-                        <option value="NZDUSD|Kiwi / Dollar">NZD/USD</option>
-                        <option value="EURGBP|Euro / Pound">EUR/GBP</option>
-                        <option value="GBPJPY|Pound / Yen">GBP/JPY</option>
-                        <option value="EURJPY|Euro / Yen">EUR/JPY</option>
-                        <option value="AUDJPY|Aussie / Yen">AUD/JPY</option>
-                        <option value="CADJPY|Loonie / Yen">CAD/JPY</option>
-                        <option value="CHFJPY|Franc / Yen">CHF/JPY</option>
-                        <option value="EURAUD|Euro / Aussie">EUR/AUD</option>
-                        <option value="GBPAUD|Pound / Aussie">GBP/AUD</option>
-                        <option value="XAGUSD|Silver">XAG/USD (Silver)</option>
-                    </select>
-                    <a href="javascript:void(0)" class="view-all-btn" onclick="showAllMarkets()">View All Markets →</a>
-                </div>
+                <select id="add-pair-select" onchange="addMarketPair(this.value)" style="background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:10px 14px; color:var(--text); font-size:0.9rem; min-width:140px;">
+                    <option value="">+ Add Pair</option>
+                    <option value="XAUUSD|Gold">XAU/USD (Gold)</option>
+                    <option value="EURUSD|Euro / Dollar">EUR/USD</option>
+                    <option value="GBPUSD|British Pound">GBP/USD</option>
+                    <option value="USDJPY|US Dollar / Yen">USD/JPY</option>
+                    <option value="AUDUSD|Aussie / Dollar">AUD/USD</option>
+                    <option value="USDCAD|Dollar / Loonie">USD/CAD</option>
+                    <option value="USDCHF|Dollar / Franc">USD/CHF</option>
+                    <option value="NZDUSD|Kiwi / Dollar">NZD/USD</option>
+                    <option value="EURGBP|Euro / Pound">EUR/GBP</option>
+                    <option value="GBPJPY|Pound / Yen">GBP/JPY</option>
+                    <option value="EURJPY|Euro / Yen">EUR/JPY</option>
+                    <option value="AUDJPY|Aussie / Yen">AUD/JPY</option>
+                    <option value="CADJPY|Loonie / Yen">CAD/JPY</option>
+                    <option value="CHFJPY|Franc / Yen">CHF/JPY</option>
+                    <option value="EURAUD|Euro / Aussie">EUR/AUD</option>
+                    <option value="GBPAUD|Pound / Aussie">GBP/AUD</option>
+                    <option value="XAGUSD|Silver">XAG/USD (Silver)</option>
+                </select>
             </div>
             <div class="markets-grid" id="markets-grid"></div>
         </section>
