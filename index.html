@@ -1503,22 +1503,74 @@
                         <!-- Funded Account Fields (hidden by default) -->
                         <div id="setup-funded-fields" style="display:none; margin-bottom:24px;">
                             <div style="margin-bottom:16px;">
-                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Challenge Phase</label>
-                                <select id="setup-phase" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; color:var(--text); font-size:1rem;">
-                                    <option value="1">Phase 1 — Evaluation</option>
-                                    <option value="2">Phase 2 — Verification</option>
-                                    <option value="3">Phase 3 — Funded Live</option>
+                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Funded Provider</label>
+                                <input type="text" id="setup-provider" list="provider-list" value="FTMO" placeholder="e.g. FTMO, Alpha Capital, The5ers..." style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; color:var(--text); font-size:1rem; font-family:Orbitron; text-align:center; margin-bottom:8px;">
+                                <datalist id="provider-list">
+                                    <option value="FTMO">
+                                    <option value="Alpha Capital">
+                                    <option value="The5ers">
+                                    <option value="MyForexFunds">
+                                    <option value="True Forex Funds">
+                                    <option value="FundedNext">
+                                    <option value="Apex Trader Funding">
+                                    <option value="Topstep">
+                                    <option value="Lux Trading Firm">
+                                    <option value="SurgeTrader">
+                                    <option value="E8 Funding">
+                                    <option value="Blue Guardian">
+                                    <option value="FunderPro">
+                                    <option value="PropFirmMatch">
+                                    <option value="Other">
+                                </datalist>
+                                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                                    <button type="button" onclick="document.getElementById('setup-provider').value='FTMO'" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">FTMO</button>
+                                    <button type="button" onclick="document.getElementById('setup-provider').value='Alpha Capital'" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">Alpha</button>
+                                    <button type="button" onclick="document.getElementById('setup-provider').value='The5ers'" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">The5ers</button>
+                                    <button type="button" onclick="document.getElementById('setup-provider').value='FundedNext'" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">FundedNext</button>
+                                    <button type="button" onclick="document.getElementById('setup-provider').value='True Forex Funds'" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">TFF</button>
+                                    <button type="button" onclick="document.getElementById('setup-provider').value='MyForexFunds'" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">MFF</button>
+                                    <button type="button" onclick="document.getElementById('setup-provider').value='Apex Trader Funding'" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">Apex</button>
+                                    <button type="button" onclick="document.getElementById('setup-provider').value='Topstep'" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">Topstep</button>
+                                </div>
+                            </div>
+                            <div style="margin-bottom:16px;">
+                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Challenge Steps</label>
+                                <select id="setup-steps" onchange="updateStepTargets()" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; color:var(--text); font-size:1rem; margin-bottom:10px;">
+                                    <option value="2" selected>2-Step Challenge (e.g. FTMO)</option>
+                                    <option value="3">3-Step Challenge</option>
+                                    <option value="1">1-Step / Instant Funding</option>
                                 </select>
                             </div>
                             <div style="margin-bottom:16px;">
-                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Profit Target (%)</label>
-                                <input type="number" id="setup-target" value="10" min="1" max="100" step="0.5" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; color:var(--text); font-size:1rem; font-family:Orbitron; text-align:center; margin-bottom:10px;">
-                                <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                                    <button type="button" onclick="document.getElementById('setup-target').value=5" style="flex:1; min-width:60px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">5%</button>
-                                    <button type="button" onclick="document.getElementById('setup-target').value=8" style="flex:1; min-width:60px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">8%</button>
-                                    <button type="button" onclick="document.getElementById('setup-target').value=10" style="flex:1; min-width:60px; padding:8px; background:var(--red); border:1px solid var(--red); border-radius:8px; color:white; cursor:pointer; font-size:0.8rem; font-weight:700;">10%</button>
-                                    <button type="button" onclick="document.getElementById('setup-target').value=15" style="flex:1; min-width:60px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">15%</button>
-                                    <button type="button" onclick="document.getElementById('setup-target').value=20" style="flex:1; min-width:60px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">20%</button>
+                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Current Phase</label>
+                                <select id="setup-phase" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; color:var(--text); font-size:1rem;">
+                                    <option value="1">Phase 1 — Step 1</option>
+                                    <option value="2">Phase 2 — Step 2</option>
+                                    <option value="3">Phase 3 — Step 3 / Funded</option>
+                                </select>
+                            </div>
+                            <div style="margin-bottom:16px;">
+                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Step Targets (%)</label>
+                                <div id="setup-step-targets" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                                    <div>
+                                        <label style="display:block; color:var(--text-muted); font-size:0.7rem; margin-bottom:6px; font-weight:700;">Step 1 Target</label>
+                                        <input type="number" id="setup-target-1" value="10" min="0" max="100" step="0.5" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:12px; color:var(--text); font-size:0.95rem; font-family:Orbitron; text-align:center;">
+                                    </div>
+                                    <div>
+                                        <label style="display:block; color:var(--text-muted); font-size:0.7rem; margin-bottom:6px; font-weight:700;">Step 2 Target</label>
+                                        <input type="number" id="setup-target-2" value="5" min="0" max="100" step="0.5" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:12px; color:var(--text); font-size:0.95rem; font-family:Orbitron; text-align:center;">
+                                    </div>
+                                    <div id="setup-target-3-container">
+                                        <label style="display:block; color:var(--text-muted); font-size:0.7rem; margin-bottom:6px; font-weight:700;">Step 3 Target</label>
+                                        <input type="number" id="setup-target-3" value="0" min="0" max="100" step="0.5" placeholder="No target" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:12px; color:var(--text); font-size:0.95rem; font-family:Orbitron; text-align:center;">
+                                    </div>
+                                </div>
+                                <div style="display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;">
+                                    <button type="button" onclick="setAllTargets(8,5,0)" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">FTMO: 8%/5%</button>
+                                    <button type="button" onclick="setAllTargets(10,5,0)" style="flex:1; min-width:80px; padding:8px; background:var(--red); border:1px solid var(--red); border-radius:8px; color:white; cursor:pointer; font-size:0.8rem; font-weight:700;">FTMO: 10%/5%</button>
+                                    <button type="button" onclick="setAllTargets(10,10,10)" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">3×10%</button>
+                                    <button type="button" onclick="setAllTargets(10,8,5)" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">10/8/5%</button>
+                                    <button type="button" onclick="setAllTargets(15,0,0)" style="flex:1; min-width:80px; padding:8px; background:var(--bg-input); border:1px solid var(--border); border-radius:8px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; font-weight:600;">1-Step 15%</button>
                                 </div>
                             </div>
                             <div>
@@ -1683,6 +1735,27 @@
                                         <option value="funded">Funded Account</option>
                                     </select>
                                 </div>
+                                <div class="form-group" id="funded-provider-group" style="display:none;">
+                                    <label>Funded Provider</label>
+                                    <input type="text" id="t-provider" list="trade-provider-list" value="FTMO" placeholder="e.g. FTMO, Alpha Capital..." style="text-align:center; font-weight:600; font-family:Orbitron;">
+                                    <datalist id="trade-provider-list">
+                                        <option value="FTMO">
+                                        <option value="Alpha Capital">
+                                        <option value="The5ers">
+                                        <option value="MyForexFunds">
+                                        <option value="True Forex Funds">
+                                        <option value="FundedNext">
+                                        <option value="Apex Trader Funding">
+                                        <option value="Topstep">
+                                        <option value="Lux Trading Firm">
+                                        <option value="SurgeTrader">
+                                        <option value="E8 Funding">
+                                        <option value="Blue Guardian">
+                                        <option value="FunderPro">
+                                        <option value="PropFirmMatch">
+                                        <option value="Other">
+                                    </datalist>
+                                </div>
                                 <div class="form-group" id="funded-phase-group" style="display:none;">
                                     <label>Challenge Phase</label>
                                     <select id="t-phase">
@@ -1798,46 +1871,33 @@
                 <div id="j-challenge" class="journal-panel">
                     <div class="card" style="margin-bottom:24px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
-                            <h2 style="margin:0; font-size:1.3rem; display:flex; align-items:center; gap:10px; font-family:Orbitron;"><span style="font-size:1.5rem;">🎯</span> Funded Challenge Tracker</h2>
+                            <h2 style="margin:0; font-size:1.3rem; display:flex; align-items:center; gap:10px; font-family:Orbitron;"><span style="font-size:1.5rem;">🎯</span> <span id="ch-provider-title">Funded</span> Challenge Tracker</h2>
                             <button onclick="showChallengeSetup()" class="btn btn-outline" style="font-size:0.85rem;">⚙️ Edit Challenge</button>
                         </div>
 
                         <!-- Challenge Overview Cards -->
                         <div id="challenge-overview" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:24px;">
                             <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:16px; padding:24px; text-align:center;">
-                                <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:700; margin-bottom:8px;">Challenge Phase</div>
-                                <div id="ch-phase-display" style="font-size:1.8rem; font-weight:800; font-family:Orbitron; color:var(--gold);">—</div>
+                                <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:700; margin-bottom:8px;">Challenge Steps</div>
+                                <div id="ch-steps-display" style="font-size:1.8rem; font-weight:800; font-family:Orbitron; color:var(--gold);">2-Step</div>
                             </div>
                             <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:16px; padding:24px; text-align:center;">
-                                <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:700; margin-bottom:8px;">Profit Target</div>
-                                <div id="ch-target-display" style="font-size:1.8rem; font-weight:800; font-family:Orbitron; color:var(--gold);">—</div>
+                                <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:700; margin-bottom:8px;">Current Phase</div>
+                                <div id="ch-phase-display" style="font-size:1.8rem; font-weight:800; font-family:Orbitron; color:var(--gold);">—</div>
                             </div>
                             <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:16px; padding:24px; text-align:center;">
                                 <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:700; margin-bottom:8px;">Current P&L</div>
                                 <div id="ch-pnl-display" style="font-size:1.8rem; font-weight:800; font-family:Orbitron; color:var(--text);">$0.00</div>
                             </div>
                             <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:16px; padding:24px; text-align:center;">
-                                <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:700; margin-bottom:8px;">Progress</div>
+                                <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:700; margin-bottom:8px;">Overall Progress</div>
                                 <div id="ch-progress-display" style="font-size:1.8rem; font-weight:800; font-family:Orbitron; color:var(--text);">0%</div>
                             </div>
                         </div>
 
-                        <!-- Progress Bar -->
-                        <div style="margin-bottom:32px;">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                                <span style="color:var(--text-muted); font-size:0.85rem; font-weight:600;">Challenge Progress</span>
-                                <span id="ch-progress-text" style="color:var(--gold); font-weight:700; font-size:0.9rem;">0% / 10%</span>
-                            </div>
-                            <div style="height:24px; background:var(--bg-input); border-radius:12px; overflow:hidden; border:1px solid var(--border);">
-                                <div id="ch-progress-bar" style="height:100%; width:0%; background:linear-gradient(90deg, var(--red), var(--gold)); border-radius:12px; transition:width 0.6s ease; display:flex; align-items:center; justify-content:flex-end; padding-right:12px;">
-                                    <span style="font-size:0.75rem; font-weight:700; color:white; text-shadow:0 1px 2px rgba(0,0,0,0.5);"></span>
-                                </div>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; margin-top:8px;">
-                                <span style="font-size:0.7rem; color:var(--text-dim);">Start</span>
-                                <span id="ch-target-label" style="font-size:0.7rem; color:var(--gold); font-weight:700;">Target: 10%</span>
-                                <span style="font-size:0.7rem; color:var(--text-dim);">Passed</span>
-                            </div>
+                        <!-- Multi-Step Progress Bars -->
+                        <div id="multi-step-progress" style="margin-bottom:32px;">
+                            <!-- Step progress bars rendered by JS -->
                         </div>
 
                         <!-- Phase Steps -->
@@ -1883,7 +1943,7 @@
 
                     <!-- Challenge Setup Modal -->
                     <div id="challenge-setup-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,5,0.9); z-index:1001; align-items:center; justify-content:center; backdrop-filter:blur(10px);">
-                        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:24px; padding:40px; max-width:420px; width:90%; box-shadow:0 25px 80px rgba(0,0,0,0.6);">
+                        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:24px; padding:40px; max-width:480px; width:90%; box-shadow:0 25px 80px rgba(0,0,0,0.6);">
                             <h2 style="font-size:1.3rem; margin-bottom:8px; color:var(--text); font-family:Orbitron;">🎯 Configure Challenge</h2>
                             <p style="color:var(--text-muted); margin-bottom:24px; font-size:0.9rem;">Set up your funded challenge parameters.</p>
 
@@ -1893,17 +1953,39 @@
                             </div>
 
                             <div style="margin-bottom:16px;">
-                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Challenge Phase</label>
-                                <select id="ch-setup-phase" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; color:var(--text); font-size:1rem;">
-                                    <option value="1">Phase 1 — Evaluation (8-10% target)</option>
-                                    <option value="2">Phase 2 — Verification (5% target)</option>
-                                    <option value="3">Phase 3 — Funded Live (No target)</option>
+                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Challenge Steps</label>
+                                <select id="ch-setup-steps" onchange="updateChStepTargets()" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; color:var(--text); font-size:1rem; margin-bottom:10px;">
+                                    <option value="2" selected>2-Step Challenge</option>
+                                    <option value="3">3-Step Challenge</option>
+                                    <option value="1">1-Step / Instant</option>
                                 </select>
                             </div>
 
                             <div style="margin-bottom:16px;">
-                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Profit Target (%)</label>
-                                <input type="number" id="ch-setup-target" value="10" min="1" max="50" step="0.5" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; color:var(--text); font-size:1rem; font-family:Orbitron; text-align:center;">
+                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Current Phase</label>
+                                <select id="ch-setup-phase" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; color:var(--text); font-size:1rem;">
+                                    <option value="1">Phase 1 — Step 1</option>
+                                    <option value="2">Phase 2 — Step 2</option>
+                                    <option value="3">Phase 3 — Step 3 / Funded</option>
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom:16px;">
+                                <label style="display:block; color:var(--text-muted); font-size:0.75rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Step Targets (%)</label>
+                                <div id="ch-setup-step-targets" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                                    <div>
+                                        <label style="display:block; color:var(--text-muted); font-size:0.7rem; margin-bottom:6px; font-weight:700;">Step 1</label>
+                                        <input type="number" id="ch-setup-target-1" value="10" min="0" max="100" step="0.5" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:12px; color:var(--text); font-size:0.95rem; font-family:Orbitron; text-align:center;">
+                                    </div>
+                                    <div>
+                                        <label style="display:block; color:var(--text-muted); font-size:0.7rem; margin-bottom:6px; font-weight:700;">Step 2</label>
+                                        <input type="number" id="ch-setup-target-2" value="5" min="0" max="100" step="0.5" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:12px; color:var(--text); font-size:0.95rem; font-family:Orbitron; text-align:center;">
+                                    </div>
+                                    <div id="ch-setup-target-3-container">
+                                        <label style="display:block; color:var(--text-muted); font-size:0.7rem; margin-bottom:6px; font-weight:700;">Step 3</label>
+                                        <input type="number" id="ch-setup-target-3" value="0" min="0" max="100" step="0.5" placeholder="None" style="width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:12px; color:var(--text); font-size:0.95rem; font-family:Orbitron; text-align:center;">
+                                    </div>
+                                </div>
                             </div>
 
                             <div style="margin-bottom:16px;">
@@ -3166,6 +3248,7 @@
         function toggleFundedFields() {
             let type = document.getElementById('t-account-type').value;
             let display = type === 'funded' ? 'block' : 'none';
+            document.getElementById('funded-provider-group').style.display = display;
             document.getElementById('funded-phase-group').style.display = display;
             document.getElementById('funded-target-group').style.display = display;
             document.getElementById('funded-status-group').style.display = display;
@@ -3205,6 +3288,7 @@
                 direction: dir,
                 strategy: document.getElementById('t-strategy').value,
                 accountType: accountType,
+                provider: accountType === 'funded' ? (document.getElementById('t-provider').value || setupProvider || 'FTMO') : null,
                 phase: accountType === 'funded' ? document.getElementById('t-phase').value : null,
                 challengeTarget: accountType === 'funded' ? document.getElementById('t-target').value : null,
                 challengeStatus: accountType === 'funded' ? document.getElementById('t-challenge-status').value : null,
@@ -3318,7 +3402,7 @@
                     <td>${formatDate(t.date)}</td>
                     <td><strong style="font-family:Orbitron;">${t.pair}</strong></td>
                     <td><span class="badge badge-${t.direction === 'Buy' ? 'buy' : 'sell'}">${t.direction}</span></td>
-                    <td>${t.accountType === 'funded' ? '<span style="color:var(--gold); font-weight:700;">🎯 P' + (t.phase || '?') + '</span>' : '<span style="color:var(--text-muted);">Personal</span>'}</td>
+                    <td>${t.accountType === 'funded' ? '<span style="color:var(--gold); font-weight:700;">🏢 ' + (t.provider || 'Funded') + ' P' + (t.phase || '?') + '</span>' : '<span style="color:var(--text-muted);">Personal</span>'}</td>
                     <td>${t.entry}</td>
                     <td>${t.sl}</td>
                     <td>${t.tp || '-'}</td>
@@ -3340,7 +3424,8 @@
                             <div class="detail-item"><strong>Strategy</strong>${t.strategy || '-'}</div>
                             <div class="detail-item"><strong>Timeframe</strong>${t.tf}</div>
                             <div class="detail-item"><strong>Session</strong>${t.session}</div>
-                            <div class="detail-item"><strong>Account</strong>${t.accountType === 'funded' ? '🎯 Funded — Phase ' + (t.phase || '?') + ' — ' + (t.challengeTarget || '?') + '% Target' : 'Personal Account'}</div>
+                            <div class="detail-item"><strong>Account</strong>${t.accountType === 'funded' ? '🏢 ' + (t.provider || 'Funded') + ' — Phase ' + (t.phase || '?') + ' — ' + (t.challengeTarget || '?') + '% Target' : 'Personal Account'}</div>
+                            <div class="detail-item"><strong>Provider</strong>${t.provider || '-'}</div>
                             <div class="detail-item"><strong>Challenge Status</strong>${t.challengeStatus === 'passed' ? '✅ Passed' : t.challengeStatus === 'failed' ? '❌ Failed' : t.challengeStatus === 'active' ? '🟡 Active' : '-'}</div>
                             <div class="detail-item"><strong>Risk</strong>${t.risk ? t.risk + '%' : '-'}</div>
                             <div class="detail-item"><strong>R:R Target</strong>${t.rrTarget || '-'}</div>
@@ -3512,6 +3597,7 @@
             document.getElementById('t-account-type').value = trade.accountType || 'personal';
             toggleFundedFields();
             if (trade.accountType === 'funded') {
+                if (trade.provider) document.getElementById('t-provider').value = trade.provider;
                 if (trade.phase) document.getElementById('t-phase').value = trade.phase;
                 if (trade.challengeTarget) document.getElementById('t-target').value = trade.challengeTarget;
                 if (trade.challengeStatus) document.getElementById('t-challenge-status').value = trade.challengeStatus;
@@ -3568,6 +3654,7 @@
                 pair: pair, direction: dir,
                 strategy: document.getElementById('t-strategy').value,
                 accountType: updAccountType,
+                provider: updAccountType === 'funded' ? (document.getElementById('t-provider').value || setupProvider || 'FTMO') : null,
                 phase: updAccountType === 'funded' ? document.getElementById('t-phase').value : null,
                 challengeTarget: updAccountType === 'funded' ? document.getElementById('t-target').value : null,
                 challengeStatus: updAccountType === 'funded' ? document.getElementById('t-challenge-status').value : null,
@@ -3605,13 +3692,33 @@
             document.getElementById('t-date').valueAsDate = new Date();
         }
 
+        function updateStepTargets() {
+            let steps = parseInt(document.getElementById('setup-steps').value) || 2;
+            let container3 = document.getElementById('setup-target-3-container');
+            if (container3) container3.style.display = steps >= 3 ? 'block' : 'none';
+        }
+        function updateChStepTargets() {
+            let steps = parseInt(document.getElementById('ch-setup-steps').value) || 2;
+            let container3 = document.getElementById('ch-setup-target-3-container');
+            if (container3) container3.style.display = steps >= 3 ? 'block' : 'none';
+        }
+        function setAllTargets(t1, t2, t3) {
+            document.getElementById('setup-target-1').value = t1;
+            document.getElementById('setup-target-2').value = t2;
+            document.getElementById('setup-target-3').value = t3;
+        }
+
         let accountBalance = parseFloat(localStorage.getItem('forex_journal_balance')) || 0;
         let accountCurrency = localStorage.getItem('forex_journal_currency') || 'USD';
         let calendarView = 'week';
 
         let setupAccountType = localStorage.getItem('forex_journal_account_type') || 'personal';
+        let setupProvider = localStorage.getItem('forex_journal_provider') || 'FTMO';
+        let setupSteps = parseInt(localStorage.getItem('forex_journal_steps')) || 2;
         let setupPhase = localStorage.getItem('forex_journal_phase') || '1';
-        let setupTarget = localStorage.getItem('forex_journal_target') || '10';
+        let setupTarget1 = parseFloat(localStorage.getItem('forex_journal_target1')) || 10;
+        let setupTarget2 = parseFloat(localStorage.getItem('forex_journal_target2')) || 5;
+        let setupTarget3 = parseFloat(localStorage.getItem('forex_journal_target3')) || 0;
         let setupStatus = localStorage.getItem('forex_journal_status') || 'active';
 
         function setSetupType(type) {
@@ -3630,9 +3737,14 @@
                 document.getElementById('account-setup').style.display = 'flex';
                 document.getElementById('account-settings-bar').style.display = 'none';
                 setSetupType(setupAccountType);
+                document.getElementById('setup-provider').value = setupProvider;
+                document.getElementById('setup-steps').value = setupSteps;
                 document.getElementById('setup-phase').value = setupPhase;
-                document.getElementById('setup-target').value = setupTarget;
+                document.getElementById('setup-target-1').value = setupTarget1;
+                document.getElementById('setup-target-2').value = setupTarget2;
+                document.getElementById('setup-target-3').value = setupTarget3;
                 document.getElementById('setup-status').value = setupStatus;
+                updateStepTargets();
             } else {
                 document.getElementById('account-setup').style.display = 'none';
                 document.getElementById('account-settings-bar').style.display = 'block';
@@ -3657,11 +3769,19 @@
             localStorage.setItem('forex_journal_currency', currency);
             localStorage.setItem('forex_journal_account_type', setupAccountType);
             if (setupAccountType === 'funded') {
+                setupProvider = document.getElementById('setup-provider').value || 'FTMO';
+                setupSteps = parseInt(document.getElementById('setup-steps').value) || 2;
                 setupPhase = document.getElementById('setup-phase').value;
-                setupTarget = document.getElementById('setup-target').value;
+                setupTarget1 = parseFloat(document.getElementById('setup-target-1').value) || 10;
+                setupTarget2 = parseFloat(document.getElementById('setup-target-2').value) || 5;
+                setupTarget3 = parseFloat(document.getElementById('setup-target-3').value) || 0;
                 setupStatus = document.getElementById('setup-status').value;
+                localStorage.setItem('forex_journal_provider', setupProvider);
+                localStorage.setItem('forex_journal_steps', setupSteps);
                 localStorage.setItem('forex_journal_phase', setupPhase);
-                localStorage.setItem('forex_journal_target', setupTarget);
+                localStorage.setItem('forex_journal_target1', setupTarget1);
+                localStorage.setItem('forex_journal_target2', setupTarget2);
+                localStorage.setItem('forex_journal_target3', setupTarget3);
                 localStorage.setItem('forex_journal_status', setupStatus);
             }
             document.getElementById('account-setup').style.display = 'none';
@@ -3674,17 +3794,24 @@
             document.getElementById('setup-balance').value = accountBalance;
             document.getElementById('setup-currency').value = accountCurrency;
             setSetupType(setupAccountType);
+            document.getElementById('setup-provider').value = setupProvider;
+            document.getElementById('setup-steps').value = setupSteps;
             document.getElementById('setup-phase').value = setupPhase;
-            document.getElementById('setup-target').value = setupTarget;
+            document.getElementById('setup-target-1').value = setupTarget1;
+            document.getElementById('setup-target-2').value = setupTarget2;
+            document.getElementById('setup-target-3').value = setupTarget3;
             document.getElementById('setup-status').value = setupStatus;
+            updateStepTargets();
         }
         function updateAccountDisplay() {
             let sym = accountCurrency === 'USD' ? '$' : accountCurrency === 'EUR' ? '€' : '£';
             let label = sym + accountBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             if (setupAccountType === 'funded') {
-                let phaseLabel = setupPhase === '1' ? 'P1' : setupPhase === '2' ? 'P2' : 'P3';
+                let provider = setupProvider || 'Funded';
+                let stepsLabel = setupSteps + '-Step';
+                let phaseLabel = setupPhase === '1' ? 'S1' : setupPhase === '2' ? 'S2' : 'S3';
                 let statusEmoji = setupStatus === 'passed' ? '✅' : setupStatus === 'failed' ? '❌' : '🟡';
-                label += ' | 🎯 ' + phaseLabel + ' ' + statusEmoji;
+                label += ' | 🏢 ' + provider + ' ' + stepsLabel + ' — ' + phaseLabel + ' ' + statusEmoji;
             }
             document.getElementById('account-display').textContent = label;
         }
@@ -3748,8 +3875,11 @@
         // ==================== CHALLENGE TRACKER ====================
         let challengeConfig = JSON.parse(localStorage.getItem('forex_challenge_config') || 'null') || {
             balance: 5000,
+            steps: 2,
             phase: '1',
-            target: 10,
+            target1: 10,
+            target2: 5,
+            target3: 0,
             drawdown: 10,
             dailyLimit: 5,
             startDate: new Date().toISOString().split('T')[0],
@@ -3759,10 +3889,14 @@
         function showChallengeSetup() {
             document.getElementById('challenge-setup-modal').style.display = 'flex';
             document.getElementById('ch-setup-balance').value = challengeConfig.balance;
+            document.getElementById('ch-setup-steps').value = challengeConfig.steps || 2;
             document.getElementById('ch-setup-phase').value = challengeConfig.phase;
-            document.getElementById('ch-setup-target').value = challengeConfig.target;
+            document.getElementById('ch-setup-target-1').value = challengeConfig.target1 || 10;
+            document.getElementById('ch-setup-target-2').value = challengeConfig.target2 || 5;
+            document.getElementById('ch-setup-target-3').value = challengeConfig.target3 || 0;
             document.getElementById('ch-setup-drawdown').value = challengeConfig.drawdown;
             document.getElementById('ch-setup-daily').value = challengeConfig.dailyLimit;
+            updateChStepTargets();
         }
 
         function closeChallengeSetup() {
@@ -3771,8 +3905,11 @@
 
         function saveChallengeSetup() {
             challengeConfig.balance = parseFloat(document.getElementById('ch-setup-balance').value) || 5000;
+            challengeConfig.steps = parseInt(document.getElementById('ch-setup-steps').value) || 2;
             challengeConfig.phase = document.getElementById('ch-setup-phase').value;
-            challengeConfig.target = parseFloat(document.getElementById('ch-setup-target').value) || 10;
+            challengeConfig.target1 = parseFloat(document.getElementById('ch-setup-target-1').value) || 10;
+            challengeConfig.target2 = parseFloat(document.getElementById('ch-setup-target-2').value) || 5;
+            challengeConfig.target3 = parseFloat(document.getElementById('ch-setup-target-3').value) || 0;
             challengeConfig.drawdown = parseFloat(document.getElementById('ch-setup-drawdown').value) || 10;
             challengeConfig.dailyLimit = parseFloat(document.getElementById('ch-setup-daily').value) || 5;
             localStorage.setItem('forex_challenge_config', JSON.stringify(challengeConfig));
@@ -3781,54 +3918,80 @@
         }
 
         function renderChallenge() {
-            // Get all funded trades for this challenge
             let challengeTrades = trades.filter(t => t.accountType === 'funded');
             let totalPnl = challengeTrades.reduce((s, t) => s + (t.pnl || 0), 0);
-            let progress = (totalPnl / challengeConfig.balance) * 100;
-            let target = challengeConfig.target;
-            let progressPct = Math.min(Math.max((progress / target) * 100, 0), 100);
-            let isPassed = progress >= target;
+            let steps = challengeConfig.steps || 2;
+            let currentPhase = parseInt(challengeConfig.phase) || 1;
+            let target1 = challengeConfig.target1 || 10;
+            let target2 = challengeConfig.target2 || 5;
+            let target3 = challengeConfig.target3 || 0;
             let maxLoss = -(challengeConfig.balance * challengeConfig.drawdown / 100);
             let isFailed = totalPnl <= maxLoss;
 
-            // Update overview cards
-            let phaseNames = { '1': 'Phase 1', '2': 'Phase 2', '3': 'Funded' };
+            let providerName = setupProvider || 'Funded';
+            document.getElementById('ch-provider-title').textContent = providerName;
+            let phaseNames = { '1': 'Step 1', '2': 'Step 2', '3': 'Funded' };
+            document.getElementById('ch-steps-display').textContent = steps + '-Step';
             document.getElementById('ch-phase-display').textContent = phaseNames[challengeConfig.phase] || '—';
-            document.getElementById('ch-target-display').textContent = target + '%';
             document.getElementById('ch-pnl-display').textContent = formatJournalMoney(totalPnl);
             document.getElementById('ch-pnl-display').style.color = totalPnl >= 0 ? 'var(--green)' : 'var(--red)';
-            document.getElementById('ch-progress-display').textContent = progress.toFixed(2) + '%';
-            document.getElementById('ch-progress-display').style.color = isPassed ? 'var(--green)' : (isFailed ? 'var(--red)' : 'var(--gold)');
 
-            // Progress bar
-            document.getElementById('ch-progress-bar').style.width = progressPct + '%';
-            document.getElementById('ch-progress-text').textContent = progress.toFixed(2) + '% / ' + target + '%';
-            document.getElementById('ch-target-label').textContent = 'Target: ' + target + '%';
+            let totalTarget = target1 + target2 + (steps >= 3 ? target3 : 0);
+            let overallProgress = totalTarget > 0 ? (totalPnl / challengeConfig.balance) * 100 : 0;
+            document.getElementById('ch-progress-display').textContent = overallProgress.toFixed(2) + '%';
+            document.getElementById('ch-progress-display').style.color = isFailed ? 'var(--red)' : 'var(--gold)';
 
-            // Render steps
-            let steps = [];
-            if (challengeConfig.phase === '1' || challengeConfig.phase === '2') {
-                let stepPct = target / 4;
-                for (let i = 1; i <= 4; i++) {
-                    let stepTarget = stepPct * i;
-                    let isDone = progress >= stepTarget;
-                    let isCurrent = progress >= stepTarget - stepPct && progress < stepTarget;
-                    steps.push({
-                        label: 'Step ' + i + ' — ' + stepTarget.toFixed(1) + '%',
-                        desc: i === 4 ? 'Final Target!' : 'Keep pushing',
-                        done: isDone,
-                        current: isCurrent,
-                        pct: Math.min((progress / stepTarget) * 100, 100)
-                    });
-                }
-            } else {
-                steps = [
-                    { label: 'Phase 3 — Funded Live', desc: 'No profit target. Focus on consistency.', done: true, current: true, pct: 100 }
-                ];
+            let stepTargets = [target1, target2, target3];
+            let stepLabels = ['Step 1 — Evaluation', 'Step 2 — Verification', 'Step 3 — Funded Live'];
+            let multiStepHTML = '';
+            for (let i = 0; i < steps; i++) {
+                let st = stepTargets[i] || 0;
+                if (st <= 0 && i === 2) st = 0;
+                let stepProgress = (totalPnl / challengeConfig.balance) * 100;
+                let stepPct = st > 0 ? Math.min(Math.max((stepProgress / st) * 100, 0), 100) : 100;
+                let isStepDone = stepProgress >= st && st > 0;
+                let isStepCurrent = currentPhase == (i + 1);
+                let stepColor = isStepDone ? 'var(--green)' : (isStepCurrent ? 'var(--gold)' : 'var(--text-muted)');
+                let stepBg = isStepDone ? 'var(--green-dim)' : (isStepCurrent ? 'var(--gold-dim)' : 'var(--bg-input)');
+                let stepBorder = isStepDone ? 'var(--green)' : (isStepCurrent ? 'var(--gold)' : 'var(--border)');
+                let icon = isStepDone ? '✅' : (isStepCurrent ? '🔄' : '⏳');
+                let barColor = isStepDone ? 'var(--green)' : (isStepCurrent ? 'var(--gold)' : 'var(--border)');
+
+                multiStepHTML += `<div style="margin-bottom:16px; padding:16px; background:${stepBg}; border:1px solid ${stepBorder}; border-radius:14px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span style="font-size:1.5rem;">${icon}</span>
+                            <div>
+                                <div style="font-weight:700; font-family:Orbitron; font-size:1rem; color:${stepColor};">${stepLabels[i]}</div>
+                                <div style="font-size:0.8rem; color:var(--text-muted);">Target: ${st}% · Progress: ${stepProgress.toFixed(2)}%</div>
+                            </div>
+                        </div>
+                        <div style="font-size:1.2rem; font-weight:800; font-family:Orbitron; color:${stepColor};">${stepPct.toFixed(0)}%</div>
+                    </div>
+                    <div style="height:12px; background:var(--bg-card); border-radius:6px; overflow:hidden;">
+                        <div style="height:100%; width:${stepPct}%; background:${barColor}; border-radius:6px; transition:width 0.6s ease;"></div>
+                    </div>
+                </div>`;
+            }
+            document.getElementById('multi-step-progress').innerHTML = multiStepHTML;
+
+            let stepsList = [];
+            for (let i = 0; i < steps; i++) {
+                let st = stepTargets[i] || 0;
+                let stepProgress = (totalPnl / challengeConfig.balance) * 100;
+                let isDone = st > 0 ? stepProgress >= st : false;
+                let isCurrent = currentPhase == (i + 1) && !isDone;
+                stepsList.push({
+                    label: stepLabels[i] + (st > 0 ? ' — ' + st + '% Target' : ''),
+                    desc: isDone ? 'Completed! Move to next step.' : (isCurrent ? 'Current phase — keep pushing!' : 'Pending'),
+                    done: isDone,
+                    current: isCurrent,
+                    pct: st > 0 ? Math.min((stepProgress / st) * 100, 100) : 0
+                });
             }
 
             let stepsHTML = '';
-            steps.forEach((step, i) => {
+            stepsList.forEach((step, i) => {
                 let bg = step.done ? 'var(--green-dim)' : (step.current ? 'var(--gold-dim)' : 'var(--bg-input)');
                 let border = step.done ? 'var(--green)' : (step.current ? 'var(--gold)' : 'var(--border)');
                 let icon = step.done ? '✅' : (step.current ? '🔄' : '⏳');
@@ -3838,7 +4001,7 @@
                     <div style="flex:1;">
                         <div style="font-weight:700; color:${color}; font-family:Orbitron; font-size:1rem;">${step.label}</div>
                         <div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">${step.desc}</div>
-                        ${!step.done ? `<div style="margin-top:8px; height:6px; background:var(--bg-card); border-radius:3px; overflow:hidden;">
+                        ${!step.done && step.pct > 0 ? `<div style="margin-top:8px; height:6px; background:var(--bg-card); border-radius:3px; overflow:hidden;">
                             <div style="height:100%; width:${step.pct}%; background:${step.current ? 'var(--gold)' : 'var(--border)'}; border-radius:3px; transition:width 0.4s;"></div>
                         </div>` : ''}
                     </div>
@@ -3846,7 +4009,6 @@
             });
             document.getElementById('challenge-steps').innerHTML = stepsHTML || '<p style="color:var(--text-muted); text-align:center;">No steps configured.</p>';
 
-            // Stats
             let wins = challengeTrades.filter(t => t.status === 'win').length;
             let total = challengeTrades.length;
             let winRate = total > 0 ? ((wins / total) * 100).toFixed(1) : 0;
@@ -3863,11 +4025,12 @@
             document.getElementById('ch-worst-trade').textContent = formatJournalMoney(worst);
             document.getElementById('ch-days').textContent = uniqueDays;
 
-            // Status banner
             let banner = document.getElementById('ch-status-banner');
             banner.style.display = 'block';
-            if (isPassed) {
-                banner.textContent = '🎉 CHALLENGE PASSED! Ready for next phase.';
+            let currentTarget = stepTargets[currentPhase - 1] || 0;
+            let currentProgress = (totalPnl / challengeConfig.balance) * 100;
+            if (currentPhase >= steps && currentProgress >= currentTarget && currentTarget > 0) {
+                banner.textContent = '🎉 ALL STEPS COMPLETED! Challenge passed.';
                 banner.style.background = 'var(--green-dim)';
                 banner.style.color = 'var(--green)';
                 banner.style.border = '1px solid var(--green)';
@@ -3876,224 +4039,21 @@
                 banner.style.background = 'var(--red-dim)';
                 banner.style.color = 'var(--red)';
                 banner.style.border = '1px solid var(--red)';
+            } else if (currentProgress >= currentTarget && currentTarget > 0) {
+                banner.textContent = '🎉 STEP ' + currentPhase + ' PASSED! Ready for next step.';
+                banner.style.background = 'var(--green-dim)';
+                banner.style.color = 'var(--green)';
+                banner.style.border = '1px solid var(--green)';
             } else {
-                let remaining = target - progress;
-                banner.textContent = '🟡 CHALLENGE ACTIVE — Need ' + remaining.toFixed(2) + '% more to pass';
+                let remaining = currentTarget - currentProgress;
+                banner.textContent = '🟡 STEP ' + currentPhase + ' ACTIVE — Need ' + remaining.toFixed(2) + '% more to pass';
                 banner.style.background = 'var(--gold-dim)';
                 banner.style.color = 'var(--gold)';
                 banner.style.border = '1px solid var(--gold)';
             }
         }
 
-        // Auto-render challenge when tab is shown
-        let originalShowJournalTab = showJournalTab;
-        showJournalTab = function(id) {
-            sessionStorage.setItem('journalTab', id);
-            document.querySelectorAll('.journal-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.journal-tab').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            event.target.classList.add('active');
-            if (id === 'j-dashboard') updateDashboard();
-            if (id === 'j-trades') renderTrades();
-            if (id === 'j-calendar') renderCalendar();
-            if (id === 'j-analysis') renderAnalysis();
-            if (id === 'j-challenge') renderChallenge();
-            if (id === 'j-risk') renderRiskPanel();
-        };
-
-
-        // ==================== RISK & MONEY MANAGEMENT ====================
-        let riskPresets = JSON.parse(localStorage.getItem('forex_risk_presets') || '[]');
-        let riskLimits = JSON.parse(localStorage.getItem('forex_risk_limits') || '{"daily":100,"weekly":300}');
-
-        function getTodayPnl() {
-            let today = new Date().toISOString().split('T')[0];
-            return trades.filter(t => t.date === today).reduce((s, t) => s + (t.pnl || 0), 0);
-        }
-        function getWeekPnl() {
-            let today = new Date();
-            let startOfWeek = new Date(today);
-            startOfWeek.setDate(today.getDate() - today.getDay());
-            let endOfWeek = new Date(startOfWeek);
-            endOfWeek.setDate(startOfWeek.getDate() + 6);
-            let startStr = startOfWeek.toISOString().split('T')[0];
-            let endStr = endOfWeek.toISOString().split('T')[0];
-            return trades.filter(t => t.date >= startStr && t.date <= endStr).reduce((s, t) => s + (t.pnl || 0), 0);
-        }
-
-        function checkRiskAlarms() {
-            let dailyLimit = parseFloat(document.getElementById('risk-daily-limit').value) || 100;
-            let weeklyLimit = parseFloat(document.getElementById('risk-weekly-limit').value) || 300;
-            riskLimits = { daily: dailyLimit, weekly: weeklyLimit };
-            localStorage.setItem('forex_risk_limits', JSON.stringify(riskLimits));
-
-            let todayPnl = getTodayPnl();
-            let weekPnl = getWeekPnl();
-            let todayLoss = todayPnl < 0 ? Math.abs(todayPnl) : 0;
-            let weekLoss = weekPnl < 0 ? Math.abs(weekPnl) : 0;
-
-            document.getElementById('risk-today-pnl').textContent = formatJournalMoney(todayPnl);
-            document.getElementById('risk-today-pnl').style.color = todayPnl >= 0 ? 'var(--green)' : 'var(--red)';
-            document.getElementById('risk-week-pnl').textContent = formatJournalMoney(weekPnl);
-            document.getElementById('risk-week-pnl').style.color = weekPnl >= 0 ? 'var(--green)' : 'var(--red)';
-
-            let alarmBanner = document.getElementById('risk-alarm-banner');
-            let alarmStatus = document.getElementById('risk-alarm-status');
-            let alarmTriggered = false;
-            let alarmMsg = '';
-
-            if (todayLoss >= dailyLimit) {
-                alarmTriggered = true;
-                alarmMsg = '⚠️ DAILY LOSS LIMIT EXCEEDED! Stop trading for today.';
-            }
-            if (weekLoss >= weeklyLimit) {
-                alarmTriggered = true;
-                alarmMsg = '⚠️ WEEKLY LOSS LIMIT EXCEEDED! Take a break and review.';
-            }
-            if (todayLoss >= dailyLimit && weekLoss >= weeklyLimit) {
-                alarmMsg = '⚠️ BOTH LIMITS EXCEEDED! Stop trading immediately.';
-            }
-
-            if (alarmTriggered) {
-                alarmBanner.style.display = 'block';
-                alarmBanner.textContent = alarmMsg;
-                alarmStatus.textContent = alarmMsg;
-                alarmStatus.style.background = 'var(--red-dim)';
-                alarmStatus.style.color = 'var(--red)';
-            } else {
-                alarmBanner.style.display = 'none';
-                let dailyPct = dailyLimit > 0 ? ((todayLoss / dailyLimit) * 100).toFixed(0) : 0;
-                let weeklyPct = weeklyLimit > 0 ? ((weekLoss / weeklyLimit) * 100).toFixed(0) : 0;
-                alarmStatus.textContent = '✅ Daily: ' + dailyPct + '% | Weekly: ' + weeklyPct + '% of limit used';
-                alarmStatus.style.background = 'var(--green-dim)';
-                alarmStatus.style.color = 'var(--green)';
-            }
-        }
-
-        function savePreset() {
-            let name = document.getElementById('preset-name').value.trim();
-            if (!name) { alert('Please enter a preset name.'); return; }
-            let preset = {
-                id: Date.now(),
-                name: name,
-                balance: parseFloat(document.getElementById('preset-balance').value) || 10000,
-                risk: parseFloat(document.getElementById('preset-risk').value) || 1.0,
-                sl: parseInt(document.getElementById('preset-sl').value) || 50,
-                tp: parseInt(document.getElementById('preset-tp').value) || 100,
-                pair: document.getElementById('preset-pair').value,
-                leverage: document.getElementById('preset-leverage').value
-            };
-            riskPresets.push(preset);
-            localStorage.setItem('forex_risk_presets', JSON.stringify(riskPresets));
-            renderPresets();
-            document.getElementById('preset-name').value = '';
-            alert('✅ Preset saved!');
-        }
-        function loadPreset(id) {
-            let p = riskPresets.find(x => x.id === id);
-            if (!p) return;
-            document.getElementById('balance').value = p.balance;
-            document.getElementById('riskSlider').value = p.risk;
-            document.getElementById('stopLoss').value = p.sl;
-            document.getElementById('takeProfit').value = p.tp;
-            document.getElementById('currencyPair').value = p.pair;
-            document.getElementById('leverage').value = p.leverage;
-            calculate();
-            showAppTab('calculator');
-            alert('✅ Preset loaded into Calculator!');
-        }
-        function deletePreset(id) {
-            if (!confirm('Delete this preset?')) return;
-            riskPresets = riskPresets.filter(x => x.id !== id);
-            localStorage.setItem('forex_risk_presets', JSON.stringify(riskPresets));
-            renderPresets();
-        }
-        function renderPresets() {
-            let container = document.getElementById('preset-list');
-            if (riskPresets.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:20px; font-size:0.9rem;">No presets saved yet.</p>';
-                return;
-            }
-            container.innerHTML = riskPresets.map(p =>
-                `<div style="display:flex; align-items:center; gap:10px; padding:12px; background:var(--bg-input); border:1px solid var(--border); border-radius:10px; transition:all 0.2s;">
-                    <div style="flex:1; min-width:0;">
-                        <div style="font-weight:700; font-size:0.9rem; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${p.name}</div>
-                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">${p.pair} · ${p.risk}% risk · ${p.sl}pip SL · 1:${p.leverage}</div>
-                    </div>
-                    <button onclick="loadPreset(${p.id})" style="padding:8px 14px; background:var(--green-dim); border:1px solid var(--green); border-radius:8px; color:var(--green); cursor:pointer; font-size:0.8rem; font-weight:700; white-space:nowrap;">Load →</button>
-                    <button onclick="deletePreset(${p.id})" style="padding:8px 12px; background:var(--red-dim); border:1px solid var(--red); border-radius:8px; color:var(--red); cursor:pointer; font-size:0.8rem; font-weight:700;">🗑️</button>
-                </div>`
-            ).join('');
-        }
-
-        function renderEquityCurve() {
-            if (trades.length === 0) {
-                document.getElementById('equity-curve-chart').innerHTML = '<div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:0.9rem;">No trade data to display equity curve.</div>';
-                document.getElementById('dd-start-balance').textContent = formatJournalMoney(accountBalance);
-                document.getElementById('dd-current-balance').textContent = formatJournalMoney(accountBalance);
-                document.getElementById('dd-peak-balance').textContent = formatJournalMoney(accountBalance);
-                document.getElementById('dd-max-drawdown').textContent = '$0.00';
-                document.getElementById('dd-max-drawdown-pct').textContent = '0.0%';
-                document.getElementById('dd-current-drawdown-pct').textContent = '0.0%';
-                document.getElementById('dd-bar-fill').style.width = '0%';
-                document.getElementById('dd-bar-label').textContent = '0%';
-                return;
-            }
-
-            let sortedTrades = trades.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
-            let equity = accountBalance;
-            let equityPoints = [{ equity: equity, date: sortedTrades[0].date }];
-            let peak = equity;
-            let maxDD = 0;
-            let maxDDPct = 0;
-
-            sortedTrades.forEach(t => {
-                equity += (t.pnl || 0);
-                equityPoints.push({ equity: equity, date: t.date, pnl: t.pnl || 0 });
-                if (equity > peak) peak = equity;
-                let dd = peak - equity;
-                let ddPct = peak > 0 ? (dd / peak) * 100 : 0;
-                if (dd > maxDD) { maxDD = dd; maxDDPct = ddPct; }
-            });
-
-            let currentDD = peak - equity;
-            let currentDDPct = peak > 0 ? (currentDD / peak) * 100 : 0;
-
-            document.getElementById('dd-start-balance').textContent = formatJournalMoney(accountBalance);
-            document.getElementById('dd-current-balance').textContent = formatJournalMoney(equity);
-            document.getElementById('dd-peak-balance').textContent = formatJournalMoney(peak);
-            document.getElementById('dd-max-drawdown').textContent = formatJournalMoney(-maxDD);
-            document.getElementById('dd-max-drawdown-pct').textContent = maxDDPct.toFixed(1) + '%';
-            document.getElementById('dd-current-drawdown-pct').textContent = currentDDPct.toFixed(1) + '%';
-
-            let barWidth = Math.min((currentDDPct / 20) * 100, 100);
-            document.getElementById('dd-bar-fill').style.width = barWidth + '%';
-            document.getElementById('dd-bar-label').textContent = currentDDPct.toFixed(1) + '%';
-
-            let minEq = Math.min(...equityPoints.map(e => e.equity), accountBalance);
-            let maxEq = Math.max(...equityPoints.map(e => e.equity), accountBalance);
-            let range = maxEq - minEq || 1;
-            let chartHeight = 280;
-
-            let html = '<div style="display:flex; align-items:flex-end; gap:1px; height:100%; padding:0 4px; position:relative;">';
-
-            let peakY = chartHeight - ((peak - minEq) / range) * chartHeight;
-            html += `<div style="position:absolute; left:0; right:0; top:${peakY}px; height:1px; background:var(--gold); opacity:0.5; z-index:1;"></div>`;
-
-            let zeroY = chartHeight - ((accountBalance - minEq) / range) * chartHeight;
-            html += `<div style="position:absolute; left:0; right:0; top:${zeroY}px; height:1px; background:var(--text-dim); opacity:0.3; z-index:1;"></div>`;
-
-            equityPoints.forEach((pt, i) => {
-                let h = ((pt.equity - minEq) / range) * chartHeight;
-                let color = pt.equity >= accountBalance ? 'var(--green)' : 'var(--red)';
-                if (pt.equity === peak) color = 'var(--gold)';
-                let tooltip = (pt.date || '') + ' — ' + formatJournalMoney(pt.equity);
-                html += `<div style="flex:1; min-width:3px; height:${h}px; background:${color}; border-radius:2px 2px 0 0; opacity:0.85; transition:all 0.2s; position:relative;" title="${tooltip}"></div>`;
-            });
-            html += '</div>';
-            document.getElementById('equity-curve-chart').innerHTML = html;
-        }
-
+        
         function renderRiskPanel() {
             let savedLimits = JSON.parse(localStorage.getItem('forex_risk_limits') || '{"daily":100,"weekly":300}');
             document.getElementById('risk-daily-limit').value = savedLimits.daily || 100;
