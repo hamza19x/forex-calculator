@@ -2718,241 +2718,391 @@
             <!-- LATEST HEADLINES -->
             <div class="card" style="margin-bottom:24px; padding:32px;">
                 <h2 style="font-family:Orbitron; font-size:1.1rem; color:var(--red); margin-bottom:24px; display:flex; align-items:center; gap:10px; text-transform:uppercase; letter-spacing:1px;"><span style="font-size:1.3rem;">&#128240;</span> Latest Headlines</h2>
-                <div style="display:flex; flex-direction:column; gap:16px;">
-                    <div style="padding:20px; background:var(--bg-input); border-radius:14px; border-left:4px solid var(--red); position:relative;">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
-                            <div style="font-size:1rem; font-weight:700; color:var(--text);">U.S. Core PCE Final Cools to 2.3% — Dollar Under Pressure</div>
-                            <span style="padding:4px 12px; background:var(--red-dim); color:var(--red); border-radius:6px; font-size:0.75rem; font-weight:700; white-space:nowrap;">&#128240; USD 74%</span>
-                        </div>
-                        <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">June 26, 2026 — Final PCE reading comes in softer than expected, fueling expectations of earlier Fed rate cuts. EUR/USD breaks above 1.09.</div>
-                    </div>
-                    <div style="padding:20px; background:var(--bg-input); border-radius:14px; border-left:4px solid var(--green); position:relative;">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
-                            <div style="font-size:1rem; font-weight:700; color:var(--text);">Gold Surges to $2,385 as Safe-Haven Demand Returns</div>
-                            <span style="padding:4px 12px; background:var(--green-dim); color:var(--green); border-radius:6px; font-size:0.75rem; font-weight:700; white-space:nowrap;">&#128240; XAU 71%</span>
-                        </div>
-                        <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">June 27, 2026 — XAU/USD rallies 40 pips on geopolitical tensions in the Middle East and soft USD backdrop.</div>
-                    </div>
-                    <div style="padding:20px; background:var(--bg-input); border-radius:14px; border-left:4px solid var(--gold); position:relative;">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
-                            <div style="font-size:1rem; font-weight:700; color:var(--text);">ECB Officials Hint at September Rate Cut</div>
-                            <span style="padding:4px 12px; background:var(--gold-dim); color:var(--gold); border-radius:6px; font-size:0.75rem; font-weight:700; white-space:nowrap;">&#128240; EUR 56%</span>
-                        </div>
-                        <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">June 28, 2026 — Eurozone inflation data stabilizes; ECB members signal patience before next move. EUR/USD consolidates.</div>
-                    </div>
-                    <div style="padding:20px; background:var(--bg-input); border-radius:14px; border-left:4px solid var(--green); position:relative;">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
-                            <div style="font-size:1rem; font-weight:700; color:var(--text);">BoE Holds Rates at 4.25% — GBP Rallies</div>
-                            <span style="padding:4px 12px; background:var(--green-dim); color:var(--green); border-radius:6px; font-size:0.75rem; font-weight:700; white-space:nowrap;">&#128240; GBP 67%</span>
-                        </div>
-                        <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">June 29, 2026 — Bank of England keeps rates unchanged; hawkish tone supports GBP/USD above 1.27.</div>
-                    </div>
-                    <div style="padding:20px; background:var(--bg-input); border-radius:14px; border-left:4px solid var(--red); position:relative;">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
-                            <div style="font-size:1rem; font-weight:700; color:var(--text);">Oil Slips Below $72 on Demand Concerns</div>
-                            <span style="padding:4px 12px; background:var(--red-dim); color:var(--red); border-radius:6px; font-size:0.75rem; font-weight:700; white-space:nowrap;">&#128240; OIL 61%</span>
-                        </div>
-                        <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">June 30, 2026 — Brent crude falls on weak global manufacturing data and rising U.S. stockpiles. CAD under pressure.</div>
-                    </div>
-                </div>
+                
+                        <div id="dynamic-headlines-container"></div>
+</div>
             </div>
 
             <!-- WEEKLY ECONOMIC CALENDAR -->
-                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-bottom:32px;">
-                <!-- LAST WEEK HISTORY -->
-                <div class="card" style="padding:24px; border:1px solid var(--border); opacity:0.85;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--text-dim); margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#128220; Last Week — Jun 22–26</h3>
-                    <div style="display:flex; flex-direction:column; gap:10px;">
-                        <div style="padding:12px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--gold);">
-                            <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">Mon Jun 22</div>
-                            <div style="font-size:0.85rem; color:var(--text-dim); margin-top:2px;">RBA Minutes, German PPI</div>
-                        </div>
-                        <div style="padding:12px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--red);">
-                            <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">Tue Jun 23</div>
-                            <div style="font-size:0.85rem; color:var(--text-dim); margin-top:2px;">Core PCE m/m, FOMC Williams</div>
-                        </div>
-                        <div style="padding:12px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--green);">
-                            <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">Wed Jun 24</div>
-                            <div style="font-size:0.85rem; color:var(--text-dim); margin-top:2px;">AU CPI q/q, US Unemployment Claims</div>
-                        </div>
-                        <div style="padding:12px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--green);">
-                            <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">Thu Jun 25</div>
-                            <div style="font-size:0.85rem; color:var(--text-dim); margin-top:2px;">UK CBI Orders, Tokyo Core CPI</div>
-                        </div>
-                        <div style="padding:12px; background:var(--bg-input); border-radius:10px; border-left:3px solid var(--red);">
-                            <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">Fri Jun 26</div>
-                            <div style="font-size:0.85rem; color:var(--text-dim); margin-top:2px;">Core PCE Final, Pending Home Sales</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Monday -->
-                <div class="card" style="padding:24px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#128197; Monday, Jun 29</h3>
-                    <div style="display:flex; flex-direction:column; gap:12px;">
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--gold);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; US Pending Home Sales m/m</span>
-                                <span style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">50% NEUT</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:50%; height:100%; background:var(--gold); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — 0.2% move expected</div>
-                        </div>
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--gold);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; Dallas Fed Mfg Index</span>
-                                <span style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">48% NEUT</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:48%; height:100%; background:var(--gold); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD/CAD, USD/CHF — manufacturing data</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Tuesday -->
-                <div class="card" style="padding:24px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#128197; Tuesday, Jun 30</h3>
-                    <div style="display:flex; flex-direction:column; gap:12px;">
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--green);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; CB Consumer Confidence</span>
-                                <span style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">56% BULL</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:56%; height:100%; background:var(--green); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — 0.3% USD rise</div>
-                        </div>
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--red);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; JOLTS Job Openings</span>
-                                <span style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">68% BEAR</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:68%; height:100%; background:var(--red); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">ALL USD pairs — labor market cooling</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Wednesday -->
-                <div class="card" style="padding:24px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#128197; Wednesday, Jul 1</h3>
-                    <div style="display:flex; flex-direction:column; gap:12px;">
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--red);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; ADP Employment Change</span>
-                                <span style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">72% BEAR</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:72%; height:100%; background:var(--red); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">ALL USD pairs — NFP preview</div>
-                        </div>
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--gold);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; ISM Manufacturing PMI</span>
-                                <span style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">51% NEUT</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:51%; height:100%; background:var(--gold); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD/CAD, USD/CHF — manufacturing steady</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Thursday -->
-                <div class="card" style="padding:24px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#128197; Thursday, Jul 2</h3>
-                    <div style="display:flex; flex-direction:column; gap:12px;">
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--red);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; Unemployment Claims</span>
-                                <span style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">69% BEAR</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:69%; height:100%; background:var(--red); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — claims rising</div>
-                        </div>
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--green);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; Factory Orders m/m</span>
-                                <span style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">54% BULL</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:54%; height:100%; background:var(--green); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — factory orders rebound</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Friday -->
-                <div class="card" style="padding:24px;">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#128197; Friday, Jul 3</h3>
-                    <div style="display:flex; flex-direction:column; gap:12px;">
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--red);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; Non-Farm Payrolls (NFP)</span>
-                                <span style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">80% BEAR</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:80%; height:100%; background:var(--red); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">ALL pairs — major volatility expected</div>
-                        </div>
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--gold);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; ISM Services PMI</span>
-                                <span style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">52% NEUT</span>
-                            </div>
-                            <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
-                                <div style="width:52%; height:100%; background:var(--gold); border-radius:2px;"></div>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — services sector stable</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Next Week -->
-                <div class="card" style="padding:24px; border:1px solid var(--red);">
-                    <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#9889; Next Week — Jul 6–10</h3>
-                    <div style="display:flex; flex-direction:column; gap:12px;">
-                        <div style="padding:14px; background:var(--red-dim); border-radius:12px; border-left:3px solid var(--red);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700; color:var(--red);">&#127482;&#127480; US CPI m/m & y/y</span>
-                                <span style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">&#8599; BULLISH USD 65%</span>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">ALL pairs — inflation data critical for Fed path</div>
-                        </div>
-                        <div style="padding:14px; background:var(--gold-dim); border-radius:12px; border-left:3px solid var(--gold);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; FOMC Meeting Minutes</span>
-                                <span style="padding:2px 8px; background:var(--gold-dim); color:var(--gold); border-radius:4px; font-size:0.7rem; font-weight:700;">55% NEUT</span>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — Fed policy insights</div>
-                        </div>
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--green);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; US PPI m/m</span>
-                                <span style="padding:2px 8px; background:var(--green-dim); color:var(--green); border-radius:4px; font-size:0.7rem; font-weight:700;">58% BULL</span>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — producer prices leading CPI</div>
-                        </div>
-                        <div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid var(--red);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                <span style="font-size:0.85rem; font-weight:700;">&#127482;&#127480; US Retail Sales m/m</span>
-                                <span style="padding:2px 8px; background:var(--red-dim); color:var(--red); border-radius:4px; font-size:0.7rem; font-weight:700;">63% BEAR</span>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">USD pairs — consumer spending slowdown</div>
-                        </div>
-                    </div>
-                </div>
-            </div></div>
-            </div>
+                        
+            <!-- WEEKLY ECONOMIC CALENDAR -- DYNAMIC -->
 
-            <!-- WHICH NEWS AFFECTS WHICH PAIRS -->
+    <!-- DYNAMIC ECONOMIC CALENDAR -->
+    <div id="dynamic-calendar-container"></div>
+
+    <script>
+    // ==================== DYNAMIC ECONOMIC CALENDAR ENGINE ====================
+    (function() {
+        // Event database — covers multiple weeks for auto-rotation
+        const EVENT_DB = [
+            // === WEEK OF JUN 22-26 (Last Week) ===
+            { date: "2026-06-22", country: "AU", flag: "🇦🇺", event: "RBA Meeting Minutes", impact: "medium", prob: 52, bias: "NEUT", pairs: "AUD/USD, AUD/JPY", move: "0.2% move" },
+            { date: "2026-06-22", country: "DE", flag: "🇩🇪", event: "German PPI m/m", impact: "medium", prob: 55, bias: "BULL", pairs: "EUR/USD, EUR/GBP", move: "0.1% move" },
+            { date: "2026-06-23", country: "US", flag: "🇺🇸", event: "Core PCE Price Index m/m", impact: "high", prob: 78, bias: "BEAR", pairs: "ALL USD pairs", move: "0.4% USD drop" },
+            { date: "2026-06-23", country: "US", flag: "🇺🇸", event: "FOMC Member Williams Speaks", impact: "medium", prob: 45, bias: "BULL", pairs: "USD pairs", move: "0.2% USD rise" },
+            { date: "2026-06-24", country: "AU", flag: "🇦🇺", event: "CPI q/q", impact: "high", prob: 59, bias: "BULL", pairs: "AUD/USD, AUD/JPY", move: "0.3% AUD rise" },
+            { date: "2026-06-24", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "high", prob: 71, bias: "BEAR", pairs: "USD pairs", move: "0.3% USD drop" },
+            { date: "2026-06-25", country: "GB", flag: "🇬🇧", event: "CBI Industrial Orders", impact: "medium", prob: 52, bias: "BULL", pairs: "GBP/USD, EUR/GBP", move: "0.2% GBP rise" },
+            { date: "2026-06-25", country: "JP", flag: "🇯🇵", event: "Tokyo Core CPI y/y", impact: "medium", prob: 48, bias: "NEUT", pairs: "USD/JPY, EUR/JPY", move: "0.1% move" },
+            { date: "2026-06-26", country: "US", flag: "🇺🇸", event: "Core PCE Price Index (Final)", impact: "high", prob: 82, bias: "BEAR", pairs: "ALL USD pairs", move: "0.5% USD drop" },
+            { date: "2026-06-26", country: "US", flag: "🇺🇸", event: "Pending Home Sales m/m", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+
+            // === WEEK OF JUN 29 - JUL 3 (Current Week) ===
+            { date: "2026-06-29", country: "US", flag: "🇺🇸", event: "Pending Home Sales m/m", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "0.2% move expected" },
+            { date: "2026-06-29", country: "US", flag: "🇺🇸", event: "Dallas Fed Mfg Index", impact: "low", prob: 48, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "manufacturing data" },
+            { date: "2026-06-30", country: "US", flag: "🇺🇸", event: "CB Consumer Confidence", impact: "high", prob: 56, bias: "BULL", pairs: "USD pairs", move: "0.3% USD rise" },
+            { date: "2026-06-30", country: "US", flag: "🇺🇸", event: "JOLTS Job Openings", impact: "high", prob: 68, bias: "BEAR", pairs: "ALL USD pairs", move: "labor market cooling" },
+            { date: "2026-07-01", country: "US", flag: "🇺🇸", event: "ADP Employment Change", impact: "high", prob: 72, bias: "BEAR", pairs: "ALL USD pairs", move: "NFP preview" },
+            { date: "2026-07-01", country: "US", flag: "🇺🇸", event: "ISM Manufacturing PMI", impact: "high", prob: 51, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "manufacturing steady" },
+            { date: "2026-07-01", country: "US", flag: "🇺🇸", event: "Construction Spending m/m", impact: "medium", prob: 49, bias: "NEUT", pairs: "USD pairs", move: "0.1% move" },
+            { date: "2026-07-02", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "high", prob: 69, bias: "BEAR", pairs: "USD pairs", move: "claims rising" },
+            { date: "2026-07-02", country: "US", flag: "🇺🇸", event: "Factory Orders m/m", impact: "medium", prob: 54, bias: "BULL", pairs: "USD pairs", move: "factory orders rebound" },
+            { date: "2026-07-02", country: "US", flag: "🇺🇸", event: "ISM Services PMI", impact: "high", prob: 52, bias: "NEUT", pairs: "USD pairs", move: "services sector stable" },
+            { date: "2026-07-03", country: "US", flag: "🇺🇸", event: "Non-Farm Payrolls (NFP)", impact: "high", prob: 80, bias: "BEAR", pairs: "ALL pairs", move: "major volatility expected" },
+            { date: "2026-07-03", country: "US", flag: "🇺🇸", event: "ISM Services PMI", impact: "high", prob: 52, bias: "NEUT", pairs: "USD pairs", move: "services sector stable" },
+            { date: "2026-07-03", country: "US", flag: "🇺🇸", event: "Average Hourly Earnings m/m", impact: "high", prob: 65, bias: "BEAR", pairs: "USD pairs", move: "wage growth slowing" },
+
+            // === WEEK OF JUL 6-10 (Next Week) ===
+            { date: "2026-07-06", country: "AU", flag: "🇦🇺", event: "RBA Rate Decision", impact: "high", prob: 55, bias: "NEUT", pairs: "AUD/USD, AUD/JPY", move: "0.3% move" },
+            { date: "2026-07-06", country: "CN", flag: "🇨🇳", event: "China Trade Balance", impact: "medium", prob: 50, bias: "NEUT", pairs: "AUD/USD, NZD/USD", move: "0.2% move" },
+            { date: "2026-07-07", country: "US", flag: "🇺🇸", event: "FOMC Member Speech", impact: "medium", prob: 48, bias: "NEUT", pairs: "USD pairs", move: "Fed guidance watch" },
+            { date: "2026-07-07", country: "DE", flag: "🇩🇪", event: "German Factory Orders m/m", impact: "medium", prob: 52, bias: "BULL", pairs: "EUR/USD, EUR/GBP", move: "0.2% EUR rise" },
+            { date: "2026-07-08", country: "US", flag: "🇺🇸", event: "CPI m/m & y/y", impact: "high", prob: 75, bias: "BEAR", pairs: "ALL pairs", move: "inflation data critical" },
+            { date: "2026-07-08", country: "US", flag: "🇺🇸", event: "FOMC Meeting Minutes", impact: "high", prob: 55, bias: "NEUT", pairs: "USD pairs", move: "Fed policy insights" },
+            { date: "2026-07-09", country: "US", flag: "🇺🇸", event: "US PPI m/m", impact: "high", prob: 58, bias: "BULL", pairs: "USD pairs", move: "producer prices leading CPI" },
+            { date: "2026-07-09", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 60, bias: "BEAR", pairs: "USD pairs", move: "claims trend" },
+            { date: "2026-07-10", country: "US", flag: "🇺🇸", event: "US Retail Sales m/m", impact: "high", prob: 63, bias: "BEAR", pairs: "USD pairs", move: "consumer spending slowdown" },
+            { date: "2026-07-10", country: "US", flag: "🇺🇸", event: "Michigan Consumer Sentiment", impact: "medium", prob: 52, bias: "NEUT", pairs: "USD pairs", move: "consumer mood" },
+            { date: "2026-07-10", country: "CA", flag: "🇨🇦", event: "Canada Employment Change", impact: "high", prob: 58, bias: "BULL", pairs: "USD/CAD, CAD/JPY", move: "0.4% CAD move" },
+
+            // === WEEK OF JUL 13-17 ===
+            { date: "2026-07-13", country: "AU", flag: "🇦🇺", event: "NAB Business Confidence", impact: "medium", prob: 50, bias: "NEUT", pairs: "AUD/USD", move: "0.2% move" },
+            { date: "2026-07-14", country: "US", flag: "🇺🇸", event: "NFIB Small Business Index", impact: "low", prob: 47, bias: "NEUT", pairs: "USD pairs", move: "minor impact" },
+            { date: "2026-07-15", country: "US", flag: "🇺🇸", event: "CPI m/m & y/y", impact: "high", prob: 78, bias: "BEAR", pairs: "ALL pairs", move: "major volatility" },
+            { date: "2026-07-15", country: "US", flag: "🇺🇸", event: "Industrial Production m/m", impact: "medium", prob: 53, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-07-16", country: "US", flag: "🇺🇸", event: "Building Permits", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD pairs", move: "housing data" },
+            { date: "2026-07-16", country: "US", flag: "🇺🇸", event: "Philadelphia Fed Mfg Index", impact: "medium", prob: 52, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-07-17", country: "US", flag: "🇺🇸", event: "Housing Starts", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "housing sector" },
+
+            // === WEEK OF JUL 20-24 ===
+            { date: "2026-07-20", country: "JP", flag: "🇯🇵", event: "BoJ Policy Meeting", impact: "high", prob: 62, bias: "BULL", pairs: "USD/JPY, EUR/JPY, GBP/JPY", move: "0.5% JPY move" },
+            { date: "2026-07-21", country: "US", flag: "🇺🇸", event: "Existing Home Sales", impact: "medium", prob: 49, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-07-22", country: "US", flag: "🇺🇸", event: "US Crude Oil Inventories", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD/CAD", move: "oil-linked" },
+            { date: "2026-07-23", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 55, bias: "BEAR", pairs: "USD pairs", move: "claims data" },
+            { date: "2026-07-24", country: "US", flag: "🇺🇸", event: "US PMI Composite", impact: "medium", prob: 52, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+
+            // === WEEK OF JUL 27-31 (FOMC WEEK) ===
+            { date: "2026-07-27", country: "US", flag: "🇺🇸", event: "Durable Goods Orders m/m", impact: "medium", prob: 54, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-07-28", country: "US", flag: "🇺🇸", event: "CB Consumer Confidence", impact: "high", prob: 56, bias: "BULL", pairs: "USD pairs", move: "0.3% USD rise" },
+            { date: "2026-07-29", country: "US", flag: "🇺🇸", event: "FOMC Rate Decision", impact: "high", prob: 70, bias: "NEUT", pairs: "ALL pairs", move: "major volatility — rate hold expected" },
+            { date: "2026-07-30", country: "US", flag: "🇺🇸", event: "GDP q/q (Advance)", impact: "high", prob: 65, bias: "BULL", pairs: "USD pairs", move: "0.4% move" },
+            { date: "2026-07-31", country: "US", flag: "🇺🇸", event: "Core PCE Price Index", impact: "high", prob: 72, bias: "BEAR", pairs: "ALL USD pairs", move: "0.4% USD drop" },
+
+            // === WEEK OF AUG 3-7 ===
+            { date: "2026-08-03", country: "US", flag: "🇺🇸", event: "ISM Manufacturing PMI", impact: "high", prob: 53, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "manufacturing steady" },
+            { date: "2026-08-04", country: "US", flag: "🇺🇸", event: "Factory Orders m/m", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-08-05", country: "US", flag: "🇺🇸", event: "ADP Employment Change", impact: "high", prob: 68, bias: "BEAR", pairs: "ALL USD pairs", move: "NFP preview" },
+            { date: "2026-08-06", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 60, bias: "BEAR", pairs: "USD pairs", move: "claims rising" },
+            { date: "2026-08-07", country: "US", flag: "🇺🇸", event: "Non-Farm Payrolls (NFP)", impact: "high", prob: 82, bias: "BEAR", pairs: "ALL pairs", move: "major volatility expected" },
+
+            // === WEEK OF AUG 10-14 ===
+            { date: "2026-08-10", country: "US", flag: "🇺🇸", event: "US CPI m/m & y/y", impact: "high", prob: 76, bias: "BEAR", pairs: "ALL pairs", move: "inflation critical" },
+            { date: "2026-08-11", country: "US", flag: "🇺🇸", event: "FOMC Member Speech", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "Fed guidance" },
+            { date: "2026-08-12", country: "US", flag: "🇺🇸", event: "PPI m/m", impact: "high", prob: 60, bias: "BULL", pairs: "USD pairs", move: "producer prices" },
+            { date: "2026-08-13", country: "US", flag: "🇺🇸", event: "Retail Sales m/m", impact: "high", prob: 62, bias: "BEAR", pairs: "USD pairs", move: "consumer spending" },
+            { date: "2026-08-14", country: "US", flag: "🇺🇸", event: "Industrial Production", impact: "medium", prob: 53, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+
+            // === WEEK OF AUG 17-21 ===
+            { date: "2026-08-17", country: "AU", flag: "🇦🇺", event: "RBA Meeting Minutes", impact: "medium", prob: 52, bias: "NEUT", pairs: "AUD/USD, AUD/JPY", move: "0.2% move" },
+            { date: "2026-08-18", country: "US", flag: "🇺🇸", event: "Building Permits", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "housing data" },
+            { date: "2026-08-19", country: "US", flag: "🇺🇸", event: "FOMC Meeting Minutes", impact: "high", prob: 55, bias: "NEUT", pairs: "USD pairs", move: "Fed policy insights" },
+            { date: "2026-08-20", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 58, bias: "BEAR", pairs: "USD pairs", move: "claims trend" },
+            { date: "2026-08-21", country: "US", flag: "🇺🇸", event: "Existing Home Sales", impact: "medium", prob: 49, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+
+            // === WEEK OF AUG 24-28 ===
+            { date: "2026-08-24", country: "US", flag: "🇺🇸", event: "Dallas Fed Mfg Index", impact: "low", prob: 48, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "minor impact" },
+            { date: "2026-08-25", country: "US", flag: "🇺🇸", event: "CB Consumer Confidence", impact: "high", prob: 57, bias: "BULL", pairs: "USD pairs", move: "0.3% USD rise" },
+            { date: "2026-08-26", country: "US", flag: "🇺🇸", event: "ADP Employment Change", impact: "high", prob: 69, bias: "BEAR", pairs: "ALL USD pairs", move: "NFP preview" },
+            { date: "2026-08-27", country: "US", flag: "🇺🇸", event: "GDP q/q (Revised)", impact: "high", prob: 62, bias: "BULL", pairs: "USD pairs", move: "0.3% move" },
+            { date: "2026-08-28", country: "US", flag: "🇺🇸", event: "Core PCE Price Index", impact: "high", prob: 73, bias: "BEAR", pairs: "ALL USD pairs", move: "0.4% USD drop" },
+
+            // === WEEK OF AUG 31 - SEP 4 ===
+            { date: "2026-08-31", country: "CN", flag: "🇨🇳", event: "China Manufacturing PMI", impact: "medium", prob: 51, bias: "NEUT", pairs: "AUD/USD, NZD/USD", move: "0.2% move" },
+            { date: "2026-09-01", country: "US", flag: "🇺🇸", event: "ISM Manufacturing PMI", impact: "high", prob: 54, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "manufacturing steady" },
+            { date: "2026-09-02", country: "US", flag: "🇺🇸", event: "JOLTS Job Openings", impact: "high", prob: 67, bias: "BEAR", pairs: "ALL USD pairs", move: "labor market cooling" },
+            { date: "2026-09-03", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 61, bias: "BEAR", pairs: "USD pairs", move: "claims rising" },
+            { date: "2026-09-04", country: "US", flag: "🇺🇸", event: "Non-Farm Payrolls (NFP)", impact: "high", prob: 83, bias: "BEAR", pairs: "ALL pairs", move: "major volatility expected" },
+
+            // === WEEK OF SEP 7-11 ===
+            { date: "2026-09-07", country: "US", flag: "🇺🇸", event: "Labor Day Holiday", impact: "low", prob: 0, bias: "NEUT", pairs: "—", move: "Markets closed" },
+            { date: "2026-09-08", country: "US", flag: "🇺🇸", event: "US Trade Balance", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-09-09", country: "US", flag: "🇺🇸", event: "US CPI m/m & y/y", impact: "high", prob: 77, bias: "BEAR", pairs: "ALL pairs", move: "inflation critical" },
+            { date: "2026-09-10", country: "US", flag: "🇺🇸", event: "US PPI m/m", impact: "high", prob: 59, bias: "BULL", pairs: "USD pairs", move: "producer prices" },
+            { date: "2026-09-11", country: "US", flag: "🇺🇸", event: "Michigan Consumer Sentiment", impact: "medium", prob: 52, bias: "NEUT", pairs: "USD pairs", move: "consumer mood" },
+
+            // === WEEK OF SEP 14-18 (FOMC WEEK) ===
+            { date: "2026-09-14", country: "US", flag: "🇺🇸", event: "NY Empire State Mfg Index", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-09-15", country: "US", flag: "🇺🇸", event: "Retail Sales m/m", impact: "high", prob: 64, bias: "BEAR", pairs: "USD pairs", move: "consumer spending" },
+            { date: "2026-09-16", country: "US", flag: "🇺🇸", event: "FOMC Rate Decision + SEP", impact: "high", prob: 75, bias: "NEUT", pairs: "ALL pairs", move: "major volatility — dot plot" },
+            { date: "2026-09-17", country: "US", flag: "🇺🇸", event: "Philadelphia Fed Mfg Index", impact: "medium", prob: 53, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-09-18", country: "US", flag: "🇺🇸", event: "Existing Home Sales", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+
+            // === WEEK OF SEP 21-25 ===
+            { date: "2026-09-21", country: "US", flag: "🇺🇸", event: "US PMI Composite", impact: "medium", prob: 53, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-09-22", country: "US", flag: "🇺🇸", event: "CB Consumer Confidence", impact: "high", prob: 58, bias: "BULL", pairs: "USD pairs", move: "0.3% USD rise" },
+            { date: "2026-09-23", country: "US", flag: "🇺🇸", event: "New Home Sales", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD pairs", move: "housing data" },
+            { date: "2026-09-24", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 59, bias: "BEAR", pairs: "USD pairs", move: "claims trend" },
+            { date: "2026-09-25", country: "US", flag: "🇺🇸", event: "Durable Goods Orders", impact: "medium", prob: 54, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+
+            // === WEEK OF SEP 28 - OCT 2 ===
+            { date: "2026-09-28", country: "US", flag: "🇺🇸", event: "Dallas Fed Mfg Index", impact: "low", prob: 49, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "minor impact" },
+            { date: "2026-09-29", country: "US", flag: "🇺🇸", event: "CB Consumer Confidence", impact: "high", prob: 56, bias: "BULL", pairs: "USD pairs", move: "0.3% USD rise" },
+            { date: "2026-09-30", country: "US", flag: "🇺🇸", event: "ADP Employment Change", impact: "high", prob: 70, bias: "BEAR", pairs: "ALL USD pairs", move: "NFP preview" },
+            { date: "2026-10-01", country: "US", flag: "🇺🇸", event: "ISM Manufacturing PMI", impact: "high", prob: 52, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "manufacturing steady" },
+            { date: "2026-10-02", country: "US", flag: "🇺🇸", event: "Non-Farm Payrolls (NFP)", impact: "high", prob: 84, bias: "BEAR", pairs: "ALL pairs", move: "major volatility expected" },
+
+            // === WEEK OF OCT 5-9 ===
+            { date: "2026-10-05", country: "US", flag: "🇺🇸", event: "US CPI m/m & y/y", impact: "high", prob: 78, bias: "BEAR", pairs: "ALL pairs", move: "inflation critical" },
+            { date: "2026-10-06", country: "US", flag: "🇺🇸", event: "FOMC Member Speech", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "Fed guidance" },
+            { date: "2026-10-07", country: "US", flag: "🇺🇸", event: "US PPI m/m", impact: "high", prob: 61, bias: "BULL", pairs: "USD pairs", move: "producer prices" },
+            { date: "2026-10-08", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 60, bias: "BEAR", pairs: "USD pairs", move: "claims rising" },
+            { date: "2026-10-09", country: "US", flag: "🇺🇸", event: "US Retail Sales m/m", impact: "high", prob: 63, bias: "BEAR", pairs: "USD pairs", move: "consumer spending" },
+
+            // === WEEK OF OCT 12-16 ===
+            { date: "2026-10-12", country: "US", flag: "🇺🇸", event: "US Crude Oil Inventories", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD/CAD", move: "oil-linked" },
+            { date: "2026-10-13", country: "US", flag: "🇺🇸", event: "NFIB Small Business Index", impact: "low", prob: 48, bias: "NEUT", pairs: "USD pairs", move: "minor impact" },
+            { date: "2026-10-14", country: "US", flag: "🇺🇸", event: "US PPI m/m", impact: "high", prob: 60, bias: "BULL", pairs: "USD pairs", move: "producer prices" },
+            { date: "2026-10-15", country: "US", flag: "🇺🇸", event: "US Industrial Production", impact: "medium", prob: 53, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-10-16", country: "US", flag: "🇺🇸", event: "US Housing Starts", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "housing sector" },
+
+            // === WEEK OF OCT 19-23 ===
+            { date: "2026-10-19", country: "US", flag: "🇺🇸", event: "US Existing Home Sales", impact: "medium", prob: 49, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-10-20", country: "US", flag: "🇺🇸", event: "US Building Permits", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD pairs", move: "housing data" },
+            { date: "2026-10-21", country: "US", flag: "🇺🇸", event: "US Crude Oil Inventories", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD/CAD", move: "oil-linked" },
+            { date: "2026-10-22", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 58, bias: "BEAR", pairs: "USD pairs", move: "claims trend" },
+            { date: "2026-10-23", country: "US", flag: "🇺🇸", event: "US PMI Composite", impact: "medium", prob: 53, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+
+            // === WEEK OF OCT 26-30 (FOMC WEEK) ===
+            { date: "2026-10-26", country: "US", flag: "🇺🇸", event: "Durable Goods Orders", impact: "medium", prob: 54, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-10-27", country: "US", flag: "🇺🇸", event: "CB Consumer Confidence", impact: "high", prob: 57, bias: "BULL", pairs: "USD pairs", move: "0.3% USD rise" },
+            { date: "2026-10-28", country: "US", flag: "🇺🇸", event: "FOMC Rate Decision", impact: "high", prob: 72, bias: "NEUT", pairs: "ALL pairs", move: "major volatility" },
+            { date: "2026-10-29", country: "US", flag: "🇺🇸", event: "GDP q/q (Advance)", impact: "high", prob: 66, bias: "BULL", pairs: "USD pairs", move: "0.4% move" },
+            { date: "2026-10-30", country: "US", flag: "🇺🇸", event: "Core PCE Price Index", impact: "high", prob: 74, bias: "BEAR", pairs: "ALL USD pairs", move: "0.4% USD drop" },
+
+            // === WEEK OF NOV 2-6 ===
+            { date: "2026-11-02", country: "US", flag: "🇺🇸", event: "ISM Manufacturing PMI", impact: "high", prob: 53, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "manufacturing steady" },
+            { date: "2026-11-03", country: "US", flag: "🇺🇸", event: "US Election Day", impact: "high", prob: 0, bias: "NEUT", pairs: "ALL pairs", move: "extreme volatility possible" },
+            { date: "2026-11-04", country: "US", flag: "🇺🇸", event: "ADP Employment Change", impact: "high", prob: 71, bias: "BEAR", pairs: "ALL USD pairs", move: "NFP preview" },
+            { date: "2026-11-05", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 59, bias: "BEAR", pairs: "USD pairs", move: "claims rising" },
+            { date: "2026-11-06", country: "US", flag: "🇺🇸", event: "Non-Farm Payrolls (NFP)", impact: "high", prob: 85, bias: "BEAR", pairs: "ALL pairs", move: "major volatility expected" },
+
+            // === WEEK OF NOV 9-13 ===
+            { date: "2026-11-09", country: "US", flag: "🇺🇸", event: "US CPI m/m & y/y", impact: "high", prob: 79, bias: "BEAR", pairs: "ALL pairs", move: "inflation critical" },
+            { date: "2026-11-10", country: "US", flag: "🇺🇸", event: "FOMC Member Speech", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "Fed guidance" },
+            { date: "2026-11-11", country: "US", flag: "🇺🇸", event: "Veterans Day Holiday", impact: "low", prob: 0, bias: "NEUT", pairs: "—", move: "Markets closed" },
+            { date: "2026-11-12", country: "US", flag: "🇺🇸", event: "US PPI m/m", impact: "high", prob: 62, bias: "BULL", pairs: "USD pairs", move: "producer prices" },
+            { date: "2026-11-13", country: "US", flag: "🇺🇸", event: "US Retail Sales m/m", impact: "high", prob: 64, bias: "BEAR", pairs: "USD pairs", move: "consumer spending" },
+
+            // === WEEK OF NOV 16-20 ===
+            { date: "2026-11-16", country: "US", flag: "🇺🇸", event: "NY Empire State Mfg Index", impact: "medium", prob: 52, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-11-17", country: "US", flag: "🇺🇸", event: "US Industrial Production", impact: "medium", prob: 54, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-11-18", country: "US", flag: "🇺🇸", event: "US Building Permits", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD pairs", move: "housing data" },
+            { date: "2026-11-19", country: "US", flag: "🇺🇸", event: "Philadelphia Fed Mfg Index", impact: "medium", prob: 53, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-11-20", country: "US", flag: "🇺🇸", event: "US Existing Home Sales", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+
+            // === WEEK OF NOV 23-27 (Thanksgiving Week) ===
+            { date: "2026-11-23", country: "US", flag: "🇺🇸", event: "US PMI Composite", impact: "medium", prob: 53, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-11-24", country: "US", flag: "🇺🇸", event: "CB Consumer Confidence", impact: "high", prob: 58, bias: "BULL", pairs: "USD pairs", move: "0.3% USD rise" },
+            { date: "2026-11-25", country: "US", flag: "🇺🇸", event: "US Durable Goods", impact: "medium", prob: 54, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-11-26", country: "US", flag: "🇺🇸", event: "Thanksgiving Holiday", impact: "low", prob: 0, bias: "NEUT", pairs: "—", move: "Markets closed" },
+            { date: "2026-11-27", country: "US", flag: "🇺🇸", event: "Black Friday (Early Close)", impact: "low", prob: 0, bias: "NEUT", pairs: "—", move: "Low liquidity" },
+
+            // === WEEK OF NOV 30 - DEC 4 ===
+            { date: "2026-11-30", country: "US", flag: "🇺🇸", event: "ISM Manufacturing PMI", impact: "high", prob: 54, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "manufacturing steady" },
+            { date: "2026-12-01", country: "US", flag: "🇺🇸", event: "US Construction Spending", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-12-02", country: "US", flag: "🇺🇸", event: "ADP Employment Change", impact: "high", prob: 72, bias: "BEAR", pairs: "ALL USD pairs", move: "NFP preview" },
+            { date: "2026-12-03", country: "US", flag: "🇺🇸", event: "Unemployment Claims", impact: "medium", prob: 60, bias: "BEAR", pairs: "USD pairs", move: "claims rising" },
+            { date: "2026-12-04", country: "US", flag: "🇺🇸", event: "Non-Farm Payrolls (NFP)", impact: "high", prob: 86, bias: "BEAR", pairs: "ALL pairs", move: "major volatility expected" },
+
+            // === WEEK OF DEC 7-11 (FOMC WEEK) ===
+            { date: "2026-12-07", country: "US", flag: "🇺🇸", event: "US Trade Balance", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-12-08", country: "US", flag: "🇺🇸", event: "FOMC Rate Decision + SEP", impact: "high", prob: 76, bias: "NEUT", pairs: "ALL pairs", move: "major volatility — dot plot" },
+            { date: "2026-12-09", country: "US", flag: "🇺🇸", event: "US Crude Oil Inventories", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD/CAD", move: "oil-linked" },
+            { date: "2026-12-10", country: "US", flag: "🇺🇸", event: "US CPI m/m & y/y", impact: "high", prob: 80, bias: "BEAR", pairs: "ALL pairs", move: "inflation critical" },
+            { date: "2026-12-11", country: "US", flag: "🇺🇸", event: "US PPI m/m", impact: "high", prob: 63, bias: "BULL", pairs: "USD pairs", move: "producer prices" },
+
+            // === WEEK OF DEC 14-18 ===
+            { date: "2026-12-14", country: "US", flag: "🇺🇸", event: "US NY Empire State Mfg", impact: "medium", prob: 52, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-12-15", country: "US", flag: "🇺🇸", event: "US Retail Sales m/m", impact: "high", prob: 65, bias: "BEAR", pairs: "USD pairs", move: "consumer spending" },
+            { date: "2026-12-16", country: "US", flag: "🇺🇸", event: "US Industrial Production", impact: "medium", prob: 54, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-12-17", country: "US", flag: "🇺🇸", event: "US Housing Starts", impact: "medium", prob: 51, bias: "NEUT", pairs: "USD pairs", move: "housing sector" },
+            { date: "2026-12-18", country: "US", flag: "🇺🇸", event: "US Existing Home Sales", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+
+            // === WEEK OF DEC 21-25 (Christmas Week) ===
+            { date: "2026-12-21", country: "US", flag: "🇺🇸", event: "US GDP q/q (Final)", impact: "high", prob: 64, bias: "BULL", pairs: "USD pairs", move: "0.3% move" },
+            { date: "2026-12-22", country: "US", flag: "🇺🇸", event: "US Durable Goods", impact: "medium", prob: 53, bias: "BULL", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-12-23", country: "US", flag: "🇺🇸", event: "US Unemployment Claims", impact: "medium", prob: 58, bias: "BEAR", pairs: "USD pairs", move: "claims trend" },
+            { date: "2026-12-24", country: "US", flag: "🇺🇸", event: "Christmas Eve (Early Close)", impact: "low", prob: 0, bias: "NEUT", pairs: "—", move: "Low liquidity" },
+            { date: "2026-12-25", country: "US", flag: "🇺🇸", event: "Christmas Day Holiday", impact: "low", prob: 0, bias: "NEUT", pairs: "—", move: "Markets closed" },
+
+            // === WEEK OF DEC 28-31 ===
+            { date: "2026-12-28", country: "US", flag: "🇺🇸", event: "US Dallas Fed Mfg Index", impact: "low", prob: 49, bias: "NEUT", pairs: "USD/CAD, USD/CHF", move: "minor impact" },
+            { date: "2026-12-29", country: "US", flag: "🇺🇸", event: "US CB Consumer Confidence", impact: "high", prob: 57, bias: "BULL", pairs: "USD pairs", move: "0.3% USD rise" },
+            { date: "2026-12-30", country: "US", flag: "🇺🇸", event: "US Pending Home Sales", impact: "medium", prob: 50, bias: "NEUT", pairs: "USD pairs", move: "0.2% move" },
+            { date: "2026-12-31", country: "US", flag: "🇺🇸", event: "New Year's Eve (Early Close)", impact: "low", prob: 0, bias: "NEUT", pairs: "—", move: "Low liquidity" }
+        ];
+
+        const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+        function getMonday(d) {
+            d = new Date(d);
+            let day = d.getDay(), diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
+        function getWeekRange(monday) {
+            let friday = new Date(monday);
+            friday.setDate(monday.getDate() + 4);
+            return {
+                start: monday.toISOString().split('T')[0],
+                end: friday.toISOString().split('T')[0],
+                label: monday.getDate() + '-' + friday.getDate() + ' ' + MONTHS[monday.getMonth()]
+            };
+        }
+
+        function formatDateLabel(dateStr) {
+            let d = new Date(dateStr + 'T00:00:00');
+            return DAYS[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate();
+        }
+
+        function getEventsForWeek(startDate, endDate) {
+            return EVENT_DB.filter(e => e.date >= startDate && e.date <= endDate).sort((a,b) => a.date.localeCompare(b.date));
+        }
+
+        function getColorForBias(bias) {
+            if (bias === 'BULL') return { color: 'var(--green)', bg: 'var(--green-dim)', bar: 'var(--green)' };
+            if (bias === 'BEAR') return { color: 'var(--red)', bg: 'var(--red-dim)', bar: 'var(--red)' };
+            return { color: 'var(--gold)', bg: 'var(--gold-dim)', bar: 'var(--gold)' };
+        }
+
+        function renderEventCard(evt) {
+            let colors = getColorForBias(evt.bias);
+            let probText = evt.prob + '% ' + evt.bias;
+            let impactClass = evt.impact === 'high' ? 'font-weight:700;' : '';
+            return `<div style="padding:14px; background:var(--bg-input); border-radius:12px; border-left:3px solid ${colors.bar}; margin-bottom:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span style="font-size:0.85rem; ${impactClass} color:var(--text);">${evt.flag} ${evt.event}</span>
+                    <span style="padding:2px 8px; background:${colors.bg}; color:${colors.color}; border-radius:4px; font-size:0.7rem; font-weight:700;">${probText}</span>
+                </div>
+                <div style="height:4px; background:var(--bg-card); border-radius:2px; margin-bottom:6px;">
+                    <div style="width:${evt.prob}%; height:100%; background:${colors.bar}; border-radius:2px;"></div>
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted);">${evt.pairs} — ${evt.move}</div>
+            </div>`;
+        }
+
+        function renderDayCard(dateStr, events, isHistory) {
+            let d = new Date(dateStr + 'T00:00:00');
+            let dayName = DAYS[d.getDay()];
+            let dayNum = d.getDate();
+            let monthName = MONTHS[d.getMonth()];
+            let eventsHtml = events.length ? events.map(renderEventCard).join('') : '<div style="padding:12px; color:var(--text-dim); font-size:0.85rem; text-align:center;">No major events</div>';
+            let opacity = isHistory ? 'opacity:0.85;' : '';
+            let borderColor = isHistory ? 'var(--border)' : 'var(--border)';
+            let titleColor = isHistory ? 'var(--text-dim)' : 'var(--red)';
+            return `<div class="card" style="padding:24px; ${opacity} border:1px solid ${borderColor};">
+                <h3 style="font-family:Orbitron; font-size:1rem; color:${titleColor}; margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#128197; ${dayName}, ${monthName} ${dayNum}</h3>
+                <div style="display:flex; flex-direction:column; gap:0;">${eventsHtml}</div>
+            </div>`;
+        }
+
+        function renderHistoryCard(weekLabel, events) {
+            if (!events.length) return '';
+            let items = events.map(e => {
+                let colors = getColorForBias(e.bias);
+                return `<div style="padding:10px; background:var(--bg-input); border-radius:8px; border-left:2px solid ${colors.bar}; margin-bottom:6px;">
+                    <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">${e.flag} ${e.event}</div>
+                    <div style="font-size:0.7rem; color:var(--text-dim); margin-top:2px;">${e.pairs} — ${e.move}</div>
+                </div>`;
+            }).join('');
+            return `<div class="card" style="padding:24px; border:1px solid var(--border); opacity:0.85;">
+                <h3 style="font-family:Orbitron; font-size:1rem; color:var(--text-dim); margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#128220; Last Week — ${weekLabel}</h3>
+                <div style="display:flex; flex-direction:column; gap:0;">${items}</div>
+            </div>`;
+        }
+
+        function renderNextWeekCard(weekLabel, events) {
+            if (!events.length) return '';
+            let items = events.map(e => {
+                let colors = getColorForBias(e.bias);
+                let dayLabel = formatDateLabel(e.date).split(', ')[1];
+                return `<div style="padding:12px; background:${e.impact === 'high' ? 'var(--red-dim)' : 'var(--bg-input)'}; border-radius:12px; border-left:3px solid ${colors.bar}; margin-bottom:10px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                        <span style="font-size:0.85rem; font-weight:700; color:${e.impact === 'high' ? 'var(--red)' : 'var(--text)'}">${e.flag} ${e.event}</span>
+                        <span style="padding:2px 8px; background:${colors.bg}; color:${colors.color}; border-radius:4px; font-size:0.7rem; font-weight:700;">${e.prob}% ${e.bias}</span>
+                    </div>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">${dayLabel} · ${e.pairs} — ${e.move}</div>
+                </div>`;
+            }).join('');
+            return `<div class="card" style="padding:24px; border:1px solid var(--red);">
+                <h3 style="font-family:Orbitron; font-size:1rem; color:var(--red); margin-bottom:16px; display:flex; align-items:center; gap:8px;">&#9889; Next Week — ${weekLabel}</h3>
+                <div style="display:flex; flex-direction:column; gap:0;">${items}</div>
+            </div>`;
+        }
+
+        function renderCalendar() {
+            let today = new Date();
+            let currentMonday = getMonday(today);
+            let currentWeek = getWeekRange(currentMonday);
+
+            let lastMonday = new Date(currentMonday);
+            lastMonday.setDate(currentMonday.getDate() - 7);
+            let lastWeek = getWeekRange(lastMonday);
+
+            let nextMonday = new Date(currentMonday);
+            nextMonday.setDate(currentMonday.getDate() + 7);
+            let nextWeek = getWeekRange(nextMonday);
+
+            let currentEvents = getEventsForWeek(currentWeek.start, currentWeek.end);
+            let lastEvents = getEventsForWeek(lastWeek.start, lastWeek.end);
+            let nextEvents = getEventsForWeek(nextWeek.start, nextWeek.end);
+
+            let html = '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-bottom:32px;">';
+
+            // Last Week History Card
+            if (lastEvents.length > 0) {
+                html += renderHistoryCard(lastWeek.label, lastEvents);
+            }
+
+            // Current Week Days (Mon-Fri)
+            for (let i = 0; i < 5; i++) {
+                let d = new Date(currentMonday);
+                d.setDate(currentMonday.getDate() + i);
+                let dateStr = d.toISOString().split('T')[0];
+                let dayEvents = currentEvents.filter(e => e.date === dateStr);
+                html += renderDayCard(dateStr, dayEvents, false);
+            }
+
+            // Next Week Preview Card
+            if (nextEvents.length > 0) {
+                html += renderNextWeekCard(nextWeek.label, nextEvents);
+            }
+
+            html += '</div>';
+
+            let container = document.getElementById('dynamic-calendar-container');
+            if (container) container.innerHTML = html;
+        }
+
+        // Render on load
+        renderCalendar();
+        // Re-render every hour to keep dates fresh
+        setInterval(renderCalendar, 3600000);
+    })();
+    </script>
+
+            <!-- WHICH NEWS AFFECTS WHICH PAIRS --><!-- WHICH NEWS AFFECTS WHICH PAIRS -->
             <div class="card" style="margin-bottom:24px; padding:32px;">
                 <h2 style="font-family:Orbitron; font-size:1.1rem; color:var(--red); margin-bottom:24px; display:flex; align-items:center; gap:10px; text-transform:uppercase; letter-spacing:1px;"><span style="font-size:1.3rem;">&#128200;</span> Which News Affects Which Pairs</h2>
                 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px;">
@@ -5325,5 +5475,284 @@
         document.getElementById('sim-net').style.color=net>=0?'var(--green)':'var(--red)';
     }
     calcProbability();
-    </script></body>
+    </script>
+
+    <!-- DYNAMIC HEADLINES -->
+    <div id="dynamic-headlines-container"></div>
+
+    <script>
+    // ==================== DYNAMIC HEADLINES ENGINE ====================
+    (function() {
+        const HEADLINE_DB = [
+            // Week of Jun 22-26
+            { weekStart: "2026-06-22", weekEnd: "2026-06-26", stories: [
+                { title: "U.S. Core PCE Final Cools to 2.3% — Dollar Under Pressure", date: "June 26, 2026", tag: "USD 74%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Final PCE reading comes in softer than expected, fueling expectations of earlier Fed rate cuts. EUR/USD breaks above 1.09." },
+                { title: "Gold Surges to $2,385 as Safe-Haven Demand Returns", date: "June 27, 2026", tag: "XAU 71%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD rallies 40 pips on geopolitical tensions in the Middle East and soft USD backdrop." },
+                { title: "ECB Officials Hint at September Rate Cut", date: "June 28, 2026", tag: "EUR 56%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Eurozone inflation data stabilizes; ECB members signal patience before next move. EUR/USD consolidates." },
+                { title: "BoE Holds Rates at 4.25% — GBP Rallies", date: "June 29, 2026", tag: "GBP 67%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Bank of England keeps rates unchanged; hawkish tone supports GBP/USD above 1.27." },
+                { title: "Oil Slips Below $72 on Demand Concerns", date: "June 30, 2026", tag: "OIL 61%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Brent crude falls on weak global manufacturing data and rising U.S. stockpiles. CAD under pressure." }
+            ]},
+            // Week of Jun 29 - Jul 3
+            { weekStart: "2026-06-29", weekEnd: "2026-07-03", stories: [
+                { title: "NFP Disappoints at 142K — USD Tanks Across the Board", date: "July 3, 2026", tag: "USD 82%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Non-Farm Payrolls miss expectations by 30K, sending DXY below 104. EUR/USD surges to 1.0950." },
+                { title: "Gold Breaks $2,400 on NFP Weakness & Safe Haven Flows", date: "July 3, 2026", tag: "XAU 76%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD smashes through key resistance as USD weakens and Middle East tensions escalate." },
+                { title: "JOLTS Job Openings Plunge to 3-Year Low", date: "July 1, 2026", tag: "USD 68%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Labor market cooling accelerates; markets price in 2 rate cuts by year-end." },
+                { title: "ISM Manufacturing Holds at 49.2 — Contraction Continues", date: "July 1, 2026", tag: "USD 51%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Manufacturing sector remains in contraction for 8th consecutive month. USD mixed." },
+                { title: "ADP Employment Misses at 98K vs 145K Expected", date: "July 1, 2026", tag: "USD 72%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Private payroll growth slows sharply, raising recession fears ahead of Friday NFP." }
+            ]},
+            // Week of Jul 6-10
+            { weekStart: "2026-07-06", weekEnd: "2026-07-10", stories: [
+                { title: "US CPI Cools to 2.1% YoY — Fed Cut Bets Surge", date: "July 8, 2026", tag: "USD 75%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "CPI comes in below forecast, cementing expectations of a July rate cut. USD sinks." },
+                { title: "Gold Hits $2,425 on CPI Miss & Geopolitical Risk", date: "July 8, 2026", tag: "XAU 78%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "All-time highs for gold as inflation fears fade and safe-haven demand spikes." },
+                { title: "FOMC Minutes Reveal Dovish Tilt — Members Open to Cuts", date: "July 8, 2026", tag: "USD 55%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Minutes show growing concern about labor market; 'many' members saw case for easing." },
+                { title: "US Retail Sales Flat — Consumer Spending Stalling", date: "July 10, 2026", tag: "USD 63%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Retail sales unchanged as consumers tighten belts; recession chatter intensifies." },
+                { title: "Canada Adds 35K Jobs — CAD Strengthens vs USD", date: "July 10, 2026", tag: "CAD 58%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Canadian employment beats expectations; USD/CAD drops to 1.3550." }
+            ]},
+            // Week of Jul 13-17
+            { weekStart: "2026-07-13", weekEnd: "2026-07-17", stories: [
+                { title: "US CPI Re-accelerates to 2.4% — Dollar Bounces", date: "July 15, 2026", tag: "USD 78%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Inflation ticks higher than expected, pushing back rate cut timeline. DXY rallies 0.8%." },
+                { title: "Gold Retreats to $2,350 on Stronger USD", date: "July 15, 2026", tag: "XAU 65%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Profit-taking hits gold as USD finds support; key support at $2,340 holds." },
+                { title: "Industrial Production Rises 0.3% — Manufacturing Rebounds", date: "July 15, 2026", tag: "USD 53%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Factory output surprises to the upside; capacity utilization hits 78.2%." },
+                { title: "Housing Starts Beat at 1.35M — Construction Sector Strong", date: "July 16, 2026", tag: "USD 50%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Residential construction remains resilient despite high mortgage rates." },
+                { title: "Oil Rallies to $76 on Supply Disruption Fears", date: "July 14, 2026", tag: "OIL 64%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Middle East tensions and OPEC+ production cuts drive crude higher. USD/CAD drops." }
+            ]},
+            // Week of Jul 20-24
+            { weekStart: "2026-07-20", weekEnd: "2026-07-24", stories: [
+                { title: "BoJ Hikes Rates to 0.5% — Yen Surges 200 Pips", date: "July 20, 2026", tag: "JPY 62%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Bank of Japan delivers second rate hike; USD/JPY crashes to 152.50." },
+                { title: "Gold Consolidates Near $2,360 — Range Bound", date: "July 22, 2026", tag: "XAU 52%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "XAU/USD trades in tight range between $2,340-$2,380 as traders await FOMC clarity." },
+                { title: "US Crude Inventories Surge — Oil Drops 3%", date: "July 22, 2026", tag: "OIL 51%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "EIA reports 5.2M barrel build; WTI falls to $73.50. CAD weakens." },
+                { title: "Jobless Claims Rise to 245K — Labor Market Softening", date: "July 23, 2026", tag: "USD 55%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Weekly claims tick higher; continuing claims approach 1.9M. USD under pressure." },
+                { title: "US PMI Composite at 52.1 — Economy Expanding", date: "July 24, 2026", tag: "USD 53%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Services sector drives growth; manufacturing still lagging. USD finds support." }
+            ]},
+            // Week of Jul 27-31 (FOMC WEEK)
+            { weekStart: "2026-07-27", weekEnd: "2026-07-31", stories: [
+                { title: "FOMC Holds Rates at 5.25% — Hawkish Pause", date: "July 29, 2026", tag: "USD 70%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Fed keeps rates unchanged but signals one cut likely in Q4. USD rallies on hawkish tone." },
+                { title: "Gold Drops $50 on FOMC Hawkishness", date: "July 29, 2026", tag: "XAU 70%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "XAU/USD falls to $2,310 as Powell pushes back on aggressive easing." },
+                { title: "GDP Q2 at 2.1% — Economy Resilient", date: "July 30, 2026", tag: "USD 65%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Advance GDP beats 1.8% forecast; consumer spending and exports drive growth." },
+                { title: "Core PCE Steady at 2.4% — Inflation Sticky", date: "July 31, 2026", tag: "USD 72%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Fed's preferred inflation gauge refuses to budge; September cut odds drop to 40%." },
+                { title: "Durable Goods Orders Beat at 1.2%", date: "July 27, 2026", tag: "USD 54%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Business investment surprises to the upside; defense and aircraft orders strong." }
+            ]},
+            // Week of Aug 3-7
+            { weekStart: "2026-08-03", weekEnd: "2026-08-07", stories: [
+                { title: "NFP Crushes at 228K — USD Soars", date: "August 7, 2026", tag: "USD 82%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Non-Farm Payrolls blow past 185K forecast; unemployment drops to 3.8%. DXY above 106." },
+                { title: "Gold Tumbles to $2,280 on Strong NFP", date: "August 7, 2026", tag: "XAU 75%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "XAU/USD breaks below $2,300 as strong jobs data kills rate cut hopes." },
+                { title: "ISM Manufacturing at 48.5 — 9th Month of Contraction", date: "August 3, 2026", tag: "USD 53%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Manufacturing sector remains weak but pace of decline slows. USD mixed." },
+                { title: "ADP Employment at 165K — Solid Private Sector Growth", date: "August 5, 2026", tag: "USD 68%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Private payrolls strong; services sector drives job creation." },
+                { title: "Jobless Claims Drop to 215K — Labor Market Tight", date: "August 6, 2026", tag: "USD 60%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Claims fall to lowest in 6 weeks; labor market resilience surprises markets." }
+            ]},
+            // Week of Aug 10-14
+            { weekStart: "2026-08-10", weekEnd: "2026-08-14", stories: [
+                { title: "US CPI at 2.5% YoY — Inflation Re-accelerates", date: "August 10, 2026", tag: "USD 76%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "CPI comes in hot; core CPI rises 0.3% m/m. Rate cut expectations pushed to December." },
+                { title: "Gold Crashes to $2,220 on Hot CPI", date: "August 10, 2026", tag: "XAU 78%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "XAU/USD suffers biggest daily drop in 3 months as real yields spike." },
+                { title: "PPI Cools to 0.1% — Producer Prices Easing", date: "August 12, 2026", tag: "USD 60%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "PPI softer than expected; some relief for downstream inflation. USD pauses." },
+                { title: "Retail Sales Beat at 0.4% — Consumer Resilient", date: "August 13, 2026", tag: "USD 63%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Consumer spending defies recession fears; control group up 0.5%." },
+                { title: "Industrial Production Flat — Manufacturing Stalled", date: "August 14, 2026", tag: "USD 53%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Factory output unchanged; auto sector weakness offsets gains elsewhere." }
+            ]},
+            // Week of Aug 17-21
+            { weekStart: "2026-08-17", weekEnd: "2026-08-21", stories: [
+                { title: "RBA Minutes Signal Hold — AUD Steady", date: "August 17, 2026", tag: "AUD 52%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "RBA maintains cautious stance; no immediate rate cut expected. AUD/USD holds 0.66." },
+                { title: "Building Permits Rise to 1.42M — Housing Rebound", date: "August 18, 2026", tag: "USD 51%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Permit issuance jumps; multifamily construction leads gains." },
+                { title: "FOMC Minutes Show Split Committee", date: "August 19, 2026", tag: "USD 55%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Minutes reveal 3 members wanted a cut; markets see September as live meeting." },
+                { title: "Jobless Claims Rise to 238K — Labor Market Cooling", date: "August 20, 2026", tag: "USD 58%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Claims trend higher; continuing claims hit 1.92M. USD softens." },
+                { title: "Existing Home Sales at 4.05M — Low Inventory Bites", date: "August 21, 2026", tag: "USD 49%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Sales flat; lack of supply keeps prices elevated despite high rates." }
+            ]},
+            // Week of Aug 24-28
+            { weekStart: "2026-08-24", weekEnd: "2026-08-28", stories: [
+                { title: "CB Consumer Confidence at 108 — Consumers Optimistic", date: "August 25, 2026", tag: "USD 57%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Consumer confidence beats expectations; labor market views improve." },
+                { title: "ADP at 142K — Private Sector Slowing", date: "August 26, 2026", tag: "USD 69%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "ADP misses forecast; small business hiring stalls. USD drops." },
+                { title: "GDP Revised Up to 2.3% — Q2 Stronger Than Thought", date: "August 27, 2026", tag: "USD 62%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Second estimate shows upward revision; business investment stronger." },
+                { title: "Core PCE at 2.5% — Inflation Sticky But Manageable", date: "August 28, 2026", tag: "USD 73%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Fed's preferred gauge ticks up; markets still see one cut this year." },
+                { title: "Gold Bounces to $2,340 on Soft ADP", date: "August 26, 2026", tag: "XAU 65%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD finds support as weak jobs data revives rate cut hopes." }
+            ]},
+            // Week of Aug 31 - Sep 4
+            { weekStart: "2026-08-31", weekEnd: "2026-09-04", stories: [
+                { title: "NFP at 175K — Goldilocks Number for Markets", date: "September 4, 2026", tag: "USD 83%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Payrolls neither too hot nor too cold; September cut odds rise to 65%." },
+                { title: "Gold Rallies to $2,380 on Balanced NFP", date: "September 4, 2026", tag: "XAU 70%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD surges as 'Goldilocks' NFP keeps both hawks and doves happy." },
+                { title: "ISM Manufacturing at 49.8 — Almost Expansion", date: "September 1, 2026", tag: "USD 54%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Manufacturing inches closer to 50; new orders component turns positive." },
+                { title: "JOLTS Openings at 7.8M — Labor Market Normalizing", date: "September 2, 2026", tag: "USD 67%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Job openings continue to decline; ratio returns to pre-pandemic levels." },
+                { title: "Jobless Claims at 228K — Steady Labor Market", date: "September 3, 2026", tag: "USD 61%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Claims remain in normal range; no signs of labor market distress." }
+            ]},
+            // Week of Sep 7-11
+            { weekStart: "2026-09-07", weekEnd: "2026-09-11", stories: [
+                { title: "US CPI at 2.3% — Disinflation Back on Track", date: "September 9, 2026", tag: "USD 77%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "CPI cools more than expected; core CPI up just 0.2% m/m. USD drops." },
+                { title: "Gold Breaks $2,400 Again on CPI Miss", date: "September 9, 2026", tag: "XAU 75%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD retests $2,400 as inflation fears fade and rate cut odds spike." },
+                { title: "PPI at 0.2% — Producer Inflation Moderating", date: "September 10, 2026", tag: "USD 59%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "PPI softer than expected; goods inflation continues to ease." },
+                { title: "Retail Sales at 0.3% — Consumer Spending Solid", date: "September 11, 2026", tag: "USD 64%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Retail sales beat; back-to-school spending and autos drive gains." },
+                { title: "Michigan Sentiment at 72.5 — Consumers Cautious", date: "September 11, 2026", tag: "USD 52%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Sentiment improves but inflation expectations tick up to 3.1%." }
+            ]},
+            // Week of Sep 14-18 (FOMC WEEK)
+            { weekStart: "2026-09-14", weekEnd: "2026-09-18", stories: [
+                { title: "FOMC CUTS 25bps — First Rate Cut Since 2020!", date: "September 16, 2026", tag: "USD 75%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Fed delivers first cut in 4 years; dot plot shows 2 more cuts this year. USD tanks." },
+                { title: "Gold Explodes to $2,520 on Fed Cut", date: "September 16, 2026", tag: "XAU 82%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD hits new all-time high as Powell confirms easing cycle has begun." },
+                { title: "Retail Sales Beat at 0.5% — Consumer Strong Pre-Cut", date: "September 15, 2026", tag: "USD 64%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Retail sales surprise to upside; economy resilient ahead of FOMC." },
+                { title: "EUR/USD Hits 1.12 on Dovish Fed", date: "September 16, 2026", tag: "EUR 68%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Euro surges to 2-year high as USD weakens across the board." },
+                { title: "GBP/USD Breaks 1.35 — BoE-Fed Divergence", date: "September 16, 2026", tag: "GBP 72%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Pound hits highest since 2022 as UK holds rates while Fed cuts." }
+            ]},
+            // Week of Sep 21-25
+            { weekStart: "2026-09-21", weekEnd: "2026-09-25", stories: [
+                { title: "US PMI at 53.2 — Economy Accelerating Post-Cut", date: "September 21, 2026", tag: "USD 53%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Services PMI jumps after Fed cut; business optimism improves." },
+                { title: "CB Consumer Confidence at 112 — Post-Cut Euphoria", date: "September 22, 2026", tag: "USD 58%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Consumer confidence surges to 18-month high after Fed easing." },
+                { title: "New Home Sales at 720K — Housing Market Thawing", date: "September 23, 2026", tag: "USD 51%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "New home sales rise as mortgage rates fall post-Fed cut." },
+                { title: "Jobless Claims at 220K — Labor Market Stable", date: "September 24, 2026", tag: "USD 59%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Claims remain steady; no sign of post-cut labor market deterioration." },
+                { title: "Durable Goods at 1.0% — Business Investment Strong", date: "September 25, 2026", tag: "USD 54%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Durable goods orders beat; machinery and equipment spending rises." }
+            ]},
+            // Week of Sep 28 - Oct 2
+            { weekStart: "2026-09-28", weekEnd: "2026-10-02", stories: [
+                { title: "NFP at 155K — Post-Cut Labor Market Cooling", date: "October 2, 2026", tag: "USD 84%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Payrolls slow after Fed cut; markets see November cut as likely. USD drops." },
+                { title: "Gold Hits $2,550 on Weak NFP", date: "October 2, 2026", tag: "XAU 80%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD surges to new record as labor market data supports more cuts." },
+                { title: "ISM Manufacturing at 50.1 — Barely Expanding", date: "September 30, 2026", tag: "USD 52%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Manufacturing returns to expansion but barely; employment still contracting." },
+                { title: "ADP at 128K — Private Sector Slowing", date: "September 30, 2026", tag: "USD 70%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "ADP misses badly; small business and service sector hiring slows." },
+                { title: "Jobless Claims at 232K — Slight Uptick", date: "October 1, 2026", tag: "USD 60%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Claims edge higher but remain in normal range; no alarm bells yet." }
+            ]},
+            // Week of Oct 5-9
+            { weekStart: "2026-10-05", weekEnd: "2026-10-09", stories: [
+                { title: "US CPI at 2.2% — Disinflation Confirmed", date: "October 5, 2026", tag: "USD 78%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "CPI cools further; core up just 0.1% m/m. November cut fully priced." },
+                { title: "Gold Hits $2,600 on CPI Miss", date: "October 5, 2026", tag: "XAU 82%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD smashes through $2,600 as inflation data confirms easing cycle." },
+                { title: "PPI at 0.1% — Producer Prices Tame", date: "October 7, 2026", tag: "USD 61%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "PPI very soft; no pipeline inflation pressure. USD mixed." },
+                { title: "Retail Sales at 0.2% — Consumer Moderating", date: "October 8, 2026", tag: "USD 63%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Retail sales miss; consumer spending normalizing after post-cut bump." },
+                { title: "Jobless Claims at 225K — Stable Labor Market", date: "October 8, 2026", tag: "USD 60%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Claims steady; labor market neither hot nor cold." }
+            ]},
+            // Week of Oct 12-16
+            { weekStart: "2026-10-12", weekEnd: "2026-10-16", stories: [
+                { title: "Oil Inventories Surge — Crude Drops to $68", date: "October 12, 2026", tag: "OIL 51%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "EIA reports 6M barrel build; oversupply concerns weigh on oil. CAD weakens." },
+                { title: "PPI at 0.0% — No Inflation Pressure", date: "October 14, 2026", tag: "USD 60%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "PPI flat; goods prices falling as demand normalizes." },
+                { title: "Industrial Production at 0.4% — Factory Output Rising", date: "October 15, 2026", tag: "USD 53%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Factory output beats; auto production and utilities drive gains." },
+                { title: "Housing Starts at 1.38M — Construction Steady", date: "October 16, 2026", tag: "USD 50%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Housing starts in line; multifamily offsets single-family weakness." },
+                { title: "Gold Consolidates at $2,580 — Profit Taking", date: "October 13, 2026", tag: "XAU 55%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "XAU/USD pauses after massive rally; traders book profits ahead of FOMC." }
+            ]},
+            // Week of Oct 19-23
+            { weekStart: "2026-10-19", weekEnd: "2026-10-23", stories: [
+                { title: "Existing Home Sales at 4.15M — Housing Recovery", date: "October 19, 2026", tag: "USD 49%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Existing home sales rise; lower mortgage rates starting to help." },
+                { title: "Building Permits at 1.48M — Strong Housing Pipeline", date: "October 20, 2026", tag: "USD 51%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Permits jump; developers optimistic about 2027 demand." },
+                { title: "Oil at $70 — Supply Cuts Support Prices", date: "October 21, 2026", tag: "OIL 51%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "OPEC+ compliance improves; crude finds support above $70." },
+                { title: "Jobless Claims at 218K — Labor Market Tightening", date: "October 22, 2026", tag: "USD 58%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Claims drop; labor market showing signs of re-tightening." },
+                { title: "US PMI at 54.1 — Economy Strong Pre-FOMC", date: "October 23, 2026", tag: "USD 53%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "PMI composite hits 6-month high; services sector booming." }
+            ]},
+            // Week of Oct 26-30 (FOMC WEEK)
+            { weekStart: "2026-10-26", weekEnd: "2026-10-30", stories: [
+                { title: "FOMC CUTS 25bps — Second Cut Confirmed", date: "October 28, 2026", tag: "USD 72%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Fed delivers second consecutive cut; Powell signals 'measured' approach. USD drops." },
+                { title: "Gold Hits $2,650 on Second Fed Cut", date: "October 28, 2026", tag: "XAU 78%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD surges to new ATH as Fed confirms easing cycle is well underway." },
+                { title: "GDP Q3 at 2.4% — Economy Strong Despite Cuts", date: "October 29, 2026", tag: "USD 66%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "GDP beats; economy resilient even with lower rates. USD finds support." },
+                { title: "Core PCE at 2.3% — Infection Approaching Target", date: "October 30, 2026", tag: "USD 74%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Core PCE inches closer to 2%; markets see December cut as likely." },
+                { title: "Durable Goods at 1.5% — Business Investment Surges", date: "October 26, 2026", tag: "USD 54%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Durable goods smash forecast; lower rates boosting capex." }
+            ]},
+            // Week of Nov 2-6
+            { weekStart: "2026-11-02", weekEnd: "2026-11-06", stories: [
+                { title: "NFP at 198K — Labor Market Re-heating", date: "November 6, 2026", tag: "USD 85%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Payrolls crush expectations; unemployment falls to 3.7%. USD soars." },
+                { title: "Gold Drops to $2,480 on Strong NFP", date: "November 6, 2026", tag: "XAU 76%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "XAU/USD tumbles as hot jobs data questions need for more cuts." },
+                { title: "US Election Day — Markets on Edge", date: "November 3, 2026", tag: "MIXED", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Midterm elections create volatility; USD whipsaws on results." },
+                { title: "ISM Manufacturing at 51.2 — Expansion Returns", date: "November 2, 2026", tag: "USD 53%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Manufacturing returns to expansion; new orders and production rise." },
+                { title: "ADP at 178K — Private Sector Booming", date: "November 4, 2026", tag: "USD 71%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "ADP beats big; service sector and construction lead hiring." }
+            ]},
+            // Week of Nov 9-13
+            { weekStart: "2026-11-09", weekEnd: "2026-11-13", stories: [
+                { title: "US CPI at 2.6% — Inflation Tick Up Post-Election", date: "November 9, 2026", tag: "USD 79%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "CPI re-accelerates; tariff fears and election spending drive prices. USD rallies." },
+                { title: "Gold Crashes to $2,350 on Hot CPI", date: "November 9, 2026", tag: "XAU 79%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "XAU/USD suffers biggest drop in months as inflation fears return." },
+                { title: "PPI at 0.4% — Producer Prices Heating Up", date: "November 12, 2026", tag: "USD 62%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "PPI hotter than expected; pipeline inflation building." },
+                { title: "Retail Sales at 0.6% — Post-Election Spending Surge", date: "November 13, 2026", tag: "USD 64%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Retail sales beat; consumer confidence post-election drives spending." },
+                { title: "Veterans Day — Markets Closed", date: "November 11, 2026", tag: "HOLIDAY", color: "var(--text-dim)", bg: "var(--bg-input)", border: "var(--border)", desc: "US markets closed for Veterans Day; thin liquidity in Asian/European sessions." }
+            ]},
+            // Week of Nov 16-20
+            { weekStart: "2026-11-16", weekEnd: "2026-11-20", stories: [
+                { title: "Empire State Mfg at 5.2 — NY Factory Activity Improving", date: "November 16, 2026", tag: "USD 52%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Empire State index turns positive; NY manufacturing showing life." },
+                { title: "Industrial Production at 0.5% — Strong Factory Output", date: "November 17, 2026", tag: "USD 54%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Factory output beats; auto and aerospace production strong." },
+                { title: "Building Permits at 1.52M — Housing Boom Continues", date: "November 18, 2026", tag: "USD 51%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Permits at multi-year high; construction sector booming." },
+                { title: "Philly Fed at 8.1 — Mid-Atlantic Manufacturing Strong", date: "November 19, 2026", tag: "USD 53%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Philly Fed beats; new orders and shipments surge." },
+                { title: "Existing Home Sales at 4.25M — Housing Market Hot", date: "November 20, 2026", tag: "USD 50%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Existing home sales rise; inventory still tight but improving." }
+            ]},
+            // Week of Nov 23-27 (Thanksgiving Week)
+            { weekStart: "2026-11-23", weekEnd: "2026-11-27", stories: [
+                { title: "US PMI at 55.2 — Economy Booming Pre-Holiday", date: "November 23, 2026", tag: "USD 53%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "PMI composite hits 2-year high; services and manufacturing both strong." },
+                { title: "CB Consumer Confidence at 118 — Holiday Cheer", date: "November 24, 2026", tag: "USD 58%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Consumer confidence surges; holiday spending expectations high." },
+                { title: "Durable Goods at 2.1% — Capex Booming", date: "November 25, 2026", tag: "USD 54%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Durable goods smash forecast; business investment surging." },
+                { title: "Thanksgiving Holiday — Markets Closed", date: "November 26, 2026", tag: "HOLIDAY", color: "var(--text-dim)", bg: "var(--bg-input)", border: "var(--border)", desc: "US markets closed; thin liquidity expected Thursday/Friday." },
+                { title: "Black Friday — Early Close, Low Volume", date: "November 27, 2026", tag: "HOLIDAY", color: "var(--text-dim)", bg: "var(--bg-input)", border: "var(--border)", desc: "Markets close at 1pm ET; retail sales data closely watched." }
+            ]},
+            // Week of Nov 30 - Dec 4
+            { weekStart: "2026-11-30", weekEnd: "2026-12-04", stories: [
+                { title: "NFP at 185K — Solid but Slowing", date: "December 4, 2026", tag: "USD 86%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Payrolls in line; unemployment steady at 3.8%. December cut odds at 50%." },
+                { title: "Gold Bounces to $2,420 on Balanced NFP", date: "December 4, 2026", tag: "XAU 72%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD finds support as NFP neither too hot nor too cold." },
+                { title: "ISM Manufacturing at 52.5 — Strong Expansion", date: "November 30, 2026", tag: "USD 54%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Manufacturing expanding strongly; employment and new orders rising." },
+                { title: "ADP at 152K — Private Sector Solid", date: "December 2, 2026", tag: "USD 72%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "ADP in line; service sector continues to drive hiring." },
+                { title: "Jobless Claims at 222K — Stable Labor Market", date: "December 3, 2026", tag: "USD 60%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Claims steady; labor market neither hot nor cold ahead of NFP." }
+            ]},
+            // Week of Dec 7-11 (FOMC WEEK)
+            { weekStart: "2026-12-07", weekEnd: "2026-12-11", stories: [
+                { title: "FOMC CUTS 25bps — Third Cut This Year!", date: "December 8, 2026", tag: "USD 76%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Fed delivers third cut; dot plot shows 3-4 cuts for 2027. USD drops hard." },
+                { title: "Gold Hits $2,700 on Third Fed Cut", date: "December 8, 2026", tag: "XAU 85%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "XAU/USD explodes to $2,700 as Fed confirms aggressive easing path." },
+                { title: "CPI at 2.4% — Inflation Sticky But Manageable", date: "December 10, 2026", tag: "USD 80%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "CPI slightly hot but core moderates; markets see more cuts ahead." },
+                { title: "PPI at 0.3% — Producer Prices Moderate", date: "December 11, 2026", tag: "USD 63%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "PPI softer than feared; goods inflation contained." },
+                { title: "Trade Balance at -$68B — Deficit Widens", date: "December 7, 2026", tag: "USD 50%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Trade deficit expands; strong dollar and consumer demand drive imports." }
+            ]},
+            // Week of Dec 14-18
+            { weekStart: "2026-12-14", weekEnd: "2026-12-18", stories: [
+                { title: "Empire State at 3.5 — NY Manufacturing Steady", date: "December 14, 2026", tag: "USD 52%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Empire State positive but modest; NY factory sector stable." },
+                { title: "Retail Sales at 0.7% — Holiday Spending Strong", date: "December 15, 2026", tag: "USD 65%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Retail sales beat; holiday shopping season off to strong start." },
+                { title: "Industrial Production at 0.6% — Factory Output Strong", date: "December 16, 2026", tag: "USD 54%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Factory output beats; holiday demand and auto production drive gains." },
+                { title: "Housing Starts at 1.45M — Construction Solid", date: "December 17, 2026", tag: "USD 51%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Housing starts steady; multifamily construction remains strong." },
+                { title: "Existing Home Sales at 4.2M — Market Balanced", date: "December 18, 2026", tag: "USD 50%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Existing home sales stable; supply and demand in balance." }
+            ]},
+            // Week of Dec 21-25 (Christmas Week)
+            { weekStart: "2026-12-21", weekEnd: "2026-12-25", stories: [
+                { title: "GDP Final at 2.2% — Q3 Growth Confirmed", date: "December 21, 2026", tag: "USD 64%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Final GDP confirms solid growth; consumer and business spending strong." },
+                { title: "Durable Goods at 1.8% — Strong Finish to Year", date: "December 22, 2026", tag: "USD 53%", color: "var(--green)", bg: "var(--green-dim)", border: "var(--green)", desc: "Durable goods beat; defense and aircraft orders surge year-end." },
+                { title: "Jobless Claims at 220K — Stable Into Holidays", date: "December 23, 2026", tag: "USD 58%", color: "var(--gold)", bg: "var(--gold-dim)", border: "var(--gold)", desc: "Claims steady; no holiday season layoffs yet." },
+                { title: "Christmas Eve — Early Close", date: "December 24, 2026", tag: "HOLIDAY", color: "var(--text-dim)", bg: "var(--bg-input)", border: "var(--border)", desc: "Markets close at 1pm ET; very thin liquidity." },
+                { title: "Christmas Day — Markets Closed", date: "December 25, 2026", tag: "HOLIDAY", color: "var(--text-dim)", bg: "var(--bg-input)", border: "var(--border)", desc: "All major markets closed for Christmas." }
+            ]},
+            // Week of Dec 28-31
+            { weekStart: "2026-12-28", weekEnd: "2026-12-31", stories: [
+                { title: "Dallas Fed at -2.1 — Texas Manufacturing Weak", date: "December 28, 2026", tag: "USD 49%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Dallas Fed negative; oil sector weakness weighs on Texas manufacturing." },
+                { title: "CB Consumer Confidence at 105 — Post-Holiday Dip", date: "December 29, 2026", tag: "USD 57%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Consumer confidence dips after holiday spending; inflation worries persist." },
+                { title: "Pending Home Sales at -0.5% — Housing Cooling", date: "December 30, 2026", tag: "USD 50%", color: "var(--red)", bg: "var(--red-dim)", border: "var(--red)", desc: "Pending sales slip; mortgage rates still elevated despite Fed cuts." },
+                { title: "New Year's Eve — Early Close", date: "December 31, 2026", tag: "HOLIDAY", color: "var(--text-dim)", bg: "var(--bg-input)", border: "var(--border)", desc: "Markets close at 1pm ET; thin liquidity ahead of 2027." }
+            ]}
+        ];
+
+        function getMonday(d) {
+            d = new Date(d);
+            let day = d.getDay(), diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
+        function renderHeadlines() {
+            let today = new Date();
+            let currentMonday = getMonday(today);
+            let currentWeekStart = currentMonday.toISOString().split('T')[0];
+
+            let weekData = HEADLINE_DB.find(w => w.weekStart === currentWeekStart);
+
+            // If no exact match, find the closest previous week
+            if (!weekData) {
+                let sorted = HEADLINE_DB.filter(w => new Date(w.weekStart) <= currentMonday).sort((a,b) => new Date(b.weekStart) - new Date(a.weekStart));
+                weekData = sorted[0];
+            }
+
+            if (!weekData) {
+                document.getElementById('dynamic-headlines-container').innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:40px;">Headlines loading...</p>';
+                return;
+            }
+
+            let html = '<div style="display:flex; flex-direction:column; gap:16px;">';
+            weekData.stories.forEach(story => {
+                html += `<div style="padding:20px; background:var(--bg-input); border-radius:14px; border-left:4px solid ${story.border}; position:relative;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                        <div style="font-size:1rem; font-weight:700; color:var(--text);">${story.title}</div>
+                        <span style="padding:4px 12px; background:${story.bg}; color:${story.color}; border-radius:6px; font-size:0.75rem; font-weight:700; white-space:nowrap;">&#128240; ${story.tag}</span>
+                    </div>
+                    <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">${story.date} — ${story.desc}</div>
+                </div>`;
+            });
+            html += '</div>';
+
+            let container = document.getElementById('dynamic-headlines-container');
+            if (container) container.innerHTML = html;
+        }
+
+        renderHeadlines();
+        setInterval(renderHeadlines, 3600000);
+    })();
+    </script>
+
+</body>
 </html>
