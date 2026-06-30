@@ -1,0 +1,14 @@
+{
+  "name": "4ustrdaders",
+  "version": "1.0.0",
+  "description": "Forex Trading Community Suite",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Static HTML project - no build needed'",
+    "dev": "npx serve .",
+    "lint": "echo 'No linter configured'"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
